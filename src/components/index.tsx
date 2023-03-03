@@ -5,3 +5,4 @@ export * from "./content";
 export * from "./result";
 export * from "./button";
 export * from "./popconfirm";
+export * from "./input";
