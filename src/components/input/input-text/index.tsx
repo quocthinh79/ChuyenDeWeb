@@ -20,8 +20,10 @@ export interface InputTextProps {
   size?: EInputTextSize;
   suffix?: ReactNode;
   value?: string;
+  ref?: any;
   onChange?: () => undefined;
-  onPressEnter?: () => undefined;
+  onPressEnter?: () => any;
+  onBlur?: () => any;
 }
 
 function InputText({
@@ -39,8 +41,10 @@ function InputText({
   size,
   suffix,
   value,
+  ref,
   onChange,
   onPressEnter,
+  onBlur,
 }: InputTextProps) {
   const passProps = {
     addonAfter,
@@ -57,8 +61,10 @@ function InputText({
     size,
     suffix,
     value,
+    ref,
     onChange,
     onPressEnter,
+    onBlur,
   };
   return <StyledInputText type="text" {...passProps} />;
 }

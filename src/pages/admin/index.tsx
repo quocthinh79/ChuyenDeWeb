@@ -1,7 +1,7 @@
-
+import EditTable from "../../compositions/editable-table/EditTable";
 
 function AdminPage() {
-  return <div>This is admin page</div>;
+  return <EditTable />;
 }
 
 export default AdminPage;
