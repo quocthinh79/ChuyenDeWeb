@@ -1,4 +1,4 @@
-import React from "react";
+
 import ForgotPasswordPage from "../../pages/auth/forgot-password";
 import LoginPage from "../../pages/auth/login";
 import RegisterPage from "../../pages/auth/register";

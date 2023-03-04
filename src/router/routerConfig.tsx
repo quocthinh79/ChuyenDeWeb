@@ -1,4 +1,3 @@
-import React from "react";
 import { Result } from "../components";
 import { EResultStatus } from "../core";
 import RouterLayout from "./routerLayout";

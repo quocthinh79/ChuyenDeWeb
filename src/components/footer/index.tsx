@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { default as FooterCustom } from "./footer";
 
 const StyledFooter = styled(FooterCustom)``;

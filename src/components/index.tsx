@@ -6,3 +6,4 @@ export * from "./result";
 export * from "./button";
 export * from "./popconfirm";
 export * from "./input";
+export * from "./tabs";
