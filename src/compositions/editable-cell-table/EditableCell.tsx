@@ -1,5 +1,11 @@
 import { Input, InputRef } from "antd";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { FormItem } from "../../components";
 import { EditableContext } from "../editable-row-table/EditableRow";
 
@@ -11,9 +17,9 @@ interface Item {
 }
 
 interface EditableCellProps {
-  title: React.ReactNode;
+  title: ReactNode;
   editable: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   dataIndex: keyof Item;
   record: Item;
   handleSave: (record: Item) => void;
