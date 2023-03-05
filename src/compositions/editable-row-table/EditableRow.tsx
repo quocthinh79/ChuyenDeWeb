@@ -1,6 +1,6 @@
 import { FormInstance } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { createContext } from "react";
+import { createContext, memo } from "react";
 import { Form } from "../../components";
 
 export const EditableContext = createContext<FormInstance<any> | null>(null);
@@ -20,4 +20,4 @@ export const EditableRow = ({ index, ...props }: EditableRowProps) => {
   );
 };
 
-export default EditableRow;
+export default memo(EditableRow);
