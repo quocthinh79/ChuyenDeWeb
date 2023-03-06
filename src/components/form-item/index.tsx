@@ -13,7 +13,11 @@ export interface FormItemProps {
 
 export function FormItem({ name, rules, children }: FormItemProps) {
   const passProps = { name, rules };
-  return <StyledFormItem {...passProps}>{children}</StyledFormItem>;
+  return (
+    <StyledFormItem style={{ margin: 0 }} {...passProps}>
+      {children}
+    </StyledFormItem>
+  );
 }
 
 export default FormItem;

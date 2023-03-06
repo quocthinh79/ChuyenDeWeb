@@ -1,21 +1,16 @@
-import { FormInstance } from "antd";
-import { useForm } from "antd/es/form/Form";
-import { createContext, memo } from "react";
+import { memo, useContext } from "react";
 import { Form } from "../../components";
-
-export const EditableContext = createContext<FormInstance<any> | null>(null);
+import { EditableContext } from "../../hooks/use-editable-table/useEditTable";
 
 interface EditableRowProps {
   index: number;
 }
 
 export const EditableRow = ({ index, ...props }: EditableRowProps) => {
-  const [form] = useForm();
+  const form = useContext(EditableContext)!;
   return (
     <Form form={form} component={false}>
-      <EditableContext.Provider value={form}>
-        <tr {...props} />
-      </EditableContext.Provider>
+      <tr {...props} />
     </Form>
   );
 };

@@ -1,3 +1,4 @@
+import { Tabs } from "../../components";
 import EditTable from "../../compositions/editable-table/EditTable";
 import { DataType } from "../../hooks/use-editable-table/useEditTable";
 
@@ -17,7 +18,50 @@ function AdminPage() {
     },
   ];
 
-  return <EditTable initialData={initialData} />;
+  const defaultColumnEditData = [
+    {
+      title: "name",
+      dataIndex: "name",
+      editable: true,
+    },
+    {
+      title: "age",
+      dataIndex: "age",
+      editable: true,
+    },
+    {
+      title: "address",
+      dataIndex: "address",
+      editable: true,
+    },
+  ];
+
+  return (
+    <Tabs
+      items={[
+        {
+          key: "0",
+          label: "Dell",
+          children: (
+            <EditTable
+              initialData={initialData}
+              defaultColumnsEditData={defaultColumnEditData}
+            />
+          ),
+        },
+        {
+          key: "1",
+          label: "MSI",
+          children: (
+            <EditTable
+              initialData={initialData}
+              defaultColumnsEditData={defaultColumnEditData}
+            />
+          ),
+        },
+      ]}
+    />
+  );
 }
 
 export default AdminPage;
