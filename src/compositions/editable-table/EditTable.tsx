@@ -8,7 +8,7 @@ import useEditTable, {
   EditableContext,
 } from "../../hooks/use-editable-table/useEditTable";
 import EditableCell from "../editable-cell-table/EditableCell";
-type EditableTableProps = Parameters<typeof Table>[0];
+export type EditableTableProps = Parameters<typeof Table>[0];
 
 export interface EditTableProps {
   initialData?: DataType[];
@@ -25,48 +25,38 @@ function EditTable({
   initialData = [],
   defaultColumnsEditData = [],
 }: EditTableProps) {
-  const {
-    dataSource,
-    onAdd,
-    onDelete,
-    editingKey,
-    save,
-    form,
-    isEditing,
-    edit,
-    cancel,
-  } = useEditTable({
-    initialData,
-  });
+  const { dataSource, form, isEditing, onAdd, onDelete, save, edit, cancel } =
+    useEditTable({ initialData });
 
   const defaultColumns: (ColumnTypes[number] & {
     editable?: boolean;
-    dataIndex: string;
+    dataIndex?: string;
   })[] = [
     ...defaultColumnsEditData,
     {
-      title: "operation",
-      dataIndex: "operation",
+      title: "Action",
+      dataIndex: "Action",
+      width: "10%",
       render: (_, record: any) => {
-        const editable = isEditing(record);
+        const editing = isEditing(record);
         return dataSource.length >= 1 ? (
-          editable ? (
-            <span>
+          editing ? (
+            <>
               <Button onClick={() => save(record.key)}>Save</Button>
               <PopConfirm title="Sure to cancel?" onConfirm={cancel}>
                 <Button>Cancel</Button>
               </PopConfirm>
-            </span>
+            </>
           ) : (
             <>
-              <Button disable={editingKey !== -1} onClick={() => edit(record)}>
-                Edit
-              </Button>
+              <Button onClick={() => edit(record)}>Edit</Button>
               <PopConfirm
                 title="Sure to delete?"
                 onConfirm={() => onDelete(record.key)}
               >
-                <Button>Delete</Button>
+                <Button type={EButtonTypes.Primary} danger>
+                  Delete
+                </Button>
               </PopConfirm>
             </>
           )
@@ -76,12 +66,6 @@ function EditTable({
       },
     },
   ];
-
-  const components = {
-    body: {
-      cell: EditableCell,
-    },
-  };
 
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
@@ -107,7 +91,11 @@ function EditTable({
       <EditableContext.Provider value={form}>
         <Form form={form}>
           <Table
-            components={components}
+            components={{
+              body: {
+                cell: EditableCell,
+              },
+            }}
             bordered
             dataSource={dataSource}
             columns={columns as ColumnTypes}

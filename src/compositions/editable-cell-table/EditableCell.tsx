@@ -8,10 +8,7 @@ interface EditableCellProps {
   editable: boolean;
   children: ReactNode;
   dataIndex: keyof DataType;
-  record: DataType;
-  dataSource: DataType;
   editingProp: boolean;
-  handleSave: (key: number) => void;
 }
 
 export interface TypingInputProps {
@@ -35,22 +32,18 @@ export const TypingInput = ({ dataIndex, title }: TypingInputProps) => (
 
 function EditableCell({
   title,
-  editable,
   children,
   dataIndex,
   editingProp = false,
-  ...restProps
 }: EditableCellProps) {
   let childNode = children;
-  if (editable) {
-    childNode = editingProp ? (
-      <TypingInput dataIndex={dataIndex} title={title as string} />
-    ) : (
-      <div style={{ height: `32px` }}>{children}</div>
-    );
-  }
+  childNode = editingProp ? (
+    <TypingInput dataIndex={dataIndex} title={title as string} />
+  ) : (
+    <div style={{ height: `32px` }}>{children}</div>
+  );
 
-  return <td {...restProps}>{childNode}</td>;
+  return <td>{childNode}</td>;
 }
 
 export default EditableCell;
