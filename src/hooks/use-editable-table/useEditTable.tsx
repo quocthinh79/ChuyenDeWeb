@@ -17,7 +17,6 @@ export interface useEditTableProps {
 
 export interface useEditTable {
   dataSource: DataType[];
-  editingKey: number;
   form: any;
   save: (key: number) => void;
   onAdd: () => void;
@@ -39,41 +38,50 @@ export const useEditTable = ({
     const maxKey = Math.max(...indexOfArray) + 1;
     const newData: DataType = {
       key: maxKey,
-      address: "",
-      age: "",
-      name: "",
+      address: "NULL",
+      age: "NULL",
+      name: "NULL",
     };
     setDataSource([...dataSource, newData]);
     setEditingKey(maxKey);
+    console.log(newData);
   }, [dataSource]);
 
-  const save = async (key: number) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...dataSource];
-      const index = newData.findIndex((item) => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setDataSource(newData);
-        setEditingKey(-1);
-      } else {
-        newData.push(row);
-        setDataSource(newData);
-        setEditingKey(-1);
+  const save = useCallback(
+    async (key: number) => {
+      try {
+        const row = await form.validateFields();
+        const newData = [...dataSource];
+        const index = newData.findIndex((item) => key === item.key);
+        if (index > -1) {
+          const item = newData[index];
+          newData.splice(index, 1, {
+            ...item,
+            ...row,
+          });
+          setDataSource(newData);
+          setEditingKey(-1);
+          console.log(row);
+        } else {
+          newData.push(row);
+          setDataSource(newData);
+          setEditingKey(-1);
+          console.log(row);
+        }
+      } catch (errInfo) {
+        console.log("Validate Failed:", errInfo);
       }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+    },
+    [dataSource, form]
+  );
 
-  const edit = (record: DataType) => {
-    form.setFieldsValue({ ...record });
-    setEditingKey(record.key);
-  };
+  const edit = useCallback(
+    (record: DataType) => {
+      form.setFieldsValue({ ...record });
+      setEditingKey(record.key);
+    },
+    [form]
+  );
 
   const cancel = () => {
     setEditingKey(-1);
@@ -83,15 +91,18 @@ export const useEditTable = ({
     (key: Key) => {
       const newData = dataSource.filter((item) => item.key !== key);
       setDataSource(newData);
+      console.log(key);
     },
     [dataSource]
   );
 
-  const isEditing = (record: DataType) => record.key === editingKey;
+  const isEditing = useCallback(
+    (record: DataType) => record.key === editingKey,
+    [editingKey]
+  );
 
   return {
     dataSource,
-    editingKey,
     form,
     save,
     onAdd,
