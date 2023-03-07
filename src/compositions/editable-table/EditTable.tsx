@@ -1,8 +1,4 @@
-import { Input } from "antd";
-import { useForm } from "antd/es/form/Form";
-import Link from "antd/es/typography/Link";
-import { useContext, useState } from "react";
-import { FormItem } from "../../components";
+import { Form } from "antd";
 import Button from "../../components/button";
 import PopConfirm from "../../components/popconfirm";
 import Table from "../../components/table";
@@ -12,7 +8,6 @@ import useEditTable, {
   EditableContext,
 } from "../../hooks/use-editable-table/useEditTable";
 import EditableCell from "../editable-cell-table/EditableCell";
-import EditableRow from "../editable-row-table/EditableRow";
 type EditableTableProps = Parameters<typeof Table>[0];
 
 export interface EditTableProps {
@@ -34,29 +29,15 @@ function EditTable({
     dataSource,
     onAdd,
     onDelete,
-    onSave,
     editingKey,
-    setEditingKey,
     save,
     form,
+    isEditing,
+    edit,
+    cancel,
   } = useEditTable({
     initialData,
   });
-  const isEditing = (record: DataType) => record.key === editingKey;
-
-  const edit = (record: DataType) => {
-    form.setFieldsValue({
-      name: "",
-      age: "",
-      address: "",
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
-
-  const cancel = () => {
-    setEditingKey(-1);
-  };
 
   const defaultColumns: (ColumnTypes[number] & {
     editable?: boolean;
@@ -98,7 +79,6 @@ function EditTable({
 
   const components = {
     body: {
-      row: EditableRow,
       cell: EditableCell,
     },
   };
@@ -114,8 +94,6 @@ function EditTable({
         editable: col.editable,
         dataIndex: col.dataIndex,
         title: col.title,
-        handleSave: onSave,
-        dataSource,
         editingProp: isEditing(record),
       }),
     };
@@ -123,26 +101,18 @@ function EditTable({
 
   return (
     <>
-      <Button
-        onClick={() =>
-          onAdd({
-            key: 0,
-            address: "",
-            age: "",
-            name: "",
-          })
-        }
-        type={EButtonTypes.Primary}
-      >
+      <Button onClick={onAdd} type={EButtonTypes.Primary}>
         Add a row
       </Button>
       <EditableContext.Provider value={form}>
-        <Table
-          components={components}
-          bordered
-          dataSource={dataSource}
-          columns={columns as ColumnTypes}
-        />
+        <Form form={form}>
+          <Table
+            components={components}
+            bordered
+            dataSource={dataSource}
+            columns={columns as ColumnTypes}
+          />
+        </Form>
       </EditableContext.Provider>
     </>
   );

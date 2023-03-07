@@ -1,13 +1,6 @@
 import { FormInstance } from "antd";
 import { useForm } from "antd/es/form/Form";
-import {
-  createContext,
-  Key,
-  ReactNode,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
+import { createContext, Key, ReactNode, useCallback, useState } from "react";
 
 export const EditableContext = createContext<FormInstance<any> | null>(null);
 
@@ -24,13 +17,14 @@ export interface useEditTableProps {
 
 export interface useEditTable {
   dataSource: DataType[];
-  onAdd: (dataAdding: DataType) => any;
-  onSave: (row: DataType) => void;
-  onDelete: (key: Key) => void;
   editingKey: number;
-  setEditingKey: any;
-  save: (key: number) => void;
   form: any;
+  save: (key: number) => void;
+  onAdd: () => void;
+  onDelete: (key: Key) => void;
+  isEditing: (record: DataType) => boolean;
+  edit: (record: DataType) => void;
+  cancel: () => void;
 }
 
 export const useEditTable = ({
@@ -40,31 +34,18 @@ export const useEditTable = ({
   const [form] = useForm();
   const [editingKey, setEditingKey] = useState(-1);
 
-  const onAdd = useCallback(
-    (dataAdding: DataType) => {
-      const indexOfArray = dataSource.map((item) => item.key);
-      const newData: DataType = {
-        ...dataAdding,
-        key: Math.max(...indexOfArray) + 1,
-      };
-      setDataSource([...dataSource, newData]);
-    },
-    [dataSource]
-  );
-
-  const onSave = useCallback(
-    (row: DataType) => {
-      const newData = [...dataSource];
-      const index = newData.findIndex((item) => row.key === item.key);
-      const item = newData[index];
-      newData.splice(index, 1, {
-        ...item,
-        ...row,
-      });
-      setDataSource(newData);
-    },
-    [dataSource]
-  );
+  const onAdd = useCallback(() => {
+    const indexOfArray = dataSource.map((item) => item.key);
+    const maxKey = Math.max(...indexOfArray) + 1;
+    const newData: DataType = {
+      key: maxKey,
+      address: "",
+      age: "",
+      name: "",
+    };
+    setDataSource([...dataSource, newData]);
+    setEditingKey(maxKey);
+  }, [dataSource]);
 
   const save = async (key: number) => {
     try {
@@ -89,6 +70,15 @@ export const useEditTable = ({
     }
   };
 
+  const edit = (record: DataType) => {
+    form.setFieldsValue({ ...record });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey(-1);
+  };
+
   const onDelete = useCallback(
     (key: Key) => {
       const newData = dataSource.filter((item) => item.key !== key);
@@ -97,15 +87,18 @@ export const useEditTable = ({
     [dataSource]
   );
 
+  const isEditing = (record: DataType) => record.key === editingKey;
+
   return {
     dataSource,
+    editingKey,
+    form,
+    save,
     onAdd,
     onDelete,
-    onSave,
-    editingKey,
-    setEditingKey,
-    save,
-    form,
+    isEditing,
+    edit,
+    cancel,
   };
 };
 
