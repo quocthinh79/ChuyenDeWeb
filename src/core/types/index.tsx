@@ -5,3 +5,4 @@ export * from "./EHtmlButtonTypes";
 export * from "./EButtonTypes";
 export * from "./EStatusInputText";
 export * from "./EInputTextSize";
+export * from "./ITypeDataTable";

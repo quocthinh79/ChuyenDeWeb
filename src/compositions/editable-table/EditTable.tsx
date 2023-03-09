@@ -2,16 +2,15 @@ import { Form } from "antd";
 import Button from "../../components/button";
 import PopConfirm from "../../components/popconfirm";
 import Table from "../../components/table";
-import { EButtonTypes } from "../../core";
+import { EButtonTypes, ITypeDataTable } from "../../core";
 import useEditTable, {
-  DataType,
   EditableContext,
 } from "../../hooks/use-editable-table/useEditTable";
 import EditableCell from "../editable-cell-table/EditableCell";
 export type EditableTableProps = Parameters<typeof Table>[0];
 
 export interface EditTableProps {
-  initialData?: DataType[];
+  initialData?: ITypeDataTable[];
   defaultColumnsEditData: {
     title: string;
     editable?: boolean;
@@ -73,7 +72,7 @@ function EditTable({
     }
     return {
       ...col,
-      onCell: (record: DataType) => ({
+      onCell: (record: ITypeDataTable) => ({
         record,
         editable: col.editable,
         dataIndex: col.dataIndex,

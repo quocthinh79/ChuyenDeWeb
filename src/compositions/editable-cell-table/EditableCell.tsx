@@ -1,13 +1,12 @@
 import { Input } from "antd";
 import { ReactNode } from "react";
 import { FormItem } from "../../components";
-import { DataType } from "../../hooks/use-editable-table/useEditTable";
 
 interface EditableCellProps {
   title: ReactNode;
   editable: boolean;
   children: ReactNode;
-  dataIndex: keyof DataType;
+  dataIndex: string;
   editingProp: boolean;
 }
 
@@ -22,11 +21,11 @@ export const TypingInput = ({ dataIndex, title }: TypingInputProps) => (
     rules={[
       {
         required: true,
-        message: `${title} is required.`,
+        message: `${title} là bắt buộc`,
       },
     ]}
   >
-    <Input />
+    <Input placeholder={`Nhập thông tin cho trường ${title}`} />
   </FormItem>
 );
 

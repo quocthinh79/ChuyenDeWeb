@@ -1,9 +1,9 @@
 import { Tabs } from "../../components";
 import EditTable from "../../compositions/editable-table/EditTable";
-import { DataType } from "../../hooks/use-editable-table/useEditTable";
+import { ITypeDataTable } from "../../core";
 
 function AdminPage() {
-  const initialData: DataType[] = [
+  const initialDataDell: ITypeDataTable[] = [
     {
       key: 0,
       name: "Edward King 0",
@@ -18,7 +18,7 @@ function AdminPage() {
     },
   ];
 
-  const defaultColumnEditData = [
+  const defaultColumnEditDataDell = [
     {
       title: "name",
       dataIndex: "name",
@@ -36,6 +36,32 @@ function AdminPage() {
     },
   ];
 
+  const initialDataMSI: ITypeDataTable[] = [
+    {
+      key: 0,
+      nameMSI: "Edward King 0",
+      addressMSI: "London, Park Lane no. 0",
+    },
+    {
+      key: 1,
+      nameMSI: "Edward King 1",
+      addressMSI: "London, Park Lane no. 1",
+    },
+  ];
+
+  const defaultColumnEditDataMSI = [
+    {
+      title: "nameMSI",
+      dataIndex: "nameMSI",
+      editable: true,
+    },
+    {
+      title: "addressMSI",
+      dataIndex: "addressMSI",
+      editable: true,
+    },
+  ];
+
   return (
     <Tabs
       items={[
@@ -44,8 +70,8 @@ function AdminPage() {
           label: "Dell",
           children: (
             <EditTable
-              initialData={initialData}
-              defaultColumnsEditData={defaultColumnEditData}
+              initialData={initialDataDell}
+              defaultColumnsEditData={defaultColumnEditDataDell}
             />
           ),
         },
@@ -54,8 +80,8 @@ function AdminPage() {
           label: "MSI",
           children: (
             <EditTable
-              initialData={initialData}
-              defaultColumnsEditData={defaultColumnEditData}
+              initialData={initialDataMSI}
+              defaultColumnsEditData={defaultColumnEditDataMSI}
             />
           ),
         },
