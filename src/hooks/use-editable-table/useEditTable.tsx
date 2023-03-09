@@ -1,46 +1,37 @@
 import { FormInstance } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { createContext, Key, ReactNode, useCallback, useState } from "react";
+import { createContext, Key, useCallback, useState } from "react";
+import { ITypeDataTable } from "../../core";
 
 export const EditableContext = createContext<FormInstance<any> | null>(null);
 
-export interface DataType {
-  key: number;
-  name?: string | ReactNode;
-  age?: string | ReactNode;
-  address?: string | ReactNode;
-}
-
 export interface useEditTableProps {
-  initialData: DataType[];
+  initialData: ITypeDataTable[];
 }
 
 export interface useEditTable {
-  dataSource: DataType[];
+  dataSource: ITypeDataTable[];
   form: any;
   save: (key: number) => void;
   onAdd: () => void;
   onDelete: (key: Key) => void;
-  isEditing: (record: DataType) => boolean;
-  edit: (record: DataType) => void;
+  isEditing: (record: ITypeDataTable) => boolean;
+  edit: (record: ITypeDataTable) => void;
   cancel: () => void;
 }
 
 export const useEditTable = ({
   initialData = [],
 }: useEditTableProps): useEditTable => {
-  const [dataSource, setDataSource] = useState<DataType[]>(initialData);
+  const [dataSource, setDataSource] = useState<ITypeDataTable[]>(initialData);
   const [form] = useForm();
   const [editingKey, setEditingKey] = useState(-1);
 
   const onAdd = useCallback(() => {
-    const indexOfArray = dataSource.map((item) => item.key);
+    const indexOfArray = dataSource.map((item) => item?.key);
     const maxKey = Math.max(...indexOfArray) + 1;
-    const newData: DataType = {
+    const newData: ITypeDataTable = {
       key: maxKey,
-      address: "NULL",
-      age: "NULL",
-      name: "NULL",
     };
     setDataSource([...dataSource, newData]);
     setEditingKey(maxKey);
@@ -76,9 +67,9 @@ export const useEditTable = ({
   );
 
   const edit = useCallback(
-    (record: DataType) => {
+    (record: ITypeDataTable) => {
       form.setFieldsValue({ ...record });
-      setEditingKey(record.key);
+      setEditingKey(record?.key);
     },
     [form]
   );
@@ -97,7 +88,7 @@ export const useEditTable = ({
   );
 
   const isEditing = useCallback(
-    (record: DataType) => record.key === editingKey,
+    (record: ITypeDataTable) => record.key === editingKey,
     [editingKey]
   );
 
