@@ -20,7 +20,6 @@ export interface useEditTable {
   cancel: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const useEditTable = ({
   initialData = [],
 }: useEditTableProps): useEditTable => {
