@@ -19,6 +19,9 @@ export function MainLayout({ children }: MainLayoutProps) {
     { label: "Trang chủ", path: "/" },
     { label: "Sản phẩm", path: "/products" },
     { label: "Về chúng tôi", path: "/about-us" },
+    { label: "Giỏ hàng", path: "/cart" },
+    { label: "Tài khoản", path: "/account" },
+    { label: "Đăng nhập", path: "/auth/login" },
   ];
 
   return (
