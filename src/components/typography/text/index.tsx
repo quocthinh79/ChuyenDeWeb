@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { ReactNode } from "react";
 import { noop } from "../../../const";
 import { ETextAlign, templateStringToClassName } from "../../../core";
 import EContentTypeTypography from "../../../core/types/EContentTypeTypography";
@@ -22,6 +23,7 @@ export interface TextProps {
   textAlign?: ETextAlign;
   type?: EContentTypeTypography;
   underline?: boolean;
+  children?: ReactNode;
   onClick?: (event: any) => void;
 }
 
@@ -38,6 +40,7 @@ export function Text({
   textAlign,
   type,
   underline = false,
+  children,
   onClick = noop,
 }: TextProps) {
   const passProps = {
@@ -55,7 +58,7 @@ export function Text({
     onClick,
   };
 
-  const textElement = <StyledText {...passProps}></StyledText>;
+  const textElement = <StyledText {...passProps}>{children}</StyledText>;
 
   return textAlign ? (
     <StyledWrapText
