@@ -10,7 +10,7 @@ const StyledMenu = styled(MenuCustom)``;
 export interface MenuProps {
   defaultOpenKeys?: string[];
   defaultSelectedKeys?: string[];
-  expandIcon: ReactNode;
+  expandIcon?: ReactNode;
   forceSubMenuRender?: boolean;
   inlineCollapsed?: boolean;
   inlineIndent?: number;
