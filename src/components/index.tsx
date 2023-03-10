@@ -10,3 +10,4 @@ export * from "./tabs";
 export * from "./form";
 export * from "./form-item";
 export * from "./table";
+export * from "./typography";
