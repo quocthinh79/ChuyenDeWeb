@@ -1,12 +1,16 @@
 import styled from "@emotion/styled";
+import { ReactNode } from "react";
+import { ETextAlign, templateStringToClassName } from "../../../core";
 import EContentTypeTypography from "../../../core/types/EContentTypeTypography";
 import ELevelTile from "../../../core/types/ELevelTitle";
 import { Copyable, Editable, Ellipsis } from "../general-types";
 import { default as TitleCustom } from "./title";
 
 const StyledTitle = styled(TitleCustom)``;
+const StyledDivWrap = styled("div")``;
 
 export interface TitleProps {
+  children?: ReactNode;
   code?: boolean;
   copyable?: boolean | Copyable;
   disabled?: boolean;
@@ -15,12 +19,14 @@ export interface TitleProps {
   italic?: boolean;
   level?: ELevelTile;
   mark?: boolean;
+  textAlign?: ETextAlign;
   type?: EContentTypeTypography;
   underline?: boolean;
   onClick?: (event: any) => void; // TODO: any type
 }
 
 export const Title = ({
+  children,
   code = false,
   copyable = false,
   disabled = false,
@@ -29,6 +35,7 @@ export const Title = ({
   italic = false,
   level = ELevelTile.H1,
   mark = false,
+  textAlign,
   type,
   underline = false,
   onClick = () => undefined,
@@ -46,7 +53,17 @@ export const Title = ({
     underline,
     onClick,
   };
-  return <StyledTitle {...passProps}></StyledTitle>;
+  const titleElement = <StyledTitle {...passProps}>{children}</StyledTitle>;
+
+  return textAlign ? (
+    <StyledDivWrap
+      className={templateStringToClassName()`text-align: ${textAlign};`}
+    >
+      {titleElement}
+    </StyledDivWrap>
+  ) : (
+    titleElement
+  );
 };
 
 export default Title;
