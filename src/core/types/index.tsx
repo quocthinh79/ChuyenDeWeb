@@ -8,3 +8,4 @@ export * from "./EInputTextSize";
 export * from "./ITypeDataTable";
 export * from "./EModeMenu";
 export * from "./ETriggerSubMenuAction";
+export * from "./ETextAlign";

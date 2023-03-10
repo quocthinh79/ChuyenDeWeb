@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AboutUs from "../pages/about-us/about-us";
 import DetailPage from "../pages/detail";
 import HomePage from "../pages/home";
@@ -6,7 +6,6 @@ import ProductPage from "../pages/product";
 import { routerAdminConfig } from "./admin/routerAdminConfig";
 import routerAuthConfig from "./auth/routerAuthConfig";
 import routerConfig from "./routerConfig";
-import RouterLayout from "./routerLayout";
 
 const router = [
   {
