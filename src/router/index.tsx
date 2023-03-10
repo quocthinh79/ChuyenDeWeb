@@ -1,5 +1,5 @@
-
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import AboutUs from "../pages/about-us/about-us";
 import DetailPage from "../pages/detail";
 import HomePage from "../pages/home";
 import ProductPage from "../pages/product";
@@ -17,8 +17,11 @@ const router = [
         element: <HomePage />,
       },
       {
-        path: "product",
-        element: <RouterLayout />,
+        path: "about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "products",
         children: [
           {
             index: true,
@@ -31,8 +34,10 @@ const router = [
         ],
       },
       routerAdminConfig,
-      routerAuthConfig,
     ],
+  },
+  {
+    ...routerAuthConfig,
   },
 ];
 

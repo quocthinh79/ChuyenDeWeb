@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { Layout } from "../components";
+import MainLayout from "../compositions/main-layout";
 
 function RouterLayout() {
   return (
-    <Layout>
+    <MainLayout>
       <Outlet />
-    </Layout>
+    </MainLayout>
   );
 }
 
