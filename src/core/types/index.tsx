@@ -11,3 +11,7 @@ export * from "./ETriggerSubMenuAction";
 export * from "./ETextAlign";
 export * from "./ETargetAnchor";
 export * from "./ESizeCard";
+export * from "./EAlignFlex";
+export * from "./EDirectionFlex";
+export * from "./EJustifyFlex";
+export * from "./EWrapFlex";
