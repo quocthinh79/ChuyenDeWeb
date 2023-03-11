@@ -1,28 +1,19 @@
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
-import { Content, Footer, Header, Layout } from "../../components";
+import { Link, useLocation } from "react-router-dom";
+import { Content, Footer, Header, Layout, Text } from "../../components";
 import Menu from "../../components/menu";
-import { EModeMenu } from "../../core";
+import { Link as AntLink } from "../../components/typography/link";
+import { GITHUB_LINK } from "../../const";
+import { EModeMenu, ETargetAnchor, ETextAlign } from "../../core";
+import itemNav from "../../core/navigation";
 import ETheme from "../../core/types/ETheme";
 
 export interface MainLayoutProps {
   children?: ReactNode;
 }
 
-interface ItemsNavigation {
-  label: string;
-  path: string;
-}
-
 export function MainLayout({ children }: MainLayoutProps) {
-  const itemNav: ItemsNavigation[] = [
-    { label: "Trang chủ", path: "/" },
-    { label: "Sản phẩm", path: "/products" },
-    { label: "Về chúng tôi", path: "/about-us" },
-    { label: "Giỏ hàng", path: "/cart" },
-    { label: "Tài khoản", path: "/account" },
-    { label: "Đăng nhập", path: "/auth/login" },
-  ];
+  const location = useLocation();
 
   return (
     <Layout>
@@ -39,18 +30,24 @@ export function MainLayout({ children }: MainLayoutProps) {
           }}
         /> */}
         <Menu
+          selectedKeys={[location.pathname]}
           theme={ETheme.Dark}
           mode={EModeMenu.Horizontal}
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["/"]}
           items={itemNav.map((item, index) => ({
-            key: String(index + 1),
+            key: item.path,
             label: <Link to={item.path}>{item.label}</Link>,
           }))}
         />
       </Header>
       <Content>{children}</Content>
-      <Footer style={{ textAlign: "center" }}>
-        Electronic Commerce ©2023 Created by Lê Quốc Thịnh
+      <Footer>
+        <Text textAlign={ETextAlign.Center}>
+          Electronic Commerce ©2023 Created by{" "}
+          <AntLink target={ETargetAnchor.Blank} href={GITHUB_LINK}>
+            Lê Quốc Thịnh
+          </AntLink>
+        </Text>
       </Footer>
     </Layout>
   );
