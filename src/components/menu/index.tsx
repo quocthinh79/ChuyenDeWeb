@@ -24,7 +24,7 @@ export interface MenuProps {
   subMenuCloseDelay?: number;
   subMenuOpenDelay?: number;
   triggerSubMenuAction?: ETriggerSubMenuAction;
-  theme?: ETheme;
+  // theme?: ETheme;
   children?: ReactNode;
   onClick?: ({ item, key, keyPath, domEvent }: any) => void;
   onDeselect?: ({ item, key, keyPath, selectedKeys, domEvent }: any) => void;
@@ -49,7 +49,7 @@ export function Menu({
   subMenuCloseDelay,
   subMenuOpenDelay,
   triggerSubMenuAction,
-  theme,
+  // theme,
   children,
   onClick,
   onDeselect,
@@ -73,7 +73,7 @@ export function Menu({
     subMenuCloseDelay,
     subMenuOpenDelay,
     triggerSubMenuAction,
-    theme,
+    // theme,
     onClick,
     onDeselect,
     onOpenChange,
