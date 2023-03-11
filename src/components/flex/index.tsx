@@ -1,40 +1,25 @@
 import { cx } from "@emotion/css";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { templateStringToClassName } from "../../core";
+import {
+  EDirectionFlex,
+  EFlexAlign,
+  EJustifyFlex,
+  EWrapFlex,
+  templateStringToClassName,
+} from "../../core";
 
 export interface FlexProps {
-  align?:
-    | "stretch"
-    | "center"
-    | "flex-start"
-    | "flex-end"
-    | "baseline"
-    | "initial"
-    | "inherit";
+  align?: EFlexAlign;
   basis?: string | number;
-  direction?:
-    | "row"
-    | "column"
-    | "row-reverse"
-    | "column-reverse"
-    | "initial"
-    | "inherit";
+  direction?: EDirectionFlex;
   gap?: string | number;
   grow?: number | string;
-  justify?:
-    | "flex-start"
-    | "flex-end"
-    | "center"
-    | "space-between"
-    | "space-around"
-    | "space-evenly"
-    | "initial"
-    | "inherit";
+  justify?: EJustifyFlex;
   shrink?: number | string;
   spacing?: number | string;
   width?: string | number;
-  wrap?: string | number;
+  wrap?: EWrapFlex;
   children?: ReactNode;
   className?: string;
 }
@@ -42,18 +27,18 @@ export interface FlexProps {
 const StyledFlex = styled("div")``;
 
 export function Flex({
-  align = "stretch",
+  align = EFlexAlign.Stretch,
   basis = "auto",
   children,
   className,
-  direction = "row",
+  direction = EDirectionFlex.Row,
   gap = 0,
   grow = 0,
-  justify = "flex-start",
+  justify = EJustifyFlex.FlexStart,
   shrink = 1,
   spacing = 0,
   width = "100%",
-  wrap = "nowrap",
+  wrap = EWrapFlex.Nowrap,
 }: FlexProps) {
   if (typeof gap === "number") gap = `${gap}px`;
 
