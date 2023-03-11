@@ -13,3 +13,4 @@ export * from "./table";
 export * from "./typography";
 export * from "./card";
 export * from "./meta-card";
+export * from "./grid-card";
