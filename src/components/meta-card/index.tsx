@@ -10,7 +10,6 @@ export interface MetaCardProps {
   description?: ReactNode;
   style?: CSSProperties;
   title?: ReactNode;
-  children?: ReactNode;
 }
 
 export function MetaCard({
@@ -19,10 +18,9 @@ export function MetaCard({
   description,
   style,
   title,
-  children,
 }: MetaCardProps) {
   const passProps = { avatar, className, description, style, title };
-  return <StyledMetaCard {...passProps}>{children}</StyledMetaCard>;
+  return <StyledMetaCard {...passProps} />;
 }
 
 export default MetaCard;
