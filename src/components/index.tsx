@@ -15,3 +15,4 @@ export * from "./card";
 export * from "./meta-card";
 export * from "./grid-card";
 export * from "./flex";
+export * from "./space";

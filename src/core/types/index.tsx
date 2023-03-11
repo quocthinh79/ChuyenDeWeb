@@ -15,3 +15,5 @@ export * from "./EAlignFlex";
 export * from "./EDirectionFlex";
 export * from "./EJustifyFlex";
 export * from "./EWrapFlex";
+export * from "./EAlignSpace";
+export * from "./EDirectionType";
