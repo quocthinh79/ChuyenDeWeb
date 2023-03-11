@@ -11,3 +11,5 @@ export * from "./form";
 export * from "./form-item";
 export * from "./table";
 export * from "./typography";
+export * from "./card";
+export * from "./meta-card";
