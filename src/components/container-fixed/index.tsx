@@ -43,7 +43,6 @@ export function ContainerFixed({
                return theme.screenXL;
              case "xxl":
                return theme.screenXXL;
-
              default:
                return "md";
            }
