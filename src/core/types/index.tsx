@@ -10,3 +10,4 @@ export * from "./EModeMenu";
 export * from "./ETriggerSubMenuAction";
 export * from "./ETextAlign";
 export * from "./ETargetAnchor";
+export * from "./ESizeCard";

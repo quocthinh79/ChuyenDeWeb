@@ -69,7 +69,7 @@ export function Text({
       {textElement}
     </StyledWrapText>
   ) : (
-    { textElement }
+    textElement
   );
 }
 
