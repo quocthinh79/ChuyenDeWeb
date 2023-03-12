@@ -21,6 +21,7 @@ export interface InputTextProps {
   suffix?: ReactNode;
   value?: string;
   ref?: any;
+  placeholder?: string;
   onChange?: () => undefined;
   onPressEnter?: () => any;
   onBlur?: () => any;
@@ -42,6 +43,7 @@ function InputText({
   suffix,
   value,
   ref,
+  placeholder,
   onChange,
   onPressEnter,
   onBlur,
@@ -62,6 +64,7 @@ function InputText({
     suffix,
     value,
     ref,
+    placeholder,
     onChange,
     onPressEnter,
     onBlur,

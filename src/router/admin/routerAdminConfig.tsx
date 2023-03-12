@@ -1,7 +1,7 @@
-
+import { routerPathFull } from "../../core";
 import AuthAdminRequired from "./AuthAdminRequired";
 
 export const routerAdminConfig: object = {
-  path: "admin",
+  path: routerPathFull.admin.root,
   element: <AuthAdminRequired />,
 };

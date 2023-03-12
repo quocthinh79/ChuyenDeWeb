@@ -1,23 +1,23 @@
-
+import { routerPathFull } from "../../core";
 import ForgotPasswordPage from "../../pages/auth/forgot-password";
 import LoginPage from "../../pages/auth/login";
 import RegisterPage from "../../pages/auth/register";
 import RouterAuthLayout from "./routerAuthLayout";
 
 export const routerAuthConfig: object = {
-  path: "auth",
+  path: routerPathFull.auth.root,
   element: <RouterAuthLayout />,
   children: [
     {
-      path: "login",
+      path: routerPathFull.auth.login,
       element: <LoginPage />,
     },
     {
-      path: "forgot-password",
+      path: routerPathFull.auth.forgotPass,
       element: <ForgotPasswordPage />,
     },
     {
-      path: "register",
+      path: routerPathFull.auth.register,
       element: <RegisterPage />,
     },
   ],

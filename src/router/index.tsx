@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { routerPathFull } from "../core";
 import AboutUs from "../pages/about-us/about-us";
 import Account from "../pages/account";
 import Cart from "../pages/cart";
@@ -18,27 +19,27 @@ const router = [
         element: <HomePage />,
       },
       {
-        path: "about-us",
+        path: routerPathFull.aboutUs.root,
         element: <AboutUs />,
       },
       {
-        path: "cart",
+        path: routerPathFull.cart.root,
         element: <Cart />,
       },
 
       {
-        path: "account",
+        path: routerPathFull.account.root,
         element: <Account />,
       },
       {
-        path: "products",
+        path: routerPathFull.products.root,
         children: [
           {
             index: true,
             element: <ProductPage />,
           },
           {
-            path: "detail",
+            path: routerPathFull.products.detail,
             element: <DetailPage />,
           },
         ],
