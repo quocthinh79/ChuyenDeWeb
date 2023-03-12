@@ -5,7 +5,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { cx } from "@emotion/css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Flex, Header } from "../../components";
 import ContainerFixed from "../../components/container-fixed";
 import InputSearch from "../../components/input/input-search";
@@ -23,6 +23,7 @@ import useLogged from "../../hooks/use-logged/useLogged";
 
 export function MainHeader() {
   const logged = useLogged({});
+  const location = useLocation();
 
   return (
     <Header position="sticky">

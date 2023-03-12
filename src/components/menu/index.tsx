@@ -5,7 +5,11 @@ import ETheme from "../../core/types/ETheme";
 import ItemType from "../../core/types/IItemTypeMenu";
 import { default as MenuCustom } from "./menu";
 
-const StyledMenu = styled(MenuCustom)``;
+const StyledMenu = styled(MenuCustom)`
+  .ant-menu-item {
+    height: auto;
+  }
+`;
 
 export interface MenuProps {
   defaultOpenKeys?: string[];
