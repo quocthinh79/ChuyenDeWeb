@@ -16,3 +16,4 @@ export * from "./meta-card";
 export * from "./grid-card";
 export * from "./flex";
 export * from "./space";
+export * from "./sider";
