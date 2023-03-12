@@ -3,7 +3,7 @@ import { EResultStatus } from "../core";
 import RouterLayout from "./routerLayout";
 
 export const routerConfig: object = {
-  path: "/",
+  // path: "",
   element: <RouterLayout />,
   errorElement: (
     <Result

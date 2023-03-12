@@ -1,18 +1,40 @@
+import {
+  LaptopOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  NotificationOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { cx } from "@emotion/css";
 import React, { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Content, Footer, Header, Layout, Sider, Text } from "../../components";
+import {
+  Content,
+  Flex,
+  Footer,
+  Header,
+  Layout,
+  Sider,
+  Text,
+} from "../../components";
 import ContainerFixed from "../../components/container-fixed";
+import InputSearch from "../../components/input/input-search";
 import Menu, { MenuProps } from "../../components/menu";
 import { Link as AntLink } from "../../components/typography/link";
 import { GITHUB_LINK } from "../../const";
-import { EBreakpoint, EModeMenu, ETargetAnchor, ETextAlign } from "../../core";
-import itemNav from "../../core/navigation";
-import ETheme from "../../core/types/ETheme";
 import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+  EBreakpoint,
+  EFlexAlign,
+  EInputTextSize,
+  EJustifyFlex,
+  EModeMenu,
+  ETargetAnchor,
+  ETextAlign,
+  routerPathFull,
+  templateStringToClassName,
+} from "../../core";
+import MainHeader from "../main-header";
 
 export interface MainLayoutProps {
   children?: ReactNode;
@@ -26,7 +48,7 @@ export function MainLayout({ children }: MainLayoutProps) {
     LaptopOutlined,
     NotificationOutlined,
   ].map((icon, index) => {
-    const key = String(index + 1);
+    const key: any = String(index + 1);
 
     return {
       key: `sub${key}`,
@@ -34,7 +56,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       label: `subnav ${key}`,
 
       children: new Array(4).fill(null).map((_, j) => {
-        const subKey = index * 4 + j + 1;
+        const subKey: any = index * 4 + j + 1;
         return {
           key: subKey,
           label: `option${subKey}`,
@@ -45,19 +67,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
   return (
     <Layout>
-      <Header position="fixed">
-        <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
-          <Menu
-            selectedKeys={[location.pathname]}
-            mode={EModeMenu.Horizontal}
-            defaultSelectedKeys={["/"]}
-            items={itemNav.map((item, index) => ({
-              key: item.path,
-              label: <Link to={item.path}>{item.label}</Link>,
-            }))}
-          />
-        </ContainerFixed>
-      </Header>
+      <MainHeader />
       <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
         <Layout>
           <Sider>
