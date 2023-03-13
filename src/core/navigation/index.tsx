@@ -24,10 +24,12 @@ export const routerPath = {
   },
   products: {
     root: "products",
-    detail: "detail",
   },
   admin: {
     root: "admin",
+  },
+  detail: {
+    root: "detail",
   },
 };
 

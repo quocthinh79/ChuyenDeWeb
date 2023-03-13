@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Content, Footer, Layout, Text } from "../../components";
+import Carousel from "../../components/carousel";
 import ContainerFixed from "../../components/container-fixed";
 import { Link as AntLink } from "../../components/typography/link";
 import { GITHUB_LINK } from "../../const";
@@ -9,15 +10,41 @@ import MainSider from "../main-sider";
 
 export interface MainLayoutProps {
   children?: ReactNode;
+  sider?: boolean;
+  carousel?: boolean;
 }
 
-export function MainLayout({ children }: MainLayoutProps) {
+const contentStyle: React.CSSProperties = {
+  height: "160px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
+
+export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
   return (
     <Layout>
       <MainHeader />
       <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
+        {carousel && (
+          <Carousel autoplay>
+            <div>
+              <h3 style={contentStyle}>1</h3>
+            </div>
+            <div>
+              <h3 style={contentStyle}>2</h3>
+            </div>
+            <div>
+              <h3 style={contentStyle}>3</h3>
+            </div>
+            <div>
+              <h3 style={contentStyle}>4</h3>
+            </div>
+          </Carousel>
+        )}
         <Layout>
-          <MainSider />
+          {sider && <MainSider />}
           <Content>{children}</Content>
         </Layout>
       </ContainerFixed>
