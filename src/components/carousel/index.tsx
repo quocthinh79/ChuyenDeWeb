@@ -39,6 +39,7 @@ export interface CarouselProps {
   iconPrevArrow?: JSX.Element;
   iconNextArrow?: JSX.Element;
   buttonColor?: string;
+  arrows?: boolean;
   children?: ReactNode;
   afterChange?: (current: any) => void;
   beforeChange?: (from: any, to: any) => void;
@@ -60,6 +61,7 @@ function Carousel({
   iconPrevArrow = <LeftOutlined />,
   iconNextArrow = <RightOutlined />,
   buttonColor = "black",
+  arrows,
   children,
   afterChange,
   beforeChange,
@@ -77,6 +79,7 @@ function Carousel({
     slidesToScroll,
     slidesToShow,
     speed,
+    arrows,
     buttonColor,
     afterChange,
     beforeChange,
@@ -96,7 +99,6 @@ function Carousel({
       color: ${buttonColor};
     }
     `)}
-      arrows
       prevArrow={iconPrevArrow}
       nextArrow={iconNextArrow}
       {...passProps}
