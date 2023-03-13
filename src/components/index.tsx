@@ -17,3 +17,4 @@ export * from "./grid-card";
 export * from "./flex";
 export * from "./space";
 export * from "./sider";
+export * from "./carousel";
