@@ -10,6 +10,7 @@ export interface CarouselProps {
   dots?: boolean | { className?: string };
   easing?: string;
   effect?: "scrollx" | "fade";
+  draggable?: boolean;
   children?: ReactNode;
   afterChange?: (current: any) => void;
   beforeChange?: (from: any, to: any) => void;
@@ -21,6 +22,7 @@ function Carousel({
   dots = true,
   easing = "linear",
   effect = "scrollx",
+  draggable,
   children,
   afterChange,
   beforeChange,
@@ -31,10 +33,15 @@ function Carousel({
     dots,
     easing,
     effect,
+    draggable,
     afterChange,
     beforeChange,
   };
-  return <StyledCarousel {...passProps}>{children}</StyledCarousel>;
+  return (
+    <StyledCarousel lazyLoad="progressive" {...passProps}>
+      {children}
+    </StyledCarousel>
+  );
 }
 
 export default Carousel;
