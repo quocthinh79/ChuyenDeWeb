@@ -28,7 +28,7 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
       <MainHeader />
       <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
         {carousel && (
-          <Carousel autoplay>
+          <Carousel autoplay draggable>
             <div>
               <h3 style={contentStyle}>1</h3>
             </div>

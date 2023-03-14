@@ -38,7 +38,7 @@ export function Image({
     src,
     width,
   };
-  return <StyledImage {...passProps} />;
+  return <StyledImage loading="lazy" {...passProps} />;
 }
 
 export default Image;

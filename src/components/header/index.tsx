@@ -10,7 +10,9 @@ export interface HeaderProps {
   position?: "fixed" | "sticky";
 }
 
-const StyledHeader = styled(HeaderCustom)``;
+const StyledHeader = styled(HeaderCustom)`
+  background-color: inherit;
+`;
 
 export function Header({ children, className, position }: HeaderProps) {
   const passProps = {
