@@ -22,10 +22,13 @@ export function LaptopCardItem({
     // TODO: Refactor container
     //     <ContainerFixed>
     <Card hoverable>
-      <Image preview={false} src={srcImage} />
+      <Image placeholder={laptopName} preview={false} src={srcImage} />
       <Title level={4}>{laptopName}</Title>
       <Description>
-        <DescriptionItem label="Gia">
+        <DescriptionItem
+          contentStyle={{ color: "#fe3666", fontWeight: 700 }}
+          label="Giá"
+        >
           {formatCurrency(laptopCurrency, "VND")}
         </DescriptionItem>
       </Description>
