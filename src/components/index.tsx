@@ -21,3 +21,4 @@ export * from "./space";
 export * from "./table";
 export * from "./tabs";
 export * from "./typography";
+export * from "./pagination";
