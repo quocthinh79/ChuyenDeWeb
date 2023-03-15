@@ -1,3 +1,3 @@
-import Pagination from "antd/es/pagination";
+import { Pagination } from "antd";
 
 export default Pagination;

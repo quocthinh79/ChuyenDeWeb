@@ -8,7 +8,6 @@ import { EModeMenu, EWrapFlex } from "../../core";
 export function MainSider() {
   const StyledContainer = styled("div")`
     .ant-layout-sider {
-      min-width: 290px !important;
       .ant-menu-item {
         cursor: default;
       }
@@ -125,7 +124,7 @@ export function MainSider() {
 
   return (
     <StyledContainer>
-      <Sider>
+      <Sider width={300}>
         <Menu
           mode={EModeMenu.Inline}
           // defaultSelectedKeys={["1"]}

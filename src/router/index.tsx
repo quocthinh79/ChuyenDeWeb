@@ -22,13 +22,6 @@ const router = [
         element: <HomePage />,
       },
     ],
-    errorElement: (
-      <Result
-        status={EResultStatus.NotFound}
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-      />
-    ),
   },
   {
     element: <RouterLayout />,
@@ -51,34 +44,15 @@ const router = [
       },
       routerAdminConfig,
     ],
-    errorElement: (
-      <Result
-        status={EResultStatus.NotFound}
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-      />
-    ),
   },
   {
     element: <RouterProductLayout />,
     children: [
       {
         path: routerPathFull.products.root,
-        children: [
-          {
-            index: true,
-            element: <ProductPage />,
-          },
-        ],
+        element: <ProductPage />,
       },
     ],
-    errorElement: (
-      <Result
-        status={EResultStatus.NotFound}
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-      />
-    ),
   },
   {
     ...routerAuthConfig,
