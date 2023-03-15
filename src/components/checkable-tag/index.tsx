@@ -5,13 +5,14 @@ import { ReactNode } from "react";
 const StyledCheckableTag = styled(CheckableTagCustom)``;
 
 export interface CheckableTagProps {
-  checked?: boolean;
+  checked: boolean;
   children?: ReactNode;
   closable?: boolean;
   closeIcon?: ReactNode;
   color?: string;
   icon?: ReactNode;
-  onClose?: (e: any) => void;
+  onClose?: (e: any) => any;
+  onChange?: (e: any) => any;
 }
 
 export const CheckableTag = ({
@@ -22,7 +23,16 @@ export const CheckableTag = ({
   color,
   icon,
   onClose,
+  onChange,
 }: CheckableTagProps) => {
-  const passProps = { closable, closeIcon, color, icon, checked, onClose };
-  return <CheckableTag {...passProps}>{children}</CheckableTag>;
+  const passProps = {
+    closable,
+    closeIcon,
+    color,
+    icon,
+    checked,
+    onClose,
+    onChange,
+  };
+  return <StyledCheckableTag {...passProps}>{children}</StyledCheckableTag>;
 };
