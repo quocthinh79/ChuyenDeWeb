@@ -22,29 +22,29 @@ export interface PaginationProps {
   simple?: boolean;
   size?: "default" | "small";
   total?: number;
-  onChange?: (page: any, pageSize: any) => void;
+  onChange?: (page: number, pageSize: number) => void;
   onShowSizeChange?: (current: any, size: any) => void;
 }
 
 export const Pagination = ({
-  current,
-  defaultCurrent,
-  defaultPageSize,
+  current = 1,
+  defaultCurrent = 1,
+  defaultPageSize = 10,
   disabled,
   hideOnSinglePage,
   onChange,
   onShowSizeChange,
-  pageSize,
+  pageSize = 10,
   pageSizeOptions,
   responsive,
   showLessItems,
   showQuickJumper,
-  showSizeChanger,
+  showSizeChanger = false,
   showTitle,
   //   showTotal,
   simple,
-  size,
-  total,
+  size = "default",
+  total = 0,
 }: PaginationProps) => {
   const passProps = {
     current,

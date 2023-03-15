@@ -12,7 +12,7 @@ export function ProductItemLayout({ children }: ProductItemLayoutProps) {
   return (
     <Row gutter={[16, 16]}>
       {children?.map(({ laptopCurrency, laptopName, srcImage }, index) => (
-        <Col span={6}>
+        <Col key={`${laptopName}${index}`} span={6}>
           <LaptopCardItem
             key={index}
             laptopCurrency={laptopCurrency}

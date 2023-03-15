@@ -1,8 +1,5 @@
-import { lazy } from "react";
+import ProductItemLayout from "../../compositions/product-item-layout/product-item-layout";
 import { laptopItemList } from "../../dummy-data";
-const ProductItemLayout = lazy(
-  () => import("../../compositions/product-item-layout/product-item-layout")
-);
 
 export interface ProductPageProps {}
 

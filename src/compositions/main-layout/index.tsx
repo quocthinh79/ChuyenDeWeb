@@ -43,10 +43,12 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
             </div>
           </Carousel>
         )}
-        <Layout>
-          {sider && <MainSider />}
-          <Content>{children}</Content>
-        </Layout>
+        <Content>
+          <Layout>
+            {sider && <MainSider />}
+            <Content>{children}</Content>
+          </Layout>
+        </Content>
       </ContainerFixed>
       <Footer>
         <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
