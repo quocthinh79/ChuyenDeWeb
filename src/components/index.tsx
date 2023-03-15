@@ -1,6 +1,7 @@
 export * from "./button";
 export * from "./card";
 export * from "./carousel";
+export * from "./checkable-tag";
 export * from "./content";
 export * from "./description-item";
 export * from "./descriptions";
