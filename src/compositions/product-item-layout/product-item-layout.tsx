@@ -1,14 +1,18 @@
+import { Pagination } from "../../components";
 import { Row } from "../../components/grid";
 import Col from "../../components/grid/column";
 import LaptopCardItem, {
   LaptopCardItemProps,
 } from "../../components/laptop-card-item";
+import { usePagination } from "../../hooks";
 
 export interface ProductItemLayoutProps {
   children?: LaptopCardItemProps[];
 }
 
 export function ProductItemLayout({ children }: ProductItemLayoutProps) {
+  const { currentPage, handleChange } = usePagination();
+
   return (
     <Row gutter={[16, 16]}>
       {children?.map(({ laptopCurrency, laptopName, srcImage }, index) => (
@@ -21,6 +25,16 @@ export function ProductItemLayout({ children }: ProductItemLayoutProps) {
           />
         </Col>
       ))}
+      <Pagination
+        responsive
+        hideOnSinglePage
+        // simple
+        current={currentPage}
+        defaultCurrent={1}
+        pageSize={10}
+        total={100}
+        onChange={handleChange}
+      />
     </Row>
   );
 }
