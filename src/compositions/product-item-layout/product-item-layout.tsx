@@ -25,16 +25,18 @@ export function ProductItemLayout({ children }: ProductItemLayoutProps) {
           />
         </Col>
       ))}
-      <Pagination
-        responsive
-        hideOnSinglePage
-        // simple
-        current={currentPage}
-        defaultCurrent={1}
-        pageSize={10}
-        total={100}
-        onChange={handleChange}
-      />
+      <Col span={24}>
+        <Pagination
+          responsive
+          hideOnSinglePage
+          // simple
+          current={currentPage}
+          defaultCurrent={1}
+          pageSize={10}
+          total={100}
+          onChange={handleChange}
+        />
+      </Col>
     </Row>
   );
 }

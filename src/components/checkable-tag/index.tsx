@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { default as CheckableTagCustom } from "./checkable-tag";
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 
 const StyledCheckableTag = styled(CheckableTagCustom)``;
 
@@ -36,3 +36,5 @@ export const CheckableTag = ({
   };
   return <StyledCheckableTag {...passProps}>{children}</StyledCheckableTag>;
 };
+
+export default memo(CheckableTag);
