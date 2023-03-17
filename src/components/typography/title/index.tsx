@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { ETextAlign, templateStringToClassName } from "../../../core";
-import EContentTypeTypography from "../../../core/types/EContentTypeTypography";
-import ELevelTile from "../../../core/types/ELevelTitle";
+import EContentTypeTypography from "../../../core/types/enum/EContentTypeTypography";
+import ELevelTile from "../../../core/types/enum/ELevelTitle";
 import { Copyable, Editable, Ellipsis } from "../general-types";
 import { default as TitleCustom } from "./title";
 

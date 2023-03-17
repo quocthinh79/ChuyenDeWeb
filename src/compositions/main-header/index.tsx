@@ -1,10 +1,6 @@
-import {
-  LoginOutlined,
-  LogoutOutlined,
-  ShoppingCartOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { cx } from "@emotion/css";
+import { memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Flex, Header } from "../../components";
 import ContainerFixed from "../../components/container-fixed";
@@ -27,7 +23,7 @@ export function MainHeader() {
 
   return (
     <Header position="sticky">
-      <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
+      <ContainerFixed breakpoint={EBreakpoint.XL} position="center">
         <Flex
           align={EFlexAlign.Center}
           justify={EJustifyFlex.SpaceBetween}
@@ -88,4 +84,4 @@ export function MainHeader() {
   );
 }
 
-export default MainHeader;
+export default memo(MainHeader);

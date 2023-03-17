@@ -11,7 +11,7 @@ export interface HeaderProps {
 }
 
 const StyledHeader = styled(HeaderCustom)`
-  background-color: inherit;
+  background-color: white;
 `;
 
 export function Header({ children, className, position }: HeaderProps) {

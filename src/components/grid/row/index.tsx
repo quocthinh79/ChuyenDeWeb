@@ -40,7 +40,11 @@ export interface RowProps {
 
 export function Row({ align, gutter, justify, wrap, children }: RowProps) {
   const passProps = { align, gutter, justify, wrap };
-  return <StyledRow {...passProps}>{children}</StyledRow>;
+  return (
+    <StyledRow style={{ position: "relative" }} {...passProps}>
+      {children}
+    </StyledRow>
+  );
 }
 
 export default Row;

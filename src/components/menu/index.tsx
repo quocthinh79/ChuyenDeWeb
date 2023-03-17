@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { EModeMenu, ETriggerSubMenuAction } from "../../core";
-import ETheme from "../../core/types/ETheme";
-import ItemType from "../../core/types/IItemTypeMenu";
+import ItemType from "../../core/types/interface/IItemTypeMenu";
 import { default as MenuCustom } from "./menu";
 
 const StyledMenu = styled(MenuCustom)`

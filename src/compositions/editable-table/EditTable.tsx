@@ -35,7 +35,6 @@ function EditTable({
     {
       title: "Action",
       dataIndex: "Action",
-      width: "10%",
       render: (_, record: any) => {
         const editing = isEditing(record);
         return dataSource.length >= 1 ? (

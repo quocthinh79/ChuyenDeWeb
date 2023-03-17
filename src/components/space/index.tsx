@@ -1,8 +1,13 @@
+import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { EAlignSpace, EDirectionType, styledComponent } from "../../core";
+import {
+  EAlignSpace,
+  EDirectionType,
+  templateStringToClassName,
+} from "../../core";
 import { default as SpaceCustom } from "./space";
 
-const StyledSpace = styledComponent(SpaceCustom)``;
+const StyledSpace = styled(SpaceCustom)``;
 
 enum SizeProps {
   Small = "small",
@@ -15,13 +20,31 @@ export interface SpaceProps {
   direction?: EDirectionType;
   split?: ReactNode;
   wrap?: boolean;
-  size?: SizeProps | SizeProps[] | number | number[];
+  size?: SizeProps;
   children?: ReactNode;
+  widthFull?: boolean;
 }
 
-function Space({ align, direction, size, split, wrap, children }: SpaceProps) {
+function Space({
+  align,
+  direction = EDirectionType.Vertical,
+  size = SizeProps.Small,
+  split,
+  wrap,
+  children,
+  widthFull,
+}: SpaceProps) {
   const passProps = { align, direction, size, split, wrap };
-  return <StyledSpace {...passProps}>{children}</StyledSpace>;
+  return (
+    <StyledSpace
+      className={templateStringToClassName()`${
+        widthFull ? "width: 100%;" : "width: auto;"
+      }`}
+      {...passProps}
+    >
+      {children}
+    </StyledSpace>
+  );
 }
 
 export default Space;

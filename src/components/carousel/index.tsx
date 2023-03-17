@@ -11,7 +11,7 @@ const StyledCarousel = styled(CarouselCustom)`
   .slick-prev:focus {
     font-size: inherit;
     left: 10px;
-    z-index: 1;
+    z-index: 2;
   }
 
   .slick-next,

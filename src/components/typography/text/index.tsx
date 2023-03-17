@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { noop } from "../../../const";
 import { ETextAlign, templateStringToClassName } from "../../../core";
-import EContentTypeTypography from "../../../core/types/EContentTypeTypography";
+import EContentTypeTypography from "../../../core/types/enum/EContentTypeTypography";
 import { Copyable, Editable, Ellipsis } from "../general-types";
 import { default as TextCustom } from "./text";
 
@@ -24,6 +24,7 @@ export interface TextProps {
   type?: EContentTypeTypography;
   underline?: boolean;
   children?: ReactNode;
+  textColor?: string;
   onClick?: (event: any) => void;
 }
 
@@ -41,6 +42,7 @@ export function Text({
   type,
   underline = false,
   children,
+  textColor,
   onClick = noop,
 }: TextProps) {
   const passProps = {
@@ -58,7 +60,14 @@ export function Text({
     onClick,
   };
 
-  const textElement = <StyledText {...passProps}>{children}</StyledText>;
+  const textElement = (
+    <StyledText
+      className={templateStringToClassName()`color: ${textColor}`}
+      {...passProps}
+    >
+      {children}
+    </StyledText>
+  );
 
   return textAlign ? (
     <StyledWrapText

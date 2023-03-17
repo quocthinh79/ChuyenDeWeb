@@ -26,7 +26,7 @@ export function Description({
   extra,
   labelStyle,
   layout = EDirectionType.Horizontal,
-  size,
+  size = "default",
   title,
   children,
 }: DescriptionProps) {
