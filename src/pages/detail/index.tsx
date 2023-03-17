@@ -1,7 +1,7 @@
-
+import DetailProductItem from "../../compositions/detail-product-item/detail-product-item";
 
 export function DetailPage() {
-  return <div>This is detail page</div>;
+  return <DetailProductItem />;
 }
 
 export default DetailPage;

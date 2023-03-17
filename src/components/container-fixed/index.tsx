@@ -1,13 +1,10 @@
 import { cx } from "@emotion/css";
 import { useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import {
-  EBreakpoint,
-  styledComponent,
-  templateStringToClassName,
-} from "../../core";
+import { EBreakpoint, templateStringToClassName } from "../../core";
 
-const StyledContainerFixed = styledComponent("div")``;
+const StyledContainerFixed = styled("div")``;
 
 export interface ContainerFixedProps {
   children?: ReactNode;

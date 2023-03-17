@@ -3,6 +3,7 @@ import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
 import { Sider } from "../../components";
 import SiderItem from "./sider-item";
+import { ReactNode, memo } from "react";
 
 export function MainSider() {
   const StyledContainer = styled("div")`
@@ -82,4 +83,4 @@ export function MainSider() {
   );
 }
 
-export default MainSider;
+export default memo(MainSider);

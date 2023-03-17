@@ -1,10 +1,16 @@
-import { ReactNode } from "react";
-import { Content, Footer, Layout, Text } from "../../components";
+import { Divider } from "antd";
+import { ReactNode, memo } from "react";
+import { Content, Footer, Image, Layout, Text } from "../../components";
 import Carousel from "../../components/carousel";
 import ContainerFixed from "../../components/container-fixed";
 import { Link as AntLink } from "../../components/typography/link";
-import { GITHUB_LINK } from "../../const";
-import { EBreakpoint, ETargetAnchor, ETextAlign } from "../../core";
+import { GITHUB_LINK, SPACE_BETWEEN_ITEMS } from "../../const";
+import {
+  EBreakpoint,
+  ETargetAnchor,
+  ETextAlign,
+  templateStringToClassName,
+} from "../../core";
 import MainHeader from "../main-header";
 import MainSider from "../main-sider";
 
@@ -26,9 +32,9 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
   return (
     <Layout>
       <MainHeader />
-      <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
+      <ContainerFixed breakpoint={EBreakpoint.XL} position="center">
         {carousel && (
-          <Carousel autoplay draggable>
+          <Carousel lazyLoad="progressive" autoplay draggable>
             <div>
               <h3 style={contentStyle}>1</h3>
             </div>
@@ -43,15 +49,18 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
             </div>
           </Carousel>
         )}
-        <Content>
-          <Layout>
-            {sider && <MainSider />}
-            <Content>{children}</Content>
-          </Layout>
-        </Content>
+        <Layout
+          className={templateStringToClassName()`margin: ${
+            !carousel && SPACE_BETWEEN_ITEMS
+          }px 0; gap: ${SPACE_BETWEEN_ITEMS}px`}
+        >
+          {sider && <MainSider />}
+          <Content>{children}</Content>
+        </Layout>
       </ContainerFixed>
+      <Divider />
       <Footer>
-        <ContainerFixed breakpoint={EBreakpoint.XXL} position="center">
+        <ContainerFixed breakpoint={EBreakpoint.XL} position="center">
           <Text textAlign={ETextAlign.Center}>
             Electronic Commerce ©2023 Created by{" "}
             <AntLink target={ETargetAnchor.Blank} href={GITHUB_LINK}>
@@ -64,4 +73,4 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
   );
 }
 
-export default MainLayout;
+export default memo(MainLayout);
