@@ -19,6 +19,7 @@ import {
   EDirectionFlex,
   EDirectionType,
   formatCurrency,
+  ILaptopInformation,
 } from "../../core";
 import EContentTypeTypography from "../../core/types/enum/EContentTypeTypography";
 import SliderOverviewProduct from "../slider-overview-product/slider-overview-product";
@@ -32,12 +33,25 @@ const StyledCol = styled(Col)`
   bottom: 0;
 `;
 
-function DetailProductItem() {
+function DetailProductItem({
+  battery,
+  color,
+  cpu,
+  disk,
+  gpu,
+  mainConnect,
+  name,
+  price,
+  ram,
+  screen,
+  weight,
+  image,
+}: ILaptopInformation) {
   return (
     <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
       <Col span={15}>
         <Flex direction={EDirectionFlex.Column} gap={SPACE_BETWEEN_ITEMS}>
-          <SliderOverviewProduct />
+          <SliderOverviewProduct image={image} />
           <Card>
             <Title level={4}>Cấu hình chi tiết</Title>
             <Description
@@ -45,12 +59,8 @@ function DetailProductItem() {
               size="small"
               layout={EDirectionType.Vertical}
             >
-              <DescriptionItem label="Vi xử lý (CPU)">
-                Intel Core i7 1250U, 10 nhân, 12 luồng
-              </DescriptionItem>
-              <DescriptionItem label="RAM">
-                32GB, LPDDR5, 5200 MHz
-              </DescriptionItem>
+              <DescriptionItem label="Vi xử lý (CPU)">{cpu}</DescriptionItem>
+              <DescriptionItem label="RAM">{ram}</DescriptionItem>
             </Description>
             <Divider />
             <Description
@@ -58,12 +68,8 @@ function DetailProductItem() {
               size="small"
               layout={EDirectionType.Vertical}
             >
-              <DescriptionItem label="Màn hình">
-                13.4", 1920 x 1200 px, IPS, Chống chói Hz
-              </DescriptionItem>
-              <DescriptionItem label="Card đồ họa (GPU)">
-                Intel® Iris® Xe Graphics
-              </DescriptionItem>
+              <DescriptionItem label="Màn hình">{screen}</DescriptionItem>
+              <DescriptionItem label="Card đồ họa (GPU)">{gpu}</DescriptionItem>
             </Description>
             <Divider />
             <Description
@@ -71,10 +77,8 @@ function DetailProductItem() {
               size="small"
               layout={EDirectionType.Vertical}
             >
-              <DescriptionItem label="Lưu trữ">
-                SSD 10SPACE_BETWEEN_ITEMSGB
-              </DescriptionItem>
-              <DescriptionItem label="Pin">51WHr</DescriptionItem>
+              <DescriptionItem label="Lưu trữ">{disk}</DescriptionItem>
+              <DescriptionItem label="Pin">{battery}</DescriptionItem>
             </Description>
             <Divider />
             <Description
@@ -83,9 +87,9 @@ function DetailProductItem() {
               layout={EDirectionType.Vertical}
             >
               <DescriptionItem label="Kết nối chính">
-                2 x Type-C, Thunderbolt
+                {mainConnect}
               </DescriptionItem>
-              <DescriptionItem label="Trọng lượng">1.17 kg</DescriptionItem>
+              <DescriptionItem label="Trọng lượng">{weight}</DescriptionItem>
             </Description>
             <Divider />
           </Card>
@@ -94,29 +98,25 @@ function DetailProductItem() {
       <StyledCol span={9}>
         <Card>
           <Space>
-            <Title level={3}>Dell XPS 13 9315 (2022)</Title>
+            <Title level={3}>{name}</Title>
             <Text type={EContentTypeTypography.Secondary}>
               SKU: XPS13931502NO
             </Text>
             <Text textColor="#fe3666" strong>
-              {formatCurrency(22990000)}
+              {formatCurrency(price)}
             </Text>
             <Description column={1} title="Cấu hình">
-              <DescriptionItem label="CPU">Intel Core i7 1250U</DescriptionItem>
-              <DescriptionItem label="GPU">
-                Intel® Iris® Xe Graphics
-              </DescriptionItem>
-              <DescriptionItem label="RAM">32GB</DescriptionItem>
-              <DescriptionItem label="Lưu trữ">
-                SSD 10SPACE_BETWEEN_ITEMSGB
-              </DescriptionItem>
-              <DescriptionItem label="Màu">Sky</DescriptionItem>
+              <DescriptionItem label="CPU">{cpu}</DescriptionItem>
+              <DescriptionItem label="GPU">{gpu}</DescriptionItem>
+              <DescriptionItem label="RAM">{ram}</DescriptionItem>
+              <DescriptionItem label="Lưu trữ">{disk}</DescriptionItem>
+              <DescriptionItem label="Màu">{color}</DescriptionItem>
             </Description>
           </Space>
           <Divider />
           <Space widthFull>
             <Text textColor="#fe3666" strong>
-              {formatCurrency(35990000)}
+              {formatCurrency(price)}
             </Text>
             <Button block type={EButtonTypes.Primary}>
               Thêm vào giỏ hàng
