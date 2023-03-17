@@ -1,16 +1,20 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Card, Image } from "../../components";
 import Carousel from "../../components/carousel";
 
-function SliderOverviewProduct() {
+export interface SliderOverviewProductProps {
+  image: string[];
+}
+
+function SliderOverviewProduct({ image }: SliderOverviewProductProps) {
+  const memoryList = useMemo(() => image.map((item) => item), [image]);
+
   return (
     <Card>
       <Carousel arrows lazyLoad="progressive" autoplay draggable>
-        <Image src="https://media-api-beta.thinkpro.vn/media/core/products/2022/9/30/dell-latitude-7320-detachable-thinkpro-2.png?w=700&h=700" />
-        <Image src="https://media-api-beta.thinkpro.vn/media/core/products/2022/9/30/dell-latitude-7320-detachable-thinkpro-2.png?w=700&h=700" />
-        <Image src="https://media-api-beta.thinkpro.vn/media/core/products/2022/9/30/dell-latitude-7320-detachable-thinkpro-2.png?w=700&h=700" />
-        <Image src="https://media-api-beta.thinkpro.vn/media/core/products/2022/9/30/dell-latitude-7320-detachable-thinkpro-2.png?w=700&h=700" />
-        <Image src="https://media-api-beta.thinkpro.vn/media/core/products/2022/9/30/dell-latitude-7320-detachable-thinkpro-2.png?w=700&h=700" />
+        {memoryList.map((item) => (
+          <Image src={item} />
+        ))}
       </Carousel>
     </Card>
   );

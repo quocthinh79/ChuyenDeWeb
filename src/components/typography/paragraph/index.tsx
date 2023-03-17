@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { noop } from "../../../const";
-import EContentTypeTypography from "../../../core/types/EContentTypeTypography";
+import EContentTypeTypography from "../../../core/types/enum/EContentTypeTypography";
 import { Copyable, Editable, Ellipsis } from "../general-types";
 import { default as ParagraphCustom } from "./paragraph";
 

@@ -18,3 +18,4 @@ export * from "./enum/EWrapFlex";
 export * from "./enum/EAlignSpace";
 export * from "./enum/EDirectionType";
 export * from "./enum/EBreakpoint";
+export * from "./interface/ILaptopInfor";
