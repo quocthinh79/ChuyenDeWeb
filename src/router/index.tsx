@@ -1,56 +1,93 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Result } from "../components";
-import { EResultStatus, routerPathFull } from "../core";
-import AboutUs from "../pages/about-us/about-us";
-import Account from "../pages/account";
-import Cart from "../pages/cart";
-import DetailPage from "../pages/detail";
-import HomePage from "../pages/home";
-import ProductPage from "../pages/product";
+import { routerPathFull } from "../core";
 import { routerAdminConfig } from "./admin/routerAdminConfig";
 import routerAuthConfig from "./auth/routerAuthConfig";
 import RouterHomeLayout from "./routerHomeLayout";
 import RouterLayout from "./routerLayout";
 import RouterProductLayout from "./routerProductLayout";
 
+const HomePage = lazy(() => import("../pages/home"));
+const AboutUs = lazy(() => import("../pages/about-us/about-us"));
+const Account = lazy(() => import("../pages/account"));
+const Cart = lazy(() => import("../pages/cart"));
+const DetailPage = lazy(() => import("../pages/detail"));
+const ProductPage = lazy(() => import("../pages/product"));
+
 const router = [
   {
-    element: <RouterHomeLayout />,
+    element: (
+      <Suspense fallback={<>Loading</>}>
+        <RouterHomeLayout />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <HomePage />
+          </Suspense>
+        ),
       },
     ],
   },
   {
-    element: <RouterLayout />,
+    element: (
+      <Suspense fallback={<>Loading</>}>
+        <RouterLayout />
+      </Suspense>
+    ),
     children: [
       {
         path: routerPathFull.aboutUs.root,
-        element: <AboutUs />,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <AboutUs />
+          </Suspense>
+        ),
       },
       {
         path: routerPathFull.cart.root,
-        element: <Cart />,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <Cart />
+          </Suspense>
+        ),
       },
       {
         path: routerPathFull.account.root,
-        element: <Account />,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <Account />
+          </Suspense>
+        ),
       },
       {
         path: routerPathFull.detail.root,
-        element: <DetailPage />,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <DetailPage />
+          </Suspense>
+        ),
       },
       routerAdminConfig,
     ],
   },
   {
-    element: <RouterProductLayout />,
+    element: (
+      <Suspense fallback={<>Loading</>}>
+        <RouterProductLayout />
+      </Suspense>
+    ),
     children: [
       {
         path: routerPathFull.products.root,
-        element: <ProductPage />,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <ProductPage />
+          </Suspense>
+        ),
       },
     ],
   },

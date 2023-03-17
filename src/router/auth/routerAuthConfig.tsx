@@ -1,24 +1,44 @@
+import { Suspense, lazy } from "react";
 import { routerPathFull } from "../../core";
-import ForgotPasswordPage from "../../pages/auth/forgot-password";
-import LoginPage from "../../pages/auth/login";
-import RegisterPage from "../../pages/auth/register";
-import RouterAuthLayout from "./routerAuthLayout";
+
+const ForgotPasswordPage = lazy(
+  () => import("../../pages/auth/forgot-password")
+);
+const LoginPage = lazy(() => import("../../pages/auth/login"));
+const RegisterPage = lazy(() => import("../../pages/auth/register"));
+const RouterAuthLayout = lazy(() => import("./routerAuthLayout"));
 
 export const routerAuthConfig: object = {
   path: routerPathFull.auth.root,
-  element: <RouterAuthLayout />,
+  element: (
+    <Suspense fallback={<>Loading</>}>
+      <RouterAuthLayout />
+    </Suspense>
+  ),
   children: [
     {
       path: routerPathFull.auth.login,
-      element: <LoginPage />,
+      element: (
+        <Suspense fallback={<>Loading</>}>
+          <LoginPage />
+        </Suspense>
+      ),
     },
     {
       path: routerPathFull.auth.forgotPass,
-      element: <ForgotPasswordPage />,
+      element: (
+        <Suspense fallback={<>Loading</>}>
+          <ForgotPasswordPage />
+        </Suspense>
+      ),
     },
     {
       path: routerPathFull.auth.register,
-      element: <RegisterPage />,
+      element: (
+        <Suspense fallback={<>Loading</>}>
+          <RegisterPage />
+        </Suspense>
+      ),
     },
   ],
 };
