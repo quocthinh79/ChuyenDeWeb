@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { handleSpecialSymbol } from "../../core/utilities/navigation/search-params";
 
 export interface useSelectedTagProps {
-  selectedTags?: string[];
-  handleChange?: (tag: string, checked: boolean) => void;
+  selectedTags: string[];
+  handleChange: (tag: string, checked: boolean) => void;
 }
 
-function useSelectedTag() {
+function useSelectedTag(label: string): useSelectedTagProps {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const handleChange = (tag: string, checked: boolean) => {
     const nextSelectedTags = checked
-      ? [...selectedTags, tag]
-      : selectedTags.filter((t) => t !== tag);
+      ? [...selectedTags, handleSpecialSymbol(tag)]
+      : selectedTags.filter((t) => t !== handleSpecialSymbol(tag));
     setSelectedTags(nextSelectedTags);
   };
   return {
