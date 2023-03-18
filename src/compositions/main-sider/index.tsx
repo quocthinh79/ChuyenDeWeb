@@ -66,16 +66,16 @@ export function MainSider() {
       <Sider width={300}>
         <Collapse>
           <CollapsePanel header="Nhu cầu" key="1">
-            <SiderItem children={demandData} />
+            <SiderItem label="demand" children={demandData} />
           </CollapsePanel>
           <CollapsePanel header="Thương hiệu" key="2">
-            <SiderItem children={brandData} />
+            <SiderItem label="brand" children={brandData} />
           </CollapsePanel>
           <CollapsePanel header="Nguồn hàng" key="3">
-            <SiderItem children={productSource} />
+            <SiderItem label="productSource" children={productSource} />
           </CollapsePanel>
           <CollapsePanel header="CPU" key="4">
-            <SiderItem children={cpu} />
+            <SiderItem label="cpu" children={cpu} />
           </CollapsePanel>
         </Collapse>
       </Sider>
