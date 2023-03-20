@@ -3,14 +3,16 @@ import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
 import { Sider } from "../../components";
 import SiderItem from "./sider-item";
-import { ReactNode, memo } from "react";
+import { ReactNode, memo, useEffect, useState } from "react";
+import useSelectedTag from "../../hooks/use-selected-tag/use-selected-tag";
+
+const StyledContainer = styled("div")`
+  .ant-layout-sider {
+    background-color: inherit;
+  }
+`;
 
 export function MainSider() {
-  const StyledContainer = styled("div")`
-    .ant-layout-sider {
-      background-color: inherit;
-    }
-  `;
   const demandData: string[] = [
     "Văn phòng, học tập",
     "2D Design",
@@ -60,22 +62,43 @@ export function MainSider() {
     "M2",
   ];
 
-  console.log("Render");
+  const { handleChange, selectedTags } = useSelectedTag();
+
   return (
     <StyledContainer>
       <Sider width={300}>
         <Collapse>
           <CollapsePanel header="Nhu cầu" key="1">
-            <SiderItem label="demand" children={demandData} />
+            <SiderItem
+              selectedTags={selectedTags}
+              handleChange={handleChange}
+              label="demand"
+              children={demandData}
+            />
           </CollapsePanel>
           <CollapsePanel header="Thương hiệu" key="2">
-            <SiderItem label="brand" children={brandData} />
+            <SiderItem
+              selectedTags={selectedTags}
+              handleChange={handleChange}
+              label="brand"
+              children={brandData}
+            />
           </CollapsePanel>
           <CollapsePanel header="Nguồn hàng" key="3">
-            <SiderItem label="productSource" children={productSource} />
+            <SiderItem
+              selectedTags={selectedTags}
+              handleChange={handleChange}
+              label="productSource"
+              children={productSource}
+            />
           </CollapsePanel>
           <CollapsePanel header="CPU" key="4">
-            <SiderItem label="cpu" children={cpu} />
+            <SiderItem
+              selectedTags={selectedTags}
+              handleChange={handleChange}
+              label="cpu"
+              children={cpu}
+            />
           </CollapsePanel>
         </Collapse>
       </Sider>
@@ -83,4 +106,4 @@ export function MainSider() {
   );
 }
 
-export default memo(MainSider);
+export default MainSider;

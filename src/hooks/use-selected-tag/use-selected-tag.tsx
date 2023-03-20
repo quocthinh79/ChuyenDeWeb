@@ -1,21 +1,34 @@
-import { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 import { handleSpecialSymbol } from "../../core/utilities/navigation/search-params";
 
-export interface useSelectedTagProps {
-  selectedTags: string[];
-  handleChange: (tag: string, checked: boolean) => void;
+export interface UseSelectedTag {
+  selectedTags: { [label: string]: string[] };
+  handleChange: (label: string, tag: string, checked: boolean) => void;
 }
 
-function useSelectedTag(label: string): useSelectedTagProps {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+function useSelectedTag(): UseSelectedTag {
+  const selected: { [label: string]: string[] } = {};
+  const [selectedTags, setSelectedTags] = useState<{
+    [label: string]: string[];
+  }>({});
 
-  const handleChange = (tag: string, checked: boolean) => {
-    const nextSelectedTags = checked
-      ? [...selectedTags, handleSpecialSymbol(tag)]
-      : selectedTags.filter((t) => t !== handleSpecialSymbol(tag));
-    setSelectedTags(nextSelectedTags);
+  const handleChange = (label: string, tag: string, checked: boolean) => {
+    console.log(checked);
+    if (checked) {
+      selected[label] = [
+        ...(selectedTags[label] || []),
+        handleSpecialSymbol(tag),
+      ];
+    } else {
+      selected[label] = [
+        ...(selectedTags[label]?.filter(
+          (item) => item !== handleSpecialSymbol(tag)
+        ) || []),
+      ];
+    }
+    setSelectedTags({ ...selectedTags, ...selected });
   };
+
   return {
     selectedTags,
     handleChange,
