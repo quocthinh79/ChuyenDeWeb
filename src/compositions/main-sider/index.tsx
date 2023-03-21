@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
 import { Sider } from "../../components";
-import SiderItem from "./sider-item";
-import { ReactNode, memo, useEffect, useState } from "react";
 import useSelectedTag from "../../hooks/use-selected-tag/use-selected-tag";
+import SiderItem from "./sider-item";
 
 const StyledContainer = styled("div")`
   .ant-layout-sider {
