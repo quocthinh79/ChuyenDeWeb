@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import React from "react";
 import { Flex, Image, Text, Title } from "../../components";
 import Button from "../../components/button";
@@ -12,6 +13,7 @@ import {
 } from "../../core";
 
 function ProductItemCart() {
+  const { colorPrice } = useTheme();
   return (
     <Row gutter={[16, 16]}>
       <Col span={4}>
@@ -26,7 +28,7 @@ function ProductItemCart() {
       </Col>
       <Col span={4}>
         <Flex direction={EDirectionFlex.Column} align={EFlexAlign.Center}>
-          <Text textColor="#fe3666" strong>
+          <Text textColor={colorPrice} strong>
             {formatCurrency(100000000)}
           </Text>
           <Button type={EButtonTypes.Primary} block danger>

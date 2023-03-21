@@ -8,4 +8,6 @@ export const customToken = {
   imageSize2XL: 512,
   imageSize3XL: 768,
   imageSize4XL: 896,
+
+  colorPrice: "#fe3666",
 };

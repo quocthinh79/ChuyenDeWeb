@@ -1,9 +1,7 @@
 import { Pagination } from "../../components";
 import { Row } from "../../components/grid";
 import Col from "../../components/grid/column";
-import LaptopCardItem, {
-  LaptopCardItemProps,
-} from "../../components/laptop-card-item";
+import LaptopCardItem, { LaptopCardItemProps } from "../laptop-card-item";
 import { SPACE_BETWEEN_ITEMS } from "../../const";
 import { usePagination } from "../../hooks";
 
@@ -20,6 +18,7 @@ export function ProductItemLayout({ children }: ProductItemLayoutProps) {
         <Col key={`${laptopName}${index}`} span={8}>
           <LaptopCardItem
             key={index}
+            idProduct={index}
             laptopCurrency={laptopCurrency}
             laptopName={laptopName}
             srcImage={srcImage}
