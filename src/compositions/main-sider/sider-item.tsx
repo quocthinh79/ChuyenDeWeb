@@ -1,12 +1,13 @@
 import { CheckableTag, Flex } from "../../components";
 import { EWrapFlex } from "../../core";
 import { handleSpecialSymbol } from "../../core/utilities/navigation/search-params";
-import { SelectedTagsProps } from "../../hooks";
 
 export interface SiderItemProps {
   label: string;
   children: string[];
-  selectedTags: SelectedTagsProps;
+  selectedTags: {
+    [label: string]: string[];
+  };
   handleChange: any;
 }
 
