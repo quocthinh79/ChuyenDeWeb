@@ -29,7 +29,7 @@ export const routerPath = {
     root: "admin",
   },
   detail: {
-    root: "detail",
+    root: "detail/:idProduct",
   },
 };
 

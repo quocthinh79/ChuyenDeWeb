@@ -1,4 +1,4 @@
-import { LaptopCardItemProps } from "../components/laptop-card-item";
+import { LaptopCardItemProps } from "../compositions/laptop-card-item";
 
 export const laptopItemList: LaptopCardItemProps[] = [
   {

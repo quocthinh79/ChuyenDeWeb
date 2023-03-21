@@ -1,5 +1,5 @@
+import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import React from "react";
 import {
   Card,
   Description,
@@ -47,6 +47,10 @@ function DetailProductItem({
   weight,
   image,
 }: ILaptopInformation) {
+  const { colorPrice } = useTheme();
+  const url = new URL(window.location.href);
+  const idProduct = url.pathname.split("/")[url.pathname.split("/").length - 1];
+
   return (
     <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
       <Col span={15}>
@@ -100,9 +104,9 @@ function DetailProductItem({
           <Space>
             <Title level={3}>{name}</Title>
             <Text type={EContentTypeTypography.Secondary}>
-              SKU: XPS13931502NO
+              SKU: XPS13931502NO (ID: {idProduct})
             </Text>
-            <Text textColor="#fe3666" strong>
+            <Text textColor={colorPrice} strong>
               {formatCurrency(price)}
             </Text>
             <Description column={1} title="Cấu hình">
@@ -115,7 +119,7 @@ function DetailProductItem({
           </Space>
           <Divider />
           <Space widthFull>
-            <Text textColor="#fe3666" strong>
+            <Text textColor={colorPrice} strong>
               {formatCurrency(price)}
             </Text>
             <Button block type={EButtonTypes.Primary}>
