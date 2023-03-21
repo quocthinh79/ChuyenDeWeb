@@ -1,5 +1,7 @@
+import ProductItemCart from "../../compositions/product-item-cart";
+
 export function Cart() {
-  return <div>This is cart page</div>;
+  return <ProductItemCart />;
 }
 
 export default Cart;
