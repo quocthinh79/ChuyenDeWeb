@@ -6,6 +6,7 @@ import {
   Flex,
   Form,
   FormItem,
+  InputPassword,
   InputText,
   RememberMe,
   SizeProps,
@@ -17,11 +18,14 @@ import {
   EFlexAlign,
   EHtmlButtonTypes,
   EJustifyFlex,
+  routerPathFull,
 } from "@core";
 import styled from "@emotion/styled";
 import { Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { memo } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import LoginFormItem from "./login-form-item";
 
 export interface LoginProps {}
 
@@ -75,104 +79,57 @@ export function LoginPage(_props: LoginProps) {
   // const formGenMemo = useMemo(() => <FormLoginGen />, []);
 
   // const { t, i18n } = useTranslation();
-
+  const navigation = useNavigate();
   const onFinish = (values: any) => {
     console.log("Success:", values);
+    navigation(routerPathFull.home.root + "/");
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
-  const StyledContainerFixed = styled(ContainerFixed)`
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  `;
-
-  const StyledContent = styled(Content)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
-
   return (
-    <StyledContainerFixed position="center">
-      <StyledContent>
-        <ContainerFixed>
-          <Card>
-            <Flex align={EFlexAlign.Center} justify={EJustifyFlex.Center}>
-              {/* <Logo width={LOGO_INTRO} src={`${assets.getImages(LOGO)}`} /> */}
-            </Flex>
-            <Tabs
-              items={[
-                {
-                  key: "1",
-                  label: "Đăng nhập",
-                  children: (
-                    <Form
-                      name="login"
-                      labelCol={{ span: 5 }}
-                      initialValues={{ remember: true }}
-                      onFinish={onFinish}
-                      onFinishFailed={onFinishFailed}
-                      autoComplete="off"
-                    >
-                      <Space widthFull size={SizeProps.Large}>
-                        <Space widthFull>
-                          <FormItem
-                            label="Username"
-                            name="username"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Please input your username!",
-                              },
-                            ]}
-                          >
-                            <InputText />
-                          </FormItem>
-                          <FormItem
-                            label="Password"
-                            name="password"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Please input your password!",
-                              },
-                            ]}
-                          >
-                            <Input.Password />
-                            {/* <InputPassword /> */}
-                          </FormItem>
-                        </Space>
-                        <FormItem name="remember" valuePropName="checked">
-                          <Flex justify={EJustifyFlex.SpaceBetween}>
-                            <RememberMe />
-                            <Button type={EButtonTypes.Link}>
-                              Quên mật khẩu
-                            </Button>
-                          </Flex>
-                        </FormItem>
-                        <FormItem>
-                          <Button
-                            block
-                            type={EButtonTypes.Primary}
-                            htmlType={EHtmlButtonTypes.Submit}
-                          >
-                            Đăng nhập
-                          </Button>
-                        </FormItem>
-                      </Space>
-                    </Form>
-                  ),
-                },
-              ]}
-            />
-          </Card>
-        </ContainerFixed>
-      </StyledContent>
-    </StyledContainerFixed>
+    <Card>
+      <Tabs
+        items={[
+          {
+            key: "1",
+            label: "Đăng nhập",
+            children: (
+              <Form
+                name="login"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+              >
+                <Space widthFull size={SizeProps.Large}>
+                  <LoginFormItem />
+                  <Flex justify={EJustifyFlex.SpaceBetween}>
+                    <RememberMe />
+                    <Link to={routerPathFull.auth.forgotPass}>
+                      Quên mật khẩu
+                    </Link>
+                  </Flex>
+                  <Button
+                    block
+                    type={EButtonTypes.Primary}
+                    htmlType={EHtmlButtonTypes.Submit}
+                  >
+                    Đăng nhập
+                  </Button>
+                  <Flex justify={EJustifyFlex.Center}>
+                    <Link to={routerPathFull.auth.register}>
+                      Đăng kí tài khoản
+                    </Link>
+                  </Flex>
+                </Space>
+              </Form>
+            ),
+          },
+        ]}
+      />
+    </Card>
   );
 }
 

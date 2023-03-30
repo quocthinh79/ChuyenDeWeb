@@ -25,7 +25,7 @@ export function Form({
   children,
   autoComplete,
   initialValues,
-  labelCol,
+  labelCol = { span: 5 },
   name,
   onFinish,
   onFinishFailed,
