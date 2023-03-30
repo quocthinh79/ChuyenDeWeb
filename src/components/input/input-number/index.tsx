@@ -10,13 +10,22 @@ export interface InputNumberProps {
   value?: number;
   ref?: React.Ref<HTMLInputElement>;
   placeholder?: string;
+  onChange?: () => undefined;
 }
 
 const StyledInputNumber = styled(InputNumberCustom)``;
 
-const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
+export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
   (
-    { addonAfter, addonBefore, bordered, defaultValue = 1, value, placeholder },
+    {
+      addonAfter,
+      addonBefore,
+      bordered,
+      defaultValue,
+      value,
+      placeholder,
+      onChange,
+    },
     ref
   ) => {
     const passProps = {
@@ -26,6 +35,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
       defaultValue,
       value,
       placeholder,
+      onChange,
     };
     return <StyledInputNumber ref={ref} {...passProps} />;
   }
