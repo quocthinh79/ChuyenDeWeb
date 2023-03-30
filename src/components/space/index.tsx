@@ -5,11 +5,12 @@ import {
   EDirectionType,
   templateStringToClassName,
 } from "../../core";
+import SpaceCompact from "./compact";
 import { default as SpaceCustom } from "./space";
 
 const StyledSpace = styled(SpaceCustom)``;
 
-enum SizeProps {
+export enum SizeProps {
   Small = "small",
   Middle = "middle",
   Large = "large",
@@ -47,4 +48,5 @@ function Space({
   );
 }
 
+export { SpaceCompact };
 export default Space;

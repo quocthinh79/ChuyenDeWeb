@@ -13,7 +13,7 @@ function SliderOverviewProduct({ image }: SliderOverviewProductProps) {
     <Card>
       <Carousel arrows lazyLoad="progressive" autoplay draggable>
         {memoryList.map((item) => (
-          <Image src={item} />
+          <Image preview={false} src={item} />
         ))}
       </Carousel>
     </Card>

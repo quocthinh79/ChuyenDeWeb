@@ -1,7 +1,7 @@
-import ProductItemCart from "../../compositions/product-item-cart";
+import DetailCart from "../../compositions/detail-cart";
 
 export function Cart() {
-  return <ProductItemCart />;
+  return <DetailCart />;
 }
 
 export default Cart;

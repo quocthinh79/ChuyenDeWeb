@@ -1,3 +1,4 @@
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import {
@@ -122,9 +123,20 @@ function DetailProductItem({
             <Text textColor={colorPrice} strong>
               {formatCurrency(price)}
             </Text>
-            <Button block type={EButtonTypes.Primary}>
-              Thêm vào giỏ hàng
-            </Button>
+            <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
+              <Col span={20}>
+                <Button block type={EButtonTypes.Primary}>
+                  Mua ngay
+                </Button>
+              </Col>
+              <Col span={4}>
+                <Button
+                  icon={<ShoppingCartOutlined />}
+                  block
+                  type={EButtonTypes.Primary}
+                ></Button>
+              </Col>
+            </Row>
           </Space>
         </Card>
       </StyledCol>

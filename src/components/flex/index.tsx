@@ -19,6 +19,7 @@ export interface FlexProps {
   shrink?: number | string;
   spacing?: number | string;
   width?: string | number;
+  height?: string | number;
   wrap?: EWrapFlex;
   children?: ReactNode;
   className?: string;
@@ -38,6 +39,7 @@ export function Flex({
   shrink = 1,
   spacing = 0,
   width = "100%",
+  height = "100%",
   wrap = EWrapFlex.Nowrap,
 }: FlexProps) {
   if (typeof gap === "number") gap = `${gap}px`;
@@ -56,6 +58,7 @@ export function Flex({
         gap: ${gap};
         justify-content: ${justify};
         width: ${width};
+        height: ${height};
       `
     ),
   };

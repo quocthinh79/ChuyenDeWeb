@@ -2,7 +2,10 @@ import styled from "@emotion/styled";
 import { default as PaginationCustom } from "./pagination";
 import { ReactNode } from "react";
 
-const StyledPagination = styled(PaginationCustom)``;
+const StyledPagination = styled(PaginationCustom)`
+  display: flex;
+  justify-content: center;
+`;
 
 export interface PaginationProps {
   current?: number;
