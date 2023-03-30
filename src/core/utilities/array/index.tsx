@@ -3,5 +3,5 @@ export const arrayToString = (arr: string[]) => {
 };
 
 export const sumValueArray = (arr: number[]) => {
-  return arr.reduce((pre, current) => pre + current);
+  return arr?.reduce((pre, current) => pre + current, 0);
 };
