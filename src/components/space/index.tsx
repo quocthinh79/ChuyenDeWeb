@@ -5,7 +5,6 @@ import {
   EDirectionType,
   templateStringToClassName,
 } from "../../core";
-import SpaceCompact from "./compact";
 import { default as SpaceCustom } from "./space";
 
 const StyledSpace = styled(SpaceCustom)``;
@@ -26,7 +25,7 @@ export interface SpaceProps {
   widthFull?: boolean;
 }
 
-function Space({
+export function Space({
   align,
   direction = EDirectionType.Vertical,
   size = SizeProps.Small,
@@ -48,5 +47,4 @@ function Space({
   );
 }
 
-export { SpaceCompact };
 export default Space;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { default as SpaceCompactCustom } from "./compact";
+import { default as SpaceCompactCustom } from "./space-compact";
 
 export interface SpaceCompactProps {
   children?: ReactNode;

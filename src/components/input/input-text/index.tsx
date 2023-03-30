@@ -27,7 +27,7 @@ export interface InputTextProps {
   onBlur?: () => any;
 }
 
-function InputText({
+export function InputText({
   addonAfter,
   addonBefore,
   allowClear,

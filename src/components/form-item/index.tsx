@@ -7,12 +7,22 @@ const StyledFormItem = styled(FormItemCustom)``;
 
 export interface FormItemProps {
   name?: string | number | (string | number)[];
-  rules: Rule[];
+  rules?: Rule[];
   children?: ReactNode;
+  valuePropName?: string;
+  wrapperCol?: object;
+  label?: string;
 }
 
-export function FormItem({ name, rules, children }: FormItemProps) {
-  const passProps = { name, rules };
+export function FormItem({
+  name,
+  rules,
+  children,
+  valuePropName,
+  wrapperCol,
+  label,
+}: FormItemProps) {
+  const passProps = { name, rules, valuePropName, wrapperCol, label };
   return (
     <StyledFormItem style={{ margin: 0 }} {...passProps}>
       {children}
