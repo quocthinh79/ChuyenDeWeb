@@ -27,7 +27,7 @@ export interface ButtonProps {
   children?: ReactNode;
 }
 
-function Button({
+export function Button({
   block,
   danger,
   disable,

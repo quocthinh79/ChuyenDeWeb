@@ -1,8 +1,8 @@
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import SpaceCompact from "../../space-compact/space-compact";
 import { useIncrease } from "../../../hooks";
 import Button from "../../button";
 import Space from "../../space";
-import SpaceCompact from "../../space/compact";
 import InputNumber from "../input-number";
 
 export function IncreaseInput() {
