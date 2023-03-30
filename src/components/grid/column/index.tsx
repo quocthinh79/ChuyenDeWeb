@@ -20,7 +20,7 @@ export interface ColProps {
   xxl?: number | object;
 }
 
-function Col({
+export function Col({
   children,
   flex,
   lg,

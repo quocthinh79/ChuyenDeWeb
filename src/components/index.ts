@@ -14,6 +14,7 @@ export * from "./flex";
 export * from "./footer";
 export * from "./form";
 export * from "./form-item";
+export * from "./grid";
 export * from "./grid-card";
 export * from "./header";
 export * from "./image";
