@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import { default as InputNumberCustom } from "./input-number";
 
 export interface InputNumberProps {
@@ -7,18 +7,23 @@ export interface InputNumberProps {
   addonBefore?: ReactNode;
   bordered?: boolean;
   defaultValue?: number;
+  value?: number;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 const StyledInputNumber = styled(InputNumberCustom)``;
 
-export function InputNumber({
-  addonAfter,
-  addonBefore,
-  bordered,
-  defaultValue = 1,
-}: InputNumberProps) {
-  const passProps = { addonAfter, addonBefore, bordered, defaultValue };
-  return <StyledInputNumber {...passProps} />;
-}
+const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
+  ({ addonAfter, addonBefore, bordered, defaultValue = 1, value }, ref) => {
+    const passProps = {
+      addonAfter,
+      addonBefore,
+      bordered,
+      defaultValue,
+      value,
+    };
+    return <StyledInputNumber ref={ref} {...passProps} />;
+  }
+);
 
 export default InputNumber;

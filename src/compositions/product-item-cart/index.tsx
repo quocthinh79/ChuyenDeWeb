@@ -1,10 +1,16 @@
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { useTheme } from "@emotion/react";
-import { Card, Flex, Image, InputNumber, Text, Title } from "../../components";
+import {
+  Card,
+  Flex,
+  Image,
+  IncreaseInput,
+  Text,
+  Title,
+} from "../../components";
 import Button from "../../components/button";
 import { Row } from "../../components/grid";
 import Col from "../../components/grid/column";
-import Space, { SizeProps, SpaceCompact } from "../../components/space";
+import Space, { SizeProps } from "../../components/space";
 import {
   EButtonTypes,
   EDirectionFlex,
@@ -16,20 +22,25 @@ import {
 import { arrayToString } from "../../core/utilities/array";
 
 export interface ProductItemCartProps {
+  laptopID: number;
   laptopName: string;
   laptopSummary: string[];
   laptopPrice: number;
-  laptopImage?: string;
+  laptopImage: string;
+  removeItemFromCart?: () => void;
 }
 
 function ProductItemCart({
+  laptopID,
   laptopName = "This is Laptop Name",
   laptopPrice = 0,
   laptopSummary = [],
   laptopImage = "",
+  removeItemFromCart,
 }: ProductItemCartProps) {
   const { colorPrice } = useTheme();
   const _laptopSummary = arrayToString(laptopSummary || []);
+
   return (
     <Card>
       <Row gutter={[16, 16]}>
@@ -42,13 +53,7 @@ function ProductItemCart({
           <Title level={4}>{laptopName}</Title>
           <Space size={SizeProps.Large} direction={EDirectionType.Vertical}>
             <Text>{_laptopSummary}</Text>
-            <Space>
-              <SpaceCompact>
-                <Button icon={<MinusOutlined />}></Button>
-                <InputNumber />
-                <Button icon={<PlusOutlined />}></Button>
-              </SpaceCompact>
-            </Space>
+            <IncreaseInput />
           </Space>
         </Col>
         <Col span={6}>
@@ -60,7 +65,12 @@ function ProductItemCart({
             <Text textColor={colorPrice} strong>
               {formatCurrency(laptopPrice || 0)}
             </Text>
-            <Button type={EButtonTypes.Primary} block danger>
+            <Button
+              onClick={removeItemFromCart}
+              type={EButtonTypes.Primary}
+              block
+              danger
+            >
               Xóa khỏi giỏ hàng
             </Button>
           </Flex>

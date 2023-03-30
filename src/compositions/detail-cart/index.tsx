@@ -5,24 +5,30 @@ import ProductItemCart from "../../compositions/product-item-cart";
 import TotalPriceInCart from "../../compositions/total-price-in-cart";
 import { SPACE_BETWEEN_ITEMS } from "../../const";
 import { sumValueArray } from "../../core/utilities/array";
-import { productItemCart } from "../../dummy-data/product-item-cart";
+import { useHandleCartItems } from "../../hooks/use-handle-cart-items";
 
 export function DetailCart() {
-  const priceItem = productItemCart.map(({ laptopPrice }, index) => {
-    return laptopPrice;
-  });
+  const { listItemsCart, removeItemFromCart } = useHandleCartItems();
 
   return (
     <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
       <Col span={16}>
         <Space size={SizeProps.Middle} widthFull>
-          {productItemCart?.map((item, index) => (
-            <ProductItemCart key={`${item.laptopName}${index}`} {...item} />
+          {listItemsCart?.map((item, index) => (
+            <ProductItemCart
+              key={item.laptopID}
+              {...item}
+              removeItemFromCart={() => removeItemFromCart(item?.laptopID)}
+            />
           ))}
         </Space>
       </Col>
       <Col span={8}>
-        <TotalPriceInCart totalPrice={sumValueArray(priceItem)} />
+        <TotalPriceInCart
+          totalPrice={sumValueArray(
+            listItemsCart?.map(({ laptopPrice }) => laptopPrice)
+          )}
+        />
       </Col>
     </Row>
   );
