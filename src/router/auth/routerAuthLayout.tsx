@@ -1,11 +1,28 @@
-
+import styled from "@emotion/styled";
 import { Outlet } from "react-router-dom";
-import { Layout } from "../../components";
+import { ContainerFixed, Content, Layout } from "@components";
 
 function RouterAuthLayout() {
+  const StyledContainerFixed = styled(ContainerFixed)`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  `;
+
+  const StyledContent = styled(Content)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
   return (
     <Layout>
-      <Outlet />
+      <StyledContainerFixed position="center">
+        <StyledContent>
+          <ContainerFixed>
+            <Outlet />
+          </ContainerFixed>
+        </StyledContent>
+      </StyledContainerFixed>
     </Layout>
   );
 }

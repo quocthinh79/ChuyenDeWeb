@@ -7,6 +7,8 @@ const ForgotPasswordPage = lazy(
 const LoginPage = lazy(() => import("../../pages/auth/login"));
 const RegisterPage = lazy(() => import("../../pages/auth/register"));
 const RouterAuthLayout = lazy(() => import("./routerAuthLayout"));
+const OTP = lazy(() => import("../../pages/auth/otp"));
+const ChangePassword = lazy(() => import("../../pages/auth/change-password"));
 
 export const routerAuthConfig: object = {
   path: routerPathFull.auth.root,
@@ -37,6 +39,22 @@ export const routerAuthConfig: object = {
       element: (
         <Suspense fallback={<>Loading</>}>
           <RegisterPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: routerPathFull.auth.otp,
+      element: (
+        <Suspense fallback={<>Loading</>}>
+          <OTP />
+        </Suspense>
+      ),
+    },
+    {
+      path: routerPathFull.auth.newPassword,
+      element: (
+        <Suspense fallback={<>Loading</>}>
+          <ChangePassword />
         </Suspense>
       ),
     },
