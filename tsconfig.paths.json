@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["src/components/index.ts"],
-      "@core": ["src/core/index.ts"]
+      "@core": ["src/core/index.ts"],
+      "@constant": ["src/const/index.ts"],
+      "@compositions": ["src/compositions/index.ts"]
     }
   }
 }
