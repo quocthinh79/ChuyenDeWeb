@@ -1,42 +1,72 @@
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { useTheme } from "@emotion/react";
-import React from "react";
-import { Flex, Image, Text, Title } from "../../components";
+import { Card, Flex, Image, InputNumber, Text, Title } from "../../components";
 import Button from "../../components/button";
 import { Row } from "../../components/grid";
 import Col from "../../components/grid/column";
+import Space, { SizeProps, SpaceCompact } from "../../components/space";
 import {
   EButtonTypes,
   EDirectionFlex,
+  EDirectionType,
   EFlexAlign,
   EJustifyFlex,
   formatCurrency,
 } from "../../core";
+import { arrayToString } from "../../core/utilities/array";
 
-function ProductItemCart() {
+export interface ProductItemCartProps {
+  laptopName: string;
+  laptopSummary: string[];
+  laptopPrice: number;
+  laptopImage?: string;
+}
+
+function ProductItemCart({
+  laptopName = "This is Laptop Name",
+  laptopPrice = 0,
+  laptopSummary = [],
+  laptopImage = "",
+}: ProductItemCartProps) {
   const { colorPrice } = useTheme();
+  const _laptopSummary = arrayToString(laptopSummary || []);
   return (
-    <Row gutter={[16, 16]}>
-      <Col span={4}>
-        <Image
-          preview={false}
-          src="https://images.thinkgroup.vn/unsafe/152x152/filters:background_color(white)/https://media-api-beta.thinkpro.vn/media/core/products/2023/1/14/Lenovo-ThinkPad-P16-Gen-1-Mobile-WorkStation-2022-H1.jpeg"
-        />
-      </Col>
-      <Col span={16}>
-        <Title level={4}>Dell Alienware X14 (AlienwareX1401NS)</Title>
-        <Text>Abc</Text>
-      </Col>
-      <Col span={4}>
-        <Flex direction={EDirectionFlex.Column} align={EFlexAlign.Center}>
-          <Text textColor={colorPrice} strong>
-            {formatCurrency(100000000)}
-          </Text>
-          <Button type={EButtonTypes.Primary} block danger>
-            Xóa khỏi giỏ hàng
-          </Button>
-        </Flex>
-      </Col>
-    </Row>
+    <Card>
+      <Row gutter={[16, 16]}>
+        <Col span={4}>
+          <Flex justify={EJustifyFlex.Center} align={EFlexAlign.Center}>
+            <Image preview={false} src={laptopImage} />
+          </Flex>
+        </Col>
+        <Col span={13} offset={1}>
+          <Title level={4}>{laptopName}</Title>
+          <Space size={SizeProps.Large} direction={EDirectionType.Vertical}>
+            <Text>{_laptopSummary}</Text>
+            <Space>
+              <SpaceCompact>
+                <Button icon={<MinusOutlined />}></Button>
+                <InputNumber />
+                <Button icon={<PlusOutlined />}></Button>
+              </SpaceCompact>
+            </Space>
+          </Space>
+        </Col>
+        <Col span={6}>
+          <Flex
+            justify={EJustifyFlex.SpaceAround}
+            direction={EDirectionFlex.Column}
+            align={EFlexAlign.Center}
+          >
+            <Text textColor={colorPrice} strong>
+              {formatCurrency(laptopPrice || 0)}
+            </Text>
+            <Button type={EButtonTypes.Primary} block danger>
+              Xóa khỏi giỏ hàng
+            </Button>
+          </Flex>
+        </Col>
+      </Row>
+    </Card>
   );
 }
 

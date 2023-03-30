@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { Divider } from "antd";
 import { ReactNode, memo } from "react";
 import { Content, Footer, Image, Layout, Text } from "../../components";

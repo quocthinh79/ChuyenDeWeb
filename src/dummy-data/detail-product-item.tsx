@@ -5,7 +5,7 @@ export const detailProductItem: ILaptopInformation = {
   ram: "32GB, LPDDR5, 5200 MHz",
   screen: `13.4", 1920 x 1200 px, IPS, Chống chói Hz`,
   gpu: "Intel® Iris® Xe Graphics",
-  disk: "SSD 10SPACE_BETWEEN_ITEMSGB",
+  disk: "SSD 10GB",
   battery: "51WHr",
   mainConnect: "2 x Type-C, Thunderbolt",
   weight: "1.17 kg",

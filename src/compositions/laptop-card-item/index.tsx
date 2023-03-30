@@ -23,7 +23,7 @@ export function LaptopCardItem({
 }: LaptopCardItemProps) {
   const { colorPrice } = useTheme();
   return (
-    <Link to={`detail/${idProduct}`}>
+    <Link to={`/detail/${idProduct}`}>
       <Card hoverable>
         <Image placeholder={laptopName} preview={false} src={srcImage} />
         <Title level={4}>{laptopName}</Title>
