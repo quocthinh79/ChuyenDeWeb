@@ -17,6 +17,7 @@ export interface FormProps {
   onFinish?: (values: any) => void;
   onFinishFailed?: (props: any) => void;
   autoComplete?: string;
+  layout?: "horizontal" | "vertical" | "inline";
 }
 
 export function Form({
@@ -25,12 +26,13 @@ export function Form({
   children,
   autoComplete,
   initialValues,
-  labelCol = { span: 5 },
+  labelCol,
   name,
   onFinish,
   onFinishFailed,
   style,
   wrapperCol,
+  layout = "horizontal",
 }: FormProps) {
   const passProps = {
     form,
@@ -43,6 +45,7 @@ export function Form({
     onFinishFailed,
     style,
     wrapperCol,
+    layout,
   };
   return <StyledForm {...passProps}>{children}</StyledForm>;
 }

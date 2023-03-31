@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { default as RadioGroupCustom } from "./radio-group";
 import { ReactNode } from "react";
+import { RadioChangeEvent } from "antd";
 
 export interface RadioGroupProps {
   children?: ReactNode;
@@ -12,7 +13,7 @@ export interface RadioGroupProps {
   optionType?: "default" | "button";
   size?: "large" | "middle" | "small";
   value?: any;
-  onChange?: (e: any) => undefined;
+  onChange?: (e: any) => void;
 }
 
 const StyledRadioGroup = styled(RadioGroupCustom)``;

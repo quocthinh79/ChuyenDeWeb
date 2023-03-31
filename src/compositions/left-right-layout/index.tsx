@@ -13,11 +13,7 @@ export function LeftRightLayout({
 }: LeftRightLayoutProps) {
   return (
     <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
-      <Col span={16}>
-        <Space size={SizeProps.Middle} widthFull>
-          {leftChildren}
-        </Space>
-      </Col>
+      <Col span={16}>{leftChildren}</Col>
       <Col span={8}>{rightChildren}</Col>
     </Row>
   );

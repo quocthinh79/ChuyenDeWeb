@@ -31,9 +31,9 @@ const contentStyle: React.CSSProperties = {
 
 export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
   return (
-    <Layout>
+    <Layout className={templateStringToClassName()`min-height: 100vh;`}>
       <MainHeader />
-      <ContainerFixed breakpoint={EBreakpoint.XL} position="center">
+      <ContainerFixed breakpoint={EBreakpoint.XL}>
         {carousel && (
           <Carousel lazyLoad="progressive" autoplay draggable>
             <div>
@@ -59,8 +59,8 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
           <Content>{children}</Content>
         </Layout>
       </ContainerFixed>
-      <Divider />
-      <Footer>
+      <Footer style={{ marginTop: "auto" }}>
+        <Divider />
         <ContainerFixed breakpoint={EBreakpoint.XL} position="center">
           <Text textAlign={ETextAlign.Center}>
             Electronic Commerce ©2023 Created by{" "}
