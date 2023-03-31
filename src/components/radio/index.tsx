@@ -13,8 +13,21 @@ export interface RadioProps {
 
 const StyledRadio = styled(RadioCustom)``;
 
-export function Radio({ children, autoFocus }: RadioProps) {
-  const passProps = { autoFocus };
+export function Radio({
+  children,
+  autoFocus,
+  checked = false,
+  defaultChecked = false,
+  disabled,
+  value,
+}: RadioProps) {
+  const passProps = {
+    autoFocus,
+    checked,
+    defaultChecked,
+    disabled,
+    value,
+  };
   return <StyledRadio {...passProps}>{children}</StyledRadio>;
 }
 

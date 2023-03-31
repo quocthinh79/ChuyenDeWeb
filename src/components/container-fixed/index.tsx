@@ -17,7 +17,7 @@ export function ContainerFixed({
   children,
   className,
   breakpoint = EBreakpoint.XS,
-  position = "left",
+  position,
 }: ContainerFixedProps) {
   const theme = useTheme();
 
@@ -50,9 +50,10 @@ export function ContainerFixed({
                return "margin: auto";
              case "right":
                return "margin-left: auto; margin-right: 0;";
-
-             default:
+             case "left":
                return "";
+             default:
+               return "margin: 0 auto";
            }
          })()}
        `
