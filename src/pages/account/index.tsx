@@ -1,10 +1,14 @@
-import { LeftRightLayout } from "@compositions";
+import {
+  AccountLeftContent,
+  AccountRightContent,
+  LeftRightLayout,
+} from "@compositions";
 
 export function Account() {
   return (
     <LeftRightLayout
-      leftChildren={<div>This is left content</div>}
-      rightChildren={<div>This is right content</div>}
+      leftChildren={<AccountLeftContent />}
+      rightChildren={<AccountRightContent />}
     />
   );
 }
