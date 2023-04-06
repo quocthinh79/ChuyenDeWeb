@@ -1,16 +1,18 @@
 import { useTheme } from "@emotion/react";
 import {
+  Button,
   Card,
+  Col,
   Flex,
   Image,
-  IncreaseInput,
+  InputNumber,
+  Row,
+  SizeProps,
+  Space,
+  SpaceCompact,
   Text,
   Title,
-} from "../../components";
-import Button from "../../components/button";
-import { Row } from "../../components/grid";
-import Col from "../../components/grid/column";
-import Space, { SizeProps } from "../../components/space";
+} from "@components";
 import {
   EButtonTypes,
   EDirectionFlex,
@@ -18,8 +20,10 @@ import {
   EFlexAlign,
   EJustifyFlex,
   formatCurrency,
-} from "../../core";
+} from "@core";
 import { arrayToString } from "../../core/utilities/array";
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { useRef, useState } from "react";
 
 export interface ProductItemCartProps {
   laptopID: number;
@@ -27,6 +31,7 @@ export interface ProductItemCartProps {
   laptopSummary: string[];
   laptopPrice: number;
   laptopImage: string;
+  quantity: number;
   removeItemFromCart?: () => void;
 }
 
@@ -36,10 +41,22 @@ function ProductItemCart({
   laptopPrice = 0,
   laptopSummary = [],
   laptopImage = "",
+  quantity = 1,
   removeItemFromCart,
 }: ProductItemCartProps) {
   const { colorPrice } = useTheme();
   const _laptopSummary = arrayToString(laptopSummary || []);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState(quantity);
+
+  const increase = () => {
+    setValue(Number(inputRef.current?.value) + 1);
+  };
+
+  const decrease = () => {
+    if (Number(inputRef.current?.value) > 1)
+      setValue(Number(inputRef.current?.value) - 1);
+  };
 
   return (
     <Card>
@@ -53,7 +70,13 @@ function ProductItemCart({
           <Title level={4}>{laptopName}</Title>
           <Space size={SizeProps.Large} direction={EDirectionType.Vertical}>
             <Text>{_laptopSummary}</Text>
-            <IncreaseInput />
+            <Space>
+              <SpaceCompact>
+                <Button onClick={decrease} icon={<MinusOutlined />}></Button>
+                <InputNumber value={value} ref={inputRef} />
+                <Button onClick={increase} icon={<PlusOutlined />}></Button>
+              </SpaceCompact>
+            </Space>
           </Space>
         </Col>
         <Col span={6}>
@@ -63,7 +86,7 @@ function ProductItemCart({
             align={EFlexAlign.Center}
           >
             <Text textColor={colorPrice} strong>
-              {formatCurrency(laptopPrice || 0)}
+              {formatCurrency(laptopPrice * value || 0)}
             </Text>
             <Button
               onClick={removeItemFromCart}

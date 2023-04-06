@@ -2,7 +2,13 @@ import { useTheme } from "@emotion/react";
 import { Card, Divider, Flex, Text } from "../../components";
 import Button from "../../components/button";
 import Space from "../../components/space";
-import { EButtonTypes, EJustifyFlex, formatCurrency } from "../../core";
+import {
+  EButtonTypes,
+  EJustifyFlex,
+  formatCurrency,
+  routerPathFull,
+} from "@core";
+import { useNavigate } from "react-router-dom";
 
 export interface TotalPriceInCartProps {
   totalPrice: number;
@@ -10,6 +16,7 @@ export interface TotalPriceInCartProps {
 
 function TotalPriceInCart({ totalPrice }: TotalPriceInCartProps) {
   const { colorPrice } = useTheme();
+  const navigation = useNavigate();
 
   return (
     <Card>
@@ -22,7 +29,11 @@ function TotalPriceInCart({ totalPrice }: TotalPriceInCartProps) {
             {formatCurrency(totalPrice)}
           </Text>
         </Flex>
-        <Button block type={EButtonTypes.Primary}>
+        <Button
+          onClick={() => navigation(routerPathFull.checkout.root)}
+          block
+          type={EButtonTypes.Primary}
+        >
           Thanh toán
         </Button>
       </Space>

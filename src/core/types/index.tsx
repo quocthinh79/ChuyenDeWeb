@@ -21,3 +21,6 @@ export * from "./enum/EWrapFlex";
 export * from "./interface/ILaptopInfor";
 export * from "./interface/ITypeDataTable";
 export * from "./enum/EDatePicker";
+export * from "./interface/IProvinces";
+export * from "./enum/EModalWidth";
+export * from "./enum/EProvinces";

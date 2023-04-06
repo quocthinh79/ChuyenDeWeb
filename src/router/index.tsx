@@ -13,6 +13,7 @@ const Account = lazy(() => import("../pages/account"));
 const Cart = lazy(() => import("../pages/cart"));
 const DetailPage = lazy(() => import("../pages/detail"));
 const ProductPage = lazy(() => import("../pages/product"));
+const PaymentPage = lazy(() => import("../pages/payment"));
 
 const router = [
   {
@@ -33,11 +34,7 @@ const router = [
     ],
   },
   {
-    element: (
-      <Suspense fallback={<>Loading</>}>
-        <RouterLayout />
-      </Suspense>
-    ),
+    element: <RouterLayout />,
     children: [
       {
         path: routerPathFull.aboutUs.root,
@@ -68,6 +65,14 @@ const router = [
         element: (
           <Suspense fallback={<>Loading</>}>
             <DetailPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: routerPathFull.checkout.root,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <PaymentPage />
           </Suspense>
         ),
       },
