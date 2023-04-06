@@ -1,19 +1,24 @@
-import styled from "@emotion/styled";
-import { Divider } from "antd";
-import { ReactNode, memo } from "react";
-import { Content, Footer, Image, Layout, Text } from "../../components";
-import Carousel from "../../components/carousel";
-import ContainerFixed from "../../components/container-fixed";
-import { Link as AntLink } from "../../components/typography/link";
-import { GITHUB_LINK, SPACE_BETWEEN_ITEMS } from "../../const";
+import { RESUME_LINK, SPACE_BETWEEN_ITEMS } from "@constant";
 import {
   EBreakpoint,
   ETargetAnchor,
   ETextAlign,
   templateStringToClassName,
-} from "../../core";
+} from "@core";
+import { ReactNode, memo } from "react";
 import MainHeader from "../main-header";
 import MainSider from "../main-sider";
+import {
+  Carousel,
+  ContainerFixed,
+  Content,
+  Divider,
+  Footer,
+  Image,
+  Layout,
+  Link,
+  Text,
+} from "@components";
 
 export interface MainLayoutProps {
   children?: ReactNode;
@@ -29,6 +34,11 @@ const contentStyle: React.CSSProperties = {
   background: "#364d79",
 };
 
+const BannerThinkpad = require("../../images/banner-thinkpad.jpg");
+const BannerMSI = require("../../images/banner_MSI.jpg");
+const BannerASUS = require("../../images/banner_ASUS.jpg");
+const BannerACER = require("../../images/banner_ACER.png");
+
 export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
   return (
     <Layout className={templateStringToClassName()`min-height: 100vh;`}>
@@ -36,18 +46,10 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
       <ContainerFixed breakpoint={EBreakpoint.XL}>
         {carousel && (
           <Carousel lazyLoad="progressive" autoplay draggable>
-            <div>
-              <h3 style={contentStyle}>1</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>2</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>3</h3>
-            </div>
-            <div>
-              <h3 style={contentStyle}>4</h3>
-            </div>
+            <Image height={350} preview={false} src={BannerThinkpad} />
+            <Image height={350} preview={false} src={BannerMSI} />
+            <Image height={350} preview={false} src={BannerASUS} />
+            <Image height={350} preview={false} src={BannerACER} />
           </Carousel>
         )}
         <Layout
@@ -64,9 +66,9 @@ export function MainLayout({ children, sider, carousel }: MainLayoutProps) {
         <ContainerFixed breakpoint={EBreakpoint.XL} position="center">
           <Text textAlign={ETextAlign.Center}>
             Electronic Commerce ©2023 Created by{" "}
-            <AntLink target={ETargetAnchor.Blank} href={GITHUB_LINK}>
+            <Link target={ETargetAnchor.Blank} href={RESUME_LINK}>
               Lê Quốc Thịnh
-            </AntLink>
+            </Link>
           </Text>
         </ContainerFixed>
       </Footer>

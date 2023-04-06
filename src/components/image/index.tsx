@@ -2,7 +2,9 @@ import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { default as ImageCustom } from "./image";
 
-const StyledImage = styled(ImageCustom)``;
+const StyledImage = styled(ImageCustom)`
+  object-fit: cover;
+`;
 
 export interface ImageProps {
   alt?: string;
