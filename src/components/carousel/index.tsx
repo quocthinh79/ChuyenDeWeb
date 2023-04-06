@@ -6,6 +6,10 @@ import { templateStringToClassName } from "../../core";
 import { default as CarouselCustom } from "./carousel";
 
 const StyledCarousel = styled(CarouselCustom)`
+  .slick-list {
+    border-radius: 10px;
+    margin: 28px 0;
+  }
   .slick-prev,
   .slick-prev:hover,
   .slick-prev:focus {
@@ -25,6 +29,7 @@ const StyledCarousel = styled(CarouselCustom)`
 
 export interface CarouselProps {
   autoplay?: boolean;
+  adaptiveHeight?: boolean;
   dotPosition?: "top" | "bottom" | "left" | "right";
   dots?: boolean | { className?: string };
   easing?: string;
@@ -45,8 +50,9 @@ export interface CarouselProps {
   beforeChange?: (from: any, to: any) => void;
 }
 
-function Carousel({
+export function Carousel({
   autoplay = false,
+  adaptiveHeight = true,
   dotPosition = "bottom",
   dots = true,
   easing = "linear",
@@ -68,6 +74,7 @@ function Carousel({
 }: CarouselProps) {
   const passProps = {
     autoplay,
+    adaptiveHeight,
     dotPosition,
     dots,
     easing,

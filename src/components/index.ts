@@ -38,3 +38,4 @@ export * from "./typography";
 export * from "./select";
 export * from "./modal";
 export * from "./breadcrumb";
+export * from "./carousel";

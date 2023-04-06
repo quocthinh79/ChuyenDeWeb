@@ -9,3 +9,4 @@ export const GITHUB_LINK = "https://github.com/quocthinh79";
 export const SPACE_BETWEEN_ITEMS = 24;
 
 export const PROVINCES_API_LINK = "https://provinces.open-api.vn/api/?depth=3";
+export const RESUME_LINK = "https://quoc-thinh-resume.netlify.app/";
