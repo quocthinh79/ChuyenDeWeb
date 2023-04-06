@@ -5,8 +5,14 @@ import "./App.css";
 import { customToken } from "./core/theme";
 import Router from "./router";
 import theme from "antd/es/theme";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 
 const { useToken } = theme;
+const queryClient = new QueryClient();
 
 function App() {
   const { token: uiFrameworkToken } = useToken();
@@ -15,20 +21,22 @@ function App() {
     [uiFrameworkToken]
   );
   return (
-    <ConfigProvider
-      theme={
-        {
-          // algorithm: theme.darkAlgorithm,
-          // token: {
-          //   colorPrimary: "#000",
-          // },
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider
+        theme={
+          {
+            // algorithm: theme.darkAlgorithm,
+            // token: {
+            //   colorPrimary: "#000",
+            // },
+          }
         }
-      }
-    >
-      <ThemeProvider theme={token}>
-        <Router />
-      </ThemeProvider>
-    </ConfigProvider>
+      >
+        <ThemeProvider theme={token}>
+          <Router />
+        </ThemeProvider>
+      </ConfigProvider>
+    </QueryClientProvider>
   );
 }
 

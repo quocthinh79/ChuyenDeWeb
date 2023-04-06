@@ -25,6 +25,8 @@ export interface InputTextProps {
   onChange?: () => undefined;
   onPressEnter?: () => any;
   onBlur?: () => any;
+  onFocus?: () => any;
+  onClick?: () => any;
 }
 
 export function InputText({
@@ -47,6 +49,8 @@ export function InputText({
   onChange,
   onPressEnter,
   onBlur,
+  onFocus,
+  onClick,
 }: InputTextProps) {
   const passProps = {
     addonAfter,
@@ -68,6 +72,8 @@ export function InputText({
     onChange,
     onPressEnter,
     onBlur,
+    onFocus,
+    onClick,
   };
   return <StyledInputText type="text" {...passProps} />;
 }

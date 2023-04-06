@@ -5,6 +5,14 @@ import { default as FormCustom } from "./form";
 
 const StyledForm = styled(FormCustom)``;
 
+export interface FieldData {
+  name: string | number | (string | number)[];
+  value?: any;
+  touched?: boolean;
+  validating?: boolean;
+  errors?: string[];
+}
+
 export interface FormProps {
   form?: FormInstance;
   component?: ComponentType | boolean | any;
@@ -18,6 +26,7 @@ export interface FormProps {
   onFinishFailed?: (props: any) => void;
   autoComplete?: string;
   layout?: "horizontal" | "vertical" | "inline";
+  fields?: FieldData[];
 }
 
 export function Form({
@@ -33,6 +42,7 @@ export function Form({
   style,
   wrapperCol,
   layout = "horizontal",
+  fields,
 }: FormProps) {
   const passProps = {
     form,
@@ -46,6 +56,7 @@ export function Form({
     style,
     wrapperCol,
     layout,
+    fields,
   };
   return <StyledForm {...passProps}>{children}</StyledForm>;
 }

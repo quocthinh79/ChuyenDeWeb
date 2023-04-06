@@ -31,6 +31,9 @@ export const routerPath = {
   detail: {
     root: "detail/:idProduct",
   },
+  checkout: {
+    root: "checkout",
+  },
 };
 
 export type TRouterPath = typeof routerPath;
