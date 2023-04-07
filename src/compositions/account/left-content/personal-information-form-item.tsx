@@ -7,7 +7,7 @@ import {
   SizeProps,
   Space,
 } from "@components";
-import { FORMAT_DATE_DEFAULT } from "@constant";
+import { EMPTY_INPUT_ERROR, FORMAT_DATE_DEFAULT } from "@constant";
 import { EDirectionType } from "@core";
 import { memo } from "react";
 
@@ -22,7 +22,7 @@ export function PersonalInformationFormItem() {
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="name"
@@ -34,7 +34,7 @@ export function PersonalInformationFormItem() {
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="phone"
@@ -46,7 +46,7 @@ export function PersonalInformationFormItem() {
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="email"
@@ -58,7 +58,7 @@ export function PersonalInformationFormItem() {
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="birthday"
@@ -70,7 +70,7 @@ export function PersonalInformationFormItem() {
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="sex"
