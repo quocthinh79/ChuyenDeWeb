@@ -1,4 +1,5 @@
 import { Flex, FormItem, InputNumber } from "@components";
+import { EMPTY_INPUT_ERROR } from "@constant";
 import { EJustifyFlex } from "@core";
 import { message } from "antd";
 
@@ -10,7 +11,7 @@ function OtpFormItem() {
         rules={[
           {
             required: true,
-            message: "Please input your otp!",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
       >

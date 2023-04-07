@@ -1,8 +1,26 @@
-import { FormItem, InputText, SizeProps, Space } from "@components";
-import { EDirectionType } from "@core";
+import {
+  FormItem,
+  InputText,
+  OptionsSelect,
+  Select,
+  SizeProps,
+  Space,
+} from "@components";
+import { EMPTY_INPUT_ERROR } from "@constant";
+import { EDirectionType, convertArrayToOptionsSelect } from "@core";
+import { useSelectProvinces } from "@hooks";
 import { memo } from "react";
 
 export function AddressInformationFormItem() {
+  const {
+    setCitySelected,
+    setDistrictsSelected,
+    setWardSelected,
+    cityList,
+    districtsList,
+    wardsList,
+  } = useSelectProvinces();
+
   return (
     <Space
       size={SizeProps.Middle}
@@ -13,37 +31,49 @@ export function AddressInformationFormItem() {
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="city"
         label="Tỉnh/Thành phố"
       >
-        <InputText placeholder="Nhập Tỉnh/Thành phố" />
+        <Select
+          placeholder="Chọn Tỉnh/Thành phố"
+          options={convertArrayToOptionsSelect(cityList)}
+          onChange={(value: string) => setCitySelected(value)}
+        />
       </FormItem>
       <FormItem
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="district"
         label="Quận/Huyện"
       >
-        <InputText placeholder="Nhập Quận/Huyện" />
+        <Select
+          placeholder="Chọn Quận/Huyện"
+          options={convertArrayToOptionsSelect(districtsList)}
+          onChange={(value: string) => setDistrictsSelected(value)}
+        />
       </FormItem>
       <FormItem
         rules={[
           {
             required: true,
-            message: "Không được để trống",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
         name="ward"
         label="Phường/Xã"
       >
-        <InputText placeholder="Nhập Phường/Xã" />
+        <Select
+          placeholder="Chọn Phường/Xã"
+          options={convertArrayToOptionsSelect(wardsList)}
+          onChange={(value: string) => setWardSelected(value)}
+        />
       </FormItem>
     </Space>
   );

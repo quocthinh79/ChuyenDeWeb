@@ -1,4 +1,5 @@
 import { FormItem, InputPassword, InputText, Space } from "@components";
+import { EMPTY_INPUT_ERROR } from "@constant";
 
 export function ForgotPasswordFormItem() {
   return (
@@ -9,7 +10,7 @@ export function ForgotPasswordFormItem() {
         rules={[
           {
             required: true,
-            message: "Please input your username!",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
       >

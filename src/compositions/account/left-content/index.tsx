@@ -1,17 +1,31 @@
 import { Button, Card, Form, SizeProps, Space, Title } from "@components";
-import { dayjs, EButtonTypes, EDirectionType, EHtmlButtonTypes } from "@core";
+import {
+  dayjs,
+  EButtonTypes,
+  EDirectionType,
+  EHtmlButtonTypes,
+  handleSchemaError,
+  schemaInformationAccount,
+} from "@core";
 import { useForm } from "antd/es/form/Form";
 import PersonalInformationFormItem from "./personal-information-form-item";
 
 export function AccountLeftContent() {
   const [form] = useForm();
   const onFinish = (values: any) => {
-    console.log("Success:", values);
-    console.log(
-      `${dayjs(values.birthday).get("date")}/${
-        dayjs(values.birthday).get("month") + 1
-      }/${dayjs(values.birthday).get("year")}`
-    );
+    try {
+      schemaInformationAccount.parse(values);
+      console.log("Success:", values);
+    } catch (error) {
+      console.log(error);
+      handleSchemaError(error, form);
+    }
+    // console.log("Success:", values);
+    // console.log(
+    //   `${dayjs(values.birthday).get("date")}/${
+    //     dayjs(values.birthday).get("month") + 1
+    //   }/${dayjs(values.birthday).get("year")}`
+    // );
   };
 
   const onFinishFailed = (errorInfo: any) => {

@@ -4,10 +4,11 @@ import {
   EDirectionType,
   EHtmlButtonTypes,
   ETextAlign,
+  handleSchemaError,
   routerPathFull,
+  schemaChangePassword,
 } from "@core";
 import { useForm } from "antd/es/form/Form";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import ChangePasswordFormItem from "./change-password-form-item";
 
@@ -16,7 +17,13 @@ export function ChangePassword() {
   const navigation = useNavigate();
   const onFinish = (values: any) => {
     console.log("Success:", values);
-    navigation(routerPathFull.auth.login);
+    try {
+      schemaChangePassword.parse(values);
+      navigation(routerPathFull.auth.login);
+    } catch (error) {
+      console.log(error);
+      handleSchemaError(error, form);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {

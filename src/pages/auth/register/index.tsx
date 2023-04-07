@@ -14,7 +14,9 @@ import {
   EHtmlButtonTypes,
   EJustifyFlex,
   ETextAlign,
+  handleSchemaError,
   routerPathFull,
+  schemaRegister,
 } from "@core";
 import { useForm, useWatch } from "antd/es/form/Form";
 import { useState } from "react";
@@ -24,13 +26,18 @@ import RegisterFormItem from "./register-form-item";
 function RegisterPage() {
   const [nonDuplicate, setNonDuplicate] = useState(true);
   const [form] = useForm();
-  const rePassword = useWatch("re-password", form);
+  const rePassword = useWatch("rePassword", form);
   const password = useWatch("password", form);
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
-    if (rePassword !== password) return setNonDuplicate(false);
-    return setNonDuplicate(true);
+    try {
+      if (rePassword !== password) setNonDuplicate(false);
+      schemaRegister.parse(values);
+      setNonDuplicate(true);
+    } catch (error) {
+      handleSchemaError(error, form);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
