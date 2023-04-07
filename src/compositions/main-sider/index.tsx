@@ -66,7 +66,7 @@ export function MainSider() {
   return (
     <StyledContainer>
       <Sider width={300}>
-        <Collapse>
+        <Collapse defaultActiveKey={["1", "2", "3"]}>
           <CollapsePanel header="Nhu cầu" key="1">
             <SiderItem
               selectedTags={selectedTags}

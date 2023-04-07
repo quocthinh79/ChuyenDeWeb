@@ -27,7 +27,7 @@ export function ProductItemLayout({ children }: ProductItemLayoutProps) {
       ))}
       <Col span={SPACE_BETWEEN_ITEMS}>
         <Pagination
-          responsive
+          // responsive
           hideOnSinglePage
           // simple
           current={currentPage}

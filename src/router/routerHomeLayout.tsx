@@ -3,7 +3,7 @@ import MainLayout from "../compositions/main-layout";
 
 export function RouterHomeLayout() {
   return (
-    <MainLayout carousel>
+    <MainLayout carousel sider>
       <Outlet />
     </MainLayout>
   );
