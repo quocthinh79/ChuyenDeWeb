@@ -6,6 +6,7 @@ import Description from "../../components/descriptions";
 import Image from "../../components/image";
 import { Title } from "../../components/typography";
 import { formatCurrency } from "../../core";
+import { BadgeRibbon } from "@components";
 
 export interface LaptopCardItemProps {
   srcImage?: string;
@@ -24,18 +25,20 @@ export function LaptopCardItem({
   const { colorPrice } = useTheme();
   return (
     <Link to={`/detail/${idProduct}`}>
-      <Card hoverable>
-        <Image placeholder={laptopName} preview={false} src={srcImage} />
-        <Title level={4}>{laptopName}</Title>
-        <Description>
-          <DescriptionItem
-            contentStyle={{ color: colorPrice, fontWeight: 700 }}
-            label="Giá"
-          >
-            {formatCurrency(laptopCurrency, "VND")}
-          </DescriptionItem>
-        </Description>
-      </Card>
+      <BadgeRibbon text="Hot" color="red">
+        <Card hoverable>
+          <Image placeholder={laptopName} preview={false} src={srcImage} />
+          <Title level={4}>{laptopName}</Title>
+          <Description>
+            <DescriptionItem
+              contentStyle={{ color: colorPrice, fontWeight: 700 }}
+              label="Giá"
+            >
+              {formatCurrency(laptopCurrency, "VND")}
+            </DescriptionItem>
+          </Description>
+        </Card>
+      </BadgeRibbon>
     </Link>
   );
 }

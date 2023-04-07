@@ -40,3 +40,4 @@ export * from "./modal";
 export * from "./breadcrumb";
 export * from "./carousel";
 export * from "./dropdown/dropdown";
+export * from "./badge-ribbon";
