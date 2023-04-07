@@ -9,7 +9,7 @@ export interface UseSelectedTag {
   handleChange: (label: string, tag: string, checked: boolean) => void;
 }
 
-function useSelectedTag(): UseSelectedTag {
+export function useSelectedTag(): UseSelectedTag {
   const selected: SelectedTagsProps = {};
   const [selectedTags, setSelectedTags] = useState<SelectedTagsProps>({});
   const [searchParams, setSearchParams] = useSearchParams();

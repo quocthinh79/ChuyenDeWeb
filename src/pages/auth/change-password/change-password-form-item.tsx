@@ -1,5 +1,6 @@
 import { LockOutlined } from "@ant-design/icons";
 import { FormItem, InputPassword } from "@components";
+import { EMPTY_INPUT_ERROR } from "@constant";
 import React from "react";
 
 function ChangePasswordFormItem() {
@@ -9,7 +10,7 @@ function ChangePasswordFormItem() {
       rules={[
         {
           required: true,
-          message: "Plase enter a password",
+          message: EMPTY_INPUT_ERROR,
         },
       ]}
     >

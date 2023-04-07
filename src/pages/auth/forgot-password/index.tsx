@@ -14,7 +14,9 @@ import {
   EHtmlButtonTypes,
   EJustifyFlex,
   ETextAlign,
+  handleSchemaError,
   routerPathFull,
+  schemaForgotPassword,
 } from "@core";
 import { useForm, useWatch } from "antd/es/form/Form";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,7 +31,12 @@ function ForgotPasswordPage() {
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
-    navigate(routerPathFull.auth.otp);
+    try {
+      schemaForgotPassword.parse(values);
+      navigate(routerPathFull.auth.otp);
+    } catch (error) {
+      handleSchemaError(error, form);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {

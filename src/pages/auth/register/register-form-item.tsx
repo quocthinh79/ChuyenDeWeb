@@ -1,4 +1,5 @@
 import { FormItem, InputPassword, InputText, Space } from "@components";
+import { EMPTY_INPUT_ERROR } from "@constant";
 
 export function RegisterFormItem() {
   return (
@@ -9,7 +10,7 @@ export function RegisterFormItem() {
         rules={[
           {
             required: true,
-            message: "Please input your username!",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
       >
@@ -21,7 +22,7 @@ export function RegisterFormItem() {
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
       >
@@ -29,15 +30,27 @@ export function RegisterFormItem() {
       </FormItem>
       <FormItem
         label="Re-Password"
-        name="re-password"
+        name="rePassword"
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
       >
         <InputPassword />
+      </FormItem>
+      <FormItem
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: EMPTY_INPUT_ERROR,
+          },
+        ]}
+      >
+        <InputText />
       </FormItem>
     </Space>
   );

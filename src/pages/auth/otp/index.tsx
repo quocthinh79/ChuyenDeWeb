@@ -47,11 +47,6 @@ function OTP() {
               <Text textAlign={ETextAlign.Center}>
                 Vui lòng nhập mã xác minh được gửi tới
               </Text>
-              <Text textAlign={ETextAlign.Center}>
-                0982625202
-                {/* +{phoneCode}
-                {phoneNumber} */}
-              </Text>
             </Flex>
             <Form
               form={form}
