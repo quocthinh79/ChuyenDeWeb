@@ -1,4 +1,5 @@
 import { FormItem, InputPassword, InputText, Space } from "@components";
+import { EMPTY_INPUT_ERROR } from "@constant";
 
 export function LoginFormItem() {
   return (
@@ -9,7 +10,7 @@ export function LoginFormItem() {
         rules={[
           {
             required: true,
-            message: "Please input your username!",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
       >
@@ -21,7 +22,7 @@ export function LoginFormItem() {
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: EMPTY_INPUT_ERROR,
           },
         ]}
       >
