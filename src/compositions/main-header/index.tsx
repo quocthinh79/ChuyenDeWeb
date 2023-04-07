@@ -38,10 +38,10 @@ export function MainHeader() {
                 key: routerPathFull.home.root + "/",
                 label: <Link to={routerPathFull.home.root}>Trang chủ</Link>,
               },
-              {
-                key: routerPathFull.products.root,
-                label: <Link to={routerPathFull.products.root}>Sản phẩm</Link>,
-              },
+              // {
+              //   key: routerPathFull.products.root,
+              //   label: <Link to={routerPathFull.products.root}>Sản phẩm</Link>,
+              // },
               {
                 key: routerPathFull.aboutUs.root,
                 label: (

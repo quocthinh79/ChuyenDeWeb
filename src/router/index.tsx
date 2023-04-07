@@ -5,14 +5,12 @@ import { routerAdminConfig } from "./admin/routerAdminConfig";
 import routerAuthConfig from "./auth/routerAuthConfig";
 import RouterHomeLayout from "./routerHomeLayout";
 import RouterLayout from "./routerLayout";
-import RouterProductLayout from "./routerProductLayout";
 
 const HomePage = lazy(() => import("../pages/home"));
 const AboutUs = lazy(() => import("../pages/about-us/about-us"));
 const Account = lazy(() => import("../pages/account"));
 const Cart = lazy(() => import("../pages/cart"));
 const DetailPage = lazy(() => import("../pages/detail"));
-const ProductPage = lazy(() => import("../pages/product"));
 const PaymentPage = lazy(() => import("../pages/payment"));
 
 const router = [
@@ -77,23 +75,6 @@ const router = [
         ),
       },
       routerAdminConfig,
-    ],
-  },
-  {
-    element: (
-      <Suspense fallback={<>Loading</>}>
-        <RouterProductLayout />
-      </Suspense>
-    ),
-    children: [
-      {
-        path: routerPathFull.products.root,
-        element: (
-          <Suspense fallback={<>Loading</>}>
-            <ProductPage />
-          </Suspense>
-        ),
-      },
     ],
   },
   {

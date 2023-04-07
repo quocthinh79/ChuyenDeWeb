@@ -9,6 +9,7 @@ import { ReactNode, memo } from "react";
 import MainHeader from "../main-header";
 import MainSider from "../main-sider";
 import {
+  Card,
   Carousel,
   ContainerFixed,
   Content,
