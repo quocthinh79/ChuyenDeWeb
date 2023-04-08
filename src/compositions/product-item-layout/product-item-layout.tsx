@@ -32,7 +32,7 @@ export function ProductItemLayout({ children }: ProductItemLayoutProps) {
           // simple
           current={currentPage}
           defaultCurrent={1}
-          pageSize={10}
+          pageSize={9}
           total={100}
           onChange={handleChange}
         />
