@@ -1,64 +1,76 @@
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import { cx } from "@emotion/css";
-import { memo } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Flex, Header } from "../../components";
-import ContainerFixed from "../../components/container-fixed";
-import InputSearch from "../../components/input/input-search";
-import Menu from "../../components/menu";
+import {
+  Button,
+  ContainerFixed,
+  Flex,
+  Header,
+  Image,
+  InputSearch,
+  Menu,
+} from "@components";
+import { SPACE_BETWEEN_ITEMS } from "@constant";
 import {
   EBreakpoint,
+  EButtonTypes,
+  EDirectionFlex,
   EFlexAlign,
   EInputTextSize,
   EJustifyFlex,
   EModeMenu,
   routerPathFull,
   templateStringToClassName,
-} from "../../core";
-import useLogged from "../../hooks/use-logged/useLogged";
+} from "@core";
+import { cx } from "@emotion/css";
+import { useLogged } from "@hooks";
+import { memo } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+const logo = require("../../images/logo.png");
 
 export function MainHeader() {
   const logged = useLogged({});
   const location = useLocation();
+  const navigator = useNavigate();
 
   return (
     <Header position="sticky">
-      <ContainerFixed breakpoint={EBreakpoint.XL} position="center">
+      <ContainerFixed
+        className={templateStringToClassName()`height: 100%; display: flex;`}
+        breakpoint={EBreakpoint.XL}
+        position="center"
+      >
+        <Link to={routerPathFull.home.root}>
+          <Image width="auto" height="100%" src={logo} preview={false} />
+        </Link>
         <Flex
           align={EFlexAlign.Center}
           justify={EJustifyFlex.SpaceBetween}
           className={cx(templateStringToClassName()`background: #fff`)}
         >
+          <Flex align={EFlexAlign.Center} gap={SPACE_BETWEEN_ITEMS}>
+            <InputSearch
+              placeholder="Nhập từ bạn cần tìm kiếm ..."
+              enterButton="Search"
+              size={EInputTextSize.Middle}
+            />
+            <Button
+              type={EButtonTypes.Default}
+              onClick={() => navigator(routerPathFull.aboutUs.root)}
+            >
+              Về chúng tôi
+            </Button>
+          </Flex>
           <Menu
-            selectedKeys={[location.pathname]}
-            mode={EModeMenu.Horizontal}
             defaultSelectedKeys={[routerPathFull.home.root + "/"]}
-            items={[
-              {
-                key: routerPathFull.home.root + "/",
-                label: <Link to={routerPathFull.home.root}>Trang chủ</Link>,
-              },
-              // {
-              //   key: routerPathFull.products.root,
-              //   label: <Link to={routerPathFull.products.root}>Sản phẩm</Link>,
-              // },
-              {
-                key: routerPathFull.aboutUs.root,
-                label: (
-                  <Link to={routerPathFull.aboutUs.root}>Về chúng tôi</Link>
-                ),
-              },
-            ]}
-          />
-          <InputSearch
-            placeholder="Nhập từ bạn cần tìm kiếm ..."
-            enterButton="Search"
-            size={EInputTextSize.Large}
-          />
-          <Menu
             selectedKeys={[location.pathname]}
             mode={EModeMenu.Horizontal}
             items={[
+              // {
+              //   key: routerPathFull.aboutUs.root,
+              //   label: (
+              //     <Link to={routerPathFull.aboutUs.root}>Về chúng tôi</Link>
+              //   ),
+              // },
               {
                 key: routerPathFull.cart.root,
                 label: (

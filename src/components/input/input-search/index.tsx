@@ -3,7 +3,9 @@ import { ReactNode } from "react";
 import { InputTextProps } from "../input-text";
 import { default as InputSearchCustom } from "./input-search";
 
-const StyledInputSearch = styled(InputSearchCustom)``;
+const StyledInputSearch = styled(InputSearchCustom)`
+  width: auto;
+`;
 
 export interface InputSearchProps extends InputTextProps {
   enterButton?: boolean | ReactNode;
