@@ -22,8 +22,8 @@ export const routerPath = {
   account: {
     root: "account",
   },
-  products: {
-    root: "products",
+  search: {
+    root: "search",
   },
   admin: {
     root: "admin",

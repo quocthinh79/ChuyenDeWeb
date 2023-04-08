@@ -3,9 +3,12 @@ import {
   Button,
   ContainerFixed,
   Flex,
+  Form,
+  FormItem,
   Header,
   Image,
   InputSearch,
+  InputText,
   Menu,
 } from "@components";
 import { SPACE_BETWEEN_ITEMS } from "@constant";
@@ -14,6 +17,7 @@ import {
   EButtonTypes,
   EDirectionFlex,
   EFlexAlign,
+  EHtmlButtonTypes,
   EInputTextSize,
   EJustifyFlex,
   EModeMenu,
@@ -22,8 +26,14 @@ import {
 } from "@core";
 import { cx } from "@emotion/css";
 import { useLogged } from "@hooks";
+import { useForm } from "antd/es/form/Form";
 import { memo } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 
 const logo = require("../../images/logo.png");
 
@@ -31,6 +41,14 @@ export function MainHeader() {
   const logged = useLogged({});
   const location = useLocation();
   const navigator = useNavigate();
+
+  const [form] = useForm();
+
+  const onFinish = (values: any) => {
+    return values.keyWord
+      ? navigator(`${routerPathFull.search.root}?keyWord=${values.keyWord}`)
+      : navigator("/");
+  };
 
   return (
     <Header position="sticky">
@@ -48,11 +66,16 @@ export function MainHeader() {
           className={cx(templateStringToClassName()`background: #fff`)}
         >
           <Flex align={EFlexAlign.Center} gap={SPACE_BETWEEN_ITEMS}>
-            <InputSearch
-              placeholder="Nhập từ bạn cần tìm kiếm ..."
-              enterButton="Search"
-              size={EInputTextSize.Middle}
-            />
+            <Form form={form} onFinish={onFinish} layout="vertical">
+              <FormItem name="keyWord">
+                <InputSearch
+                  placeholder="Nhập từ bạn cần tìm kiếm ..."
+                  enterButton="Search"
+                  size={EInputTextSize.Middle}
+                  onSearch={() => form.submit()}
+                />
+              </FormItem>
+            </Form>
             <Button
               type={EButtonTypes.Default}
               onClick={() => navigator(routerPathFull.aboutUs.root)}
@@ -65,12 +88,6 @@ export function MainHeader() {
             selectedKeys={[location.pathname]}
             mode={EModeMenu.Horizontal}
             items={[
-              // {
-              //   key: routerPathFull.aboutUs.root,
-              //   label: (
-              //     <Link to={routerPathFull.aboutUs.root}>Về chúng tôi</Link>
-              //   ),
-              // },
               {
                 key: routerPathFull.cart.root,
                 label: (

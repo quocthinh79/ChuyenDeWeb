@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { InputTextProps } from "../input-text";
 import { default as InputSearchCustom } from "./input-search";
+import { noop } from "@constant";
 
 const StyledInputSearch = styled(InputSearchCustom)`
   width: auto;
@@ -18,8 +19,19 @@ function InputSearch({
   enterButton,
   size,
   loading,
+  onSearch = noop,
+  value,
+  onChange,
 }: InputSearchProps) {
-  const passProps = { placeholder, enterButton, size, loading };
+  const passProps = {
+    placeholder,
+    enterButton,
+    size,
+    loading,
+    value,
+    onSearch,
+    onChange,
+  };
   return <StyledInputSearch {...passProps} />;
 }
 

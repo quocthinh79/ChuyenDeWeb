@@ -12,14 +12,11 @@ const Account = lazy(() => import("../pages/account"));
 const Cart = lazy(() => import("../pages/cart"));
 const DetailPage = lazy(() => import("../pages/detail"));
 const PaymentPage = lazy(() => import("../pages/payment"));
+const SearchPage = lazy(() => import("../pages/search"));
 
 const router = [
   {
-    element: (
-      <Suspense fallback={<>Loading</>}>
-        <RouterHomeLayout />
-      </Suspense>
-    ),
+    element: <RouterHomeLayout />,
     children: [
       {
         index: true,
@@ -71,6 +68,14 @@ const router = [
         element: (
           <Suspense fallback={<>Loading</>}>
             <PaymentPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: routerPathFull.search.root,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <SearchPage />
           </Suspense>
         ),
       },
