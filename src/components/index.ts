@@ -41,3 +41,5 @@ export * from "./breadcrumb";
 export * from "./carousel";
 export * from "./dropdown/dropdown";
 export * from "./badge-ribbon";
+export * from "./slider-range";
+export * from "./slider-single";
