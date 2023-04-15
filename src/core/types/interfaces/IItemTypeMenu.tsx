@@ -1,5 +1,5 @@
 import { Key, ReactNode } from "react";
-import ETheme from "../enum/ETheme";
+import ETheme from "../enums/ETheme";
 
 interface TitleEventEntity {
   key: string;
