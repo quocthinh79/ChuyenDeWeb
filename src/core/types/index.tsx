@@ -25,3 +25,4 @@ export * from "./interface/IProvinces";
 export * from "./enum/EModalWidth";
 export * from "./enum/EProvinces";
 export * from "./enum/EDropdownPosition";
+export * from "./interface/ILogin";
