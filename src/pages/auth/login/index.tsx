@@ -12,10 +12,14 @@ import {
   EButtonTypes,
   EHtmlButtonTypes,
   EJustifyFlex,
+  ILogin,
+  apiLogin,
   handleSchemaError,
   routerPathFull,
   schemaLogin,
 } from "@core";
+import { useStorageRoles, useStorageToken } from "@store";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "antd/es/form/Form";
 import { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,20 +27,39 @@ import LoginFormItem from "./login-form-item";
 
 export interface LoginProps {}
 
+export interface LoginFormProps extends ILogin {
+  rememberMe: boolean;
+}
+
 export function LoginPage(_props: LoginProps) {
-  const onSubmit = async ({ phoneNumber, password }: any) => {};
   const navigation = useNavigate();
   const [form] = useForm();
-  const onFinish = (values: any) => {
-    try {
-      schemaLogin.parse(values);
+  const { setToken } = useStorageToken();
+  const { setRoles } = useStorageRoles();
+
+  const { mutate: login, isLoading } = useMutation({
+    mutationKey: ["apiLogin"],
+    mutationFn: apiLogin,
+    onSuccess: (data) => {
       navigation("/");
+      setToken(data.token);
+      setRoles([
+        ...data.roles.map((role: { authority: string }) => role?.authority),
+      ]);
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+  });
+
+  const onFinish = async ({ password, username }: LoginFormProps) => {
+    try {
+      schemaLogin.parse({ username, password });
+      login({ username, password });
     } catch (error: any) {
       handleSchemaError(error, form);
     }
   };
-
-  const onFinishFailed = (errorInfo: any) => {};
 
   return (
     <Card>
@@ -47,11 +70,10 @@ export function LoginPage(_props: LoginProps) {
             label: "Đăng nhập",
             children: (
               <Form
+                labelCol={{ span: 5 }}
                 form={form}
                 name="login"
-                initialValues={{ remember: true }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
               >
                 <Space widthFull size={SizeProps.Large}>
                   <LoginFormItem />
@@ -62,6 +84,7 @@ export function LoginPage(_props: LoginProps) {
                     </Link>
                   </Flex>
                   <Button
+                    loading={isLoading}
                     block
                     type={EButtonTypes.Primary}
                     htmlType={EHtmlButtonTypes.Submit}

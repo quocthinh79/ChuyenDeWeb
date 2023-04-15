@@ -1,5 +1,6 @@
 import { FormItem, InputPassword, InputText, Space } from "@components";
 import { EMPTY_INPUT_ERROR } from "@constant";
+import { memo } from "react";
 
 export function LoginFormItem() {
   return (
@@ -32,4 +33,4 @@ export function LoginFormItem() {
   );
 }
 
-export default LoginFormItem;
+export default memo(LoginFormItem);
