@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { noop } from "../../../const";
-import { ETextAlign, templateStringToClassName } from "../../../core";
-import EContentTypeTypography from "../../../core/types/enum/EContentTypeTypography";
 import { Copyable, Editable, Ellipsis } from "../general-types";
 import { default as TextCustom } from "./text";
+import {
+  EContentTypeTypography,
+  ETextAlign,
+  templateStringToClassName,
+} from "@core";
+import { noop } from "@constant";
 
 const StyledText = styled(TextCustom)``;
 const StyledWrapText = styled("div")``;

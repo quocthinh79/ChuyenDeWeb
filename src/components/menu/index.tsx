@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { EModeMenu, ETriggerSubMenuAction } from "../../core";
-import ItemType from "../../core/types/interface/IItemTypeMenu";
 import { default as MenuCustom } from "./menu";
+import { EModeMenu, ETriggerSubMenuAction, ItemType } from "@core";
 
 const StyledMenu = styled(MenuCustom)`
   .ant-menu-item {

@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { ETextAlign, templateStringToClassName } from "../../../core";
-import EContentTypeTypography from "../../../core/types/enum/EContentTypeTypography";
-import ELevelTile from "../../../core/types/enum/ELevelTitle";
 import { Copyable, Editable, Ellipsis } from "../general-types";
 import { default as TitleCustom } from "./title";
+import {
+  EContentTypeTypography,
+  ELevelTile,
+  ETextAlign,
+  templateStringToClassName,
+} from "@core";
 
 const StyledTitle = styled(TitleCustom)``;
 const StyledDivWrap = styled("div")``;
