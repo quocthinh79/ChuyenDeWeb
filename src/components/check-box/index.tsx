@@ -2,31 +2,32 @@ import styled from "@emotion/styled";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { ReactNode } from "react";
 import { default as CheckBoxCustom } from "./check-box";
+import { noop } from "@constant";
 
 export interface CheckBoxProps {
   autoFocus?: boolean;
-  checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
   indeterminate?: boolean;
-  onChange?: (e: CheckboxChangeEvent) => void;
+  onChange?: () => void;
   children?: ReactNode;
+  value?: boolean;
 }
 
 const StyledCheckBox = styled(CheckBoxCustom)``;
 
 export function CheckBox({
   autoFocus = false,
-  checked = false,
+  value = false,
   defaultChecked = false,
   disabled = false,
   indeterminate = false,
-  onChange,
+  onChange = noop,
   children,
 }: CheckBoxProps) {
   const passProps = {
     autoFocus,
-    checked,
+    checked: value,
     defaultChecked,
     disabled,
     indeterminate,
