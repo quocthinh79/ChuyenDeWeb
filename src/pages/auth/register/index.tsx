@@ -14,34 +14,62 @@ import {
   EHtmlButtonTypes,
   EJustifyFlex,
   ETextAlign,
+  apiRegister,
   handleSchemaError,
   routerPathFull,
   schemaRegister,
 } from "@core";
-import { useForm, useWatch } from "antd/es/form/Form";
+import { useForm } from "antd/es/form/Form";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RegisterFormItem from "./register-form-item";
+import { useMutation } from "@tanstack/react-query";
+
+export interface RegisterFormItemProps {
+  email: string;
+  username: string;
+  password: string;
+  rePassword: string;
+}
 
 function RegisterPage() {
   const [nonDuplicate, setNonDuplicate] = useState(true);
+  const [error, setError] = useState(false);
   const [form] = useForm();
-  const rePassword = useWatch("rePassword", form);
-  const password = useWatch("password", form);
+  const navigator = useNavigate();
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const { mutate: register, isLoading } = useMutation({
+    mutationKey: ["apiLogin"],
+    mutationFn: apiRegister,
+    onSuccess: (data) => {
+      navigator(routerPathFull.auth.login);
+    },
+    onError: (error: any) => {
+      console.log(error);
+      setError(true);
+    },
+  });
+
+  const onFinish = ({
+    email,
+    password,
+    rePassword,
+    username,
+  }: RegisterFormItemProps) => {
+    const passProps = { username, password, rePassword, email };
+
     try {
       if (rePassword !== password) setNonDuplicate(false);
-      schemaRegister.parse(values);
+      schemaRegister.parse({ ...passProps });
       setNonDuplicate(true);
+      if (rePassword === password) register({ username, password, email });
     } catch (error) {
       handleSchemaError(error, form);
     }
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    handleSchemaError(errorInfo, form);
   };
 
   return (
@@ -69,12 +97,22 @@ function RegisterPage() {
                       Mật khẩu đã nhập không trùng khớp
                     </Text>
                   )}
+                  {error && (
+                    <Text
+                      textAlign={ETextAlign.Center}
+                      type={EContentTypeTypography.Danger}
+                    >
+                      Thông tin không hợp lệ, email hoặc tên người dùng đã được
+                      sử dụng
+                    </Text>
+                  )}
                   <Flex justify={EJustifyFlex.FlexEnd}>
                     <Link to={routerPathFull.auth.login}>
                       Quay trở lại đăng nhập
                     </Link>
                   </Flex>
                   <Button
+                    loading={isLoading}
                     block
                     type={EButtonTypes.Primary}
                     htmlType={EHtmlButtonTypes.Submit}
