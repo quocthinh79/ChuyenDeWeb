@@ -1,13 +1,15 @@
-
 import { Navigate, useLocation } from "react-router-dom";
 import AdminPage from "../../pages/admin";
+import { useStorageRoles } from "@store";
 
 function AuthAdminRequired() {
-  const admin: boolean = true;
+  const { isAdmin } = useStorageRoles();
   const location = useLocation();
-  if (!admin) {
+
+  if (!isAdmin) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
+
   return <AdminPage />;
 }
 
