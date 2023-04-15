@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import { useStorageRememberMe } from "@store";
 import CheckBox from "../check-box";
+import { memo } from "react";
 
 export function RememberMe() {
-  const [checked, setChecked] = useState(true);
+  const { rememberMe, setRememberMe } = useStorageRememberMe();
 
   return (
-    <CheckBox onChange={() => setChecked(!checked)} checked={checked}>
+    <CheckBox onChange={() => setRememberMe(!rememberMe)} value={rememberMe}>
       Remember me
     </CheckBox>
   );
 }
 
-export default RememberMe;
+export default memo(RememberMe);
