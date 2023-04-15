@@ -8,16 +8,13 @@ import {
   Header,
   Image,
   InputSearch,
-  InputText,
   Menu,
 } from "@components";
 import { SPACE_BETWEEN_ITEMS } from "@constant";
 import {
   EBreakpoint,
   EButtonTypes,
-  EDirectionFlex,
   EFlexAlign,
-  EHtmlButtonTypes,
   EInputTextSize,
   EJustifyFlex,
   EModeMenu,
@@ -26,14 +23,10 @@ import {
 } from "@core";
 import { cx } from "@emotion/css";
 import { useLogged } from "@hooks";
+import { useStorageRoles } from "@store";
 import { useForm } from "antd/es/form/Form";
 import { memo } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const logo = require("../../images/logo.png");
 
@@ -41,6 +34,7 @@ export function MainHeader() {
   const logged = useLogged({});
   const location = useLocation();
   const navigator = useNavigate();
+  const { isAdmin } = useStorageRoles();
 
   const [form] = useForm();
 
@@ -82,6 +76,14 @@ export function MainHeader() {
             >
               Về chúng tôi
             </Button>
+            {isAdmin() && (
+              <Button
+                type={EButtonTypes.Default}
+                onClick={() => navigator(routerPathFull.admin.root)}
+              >
+                ADMIN
+              </Button>
+            )}
           </Flex>
           <Menu
             defaultSelectedKeys={[routerPathFull.home.root + "/"]}
