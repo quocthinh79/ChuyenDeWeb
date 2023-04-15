@@ -5,6 +5,18 @@ export function RegisterFormItem() {
   return (
     <Space widthFull>
       <FormItem
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: EMPTY_INPUT_ERROR,
+          },
+        ]}
+      >
+        <InputText />
+      </FormItem>
+      <FormItem
         label="Username"
         name="username"
         rules={[
@@ -39,18 +51,6 @@ export function RegisterFormItem() {
         ]}
       >
         <InputPassword />
-      </FormItem>
-      <FormItem
-        label="Email"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: EMPTY_INPUT_ERROR,
-          },
-        ]}
-      >
-        <InputText />
       </FormItem>
     </Space>
   );
