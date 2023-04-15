@@ -1,15 +1,11 @@
+import { RememberMeListener } from "@components";
+import { customToken } from "@core";
 import { ThemeProvider } from "@emotion/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
-import { useMemo } from "react";
-import "./App.css";
-import { customToken } from "./core/theme";
-import Router from "./router";
 import theme from "antd/es/theme";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { useMemo } from "react";
+import Router from "./router";
 
 const { useToken } = theme;
 const queryClient = new QueryClient();
@@ -20,19 +16,13 @@ function App() {
     () => ({ ...uiFrameworkToken, ...customToken }),
     [uiFrameworkToken]
   );
+  const rememberMeListener = useMemo(() => <RememberMeListener />, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <ConfigProvider
-        theme={
-          {
-            // algorithm: theme.darkAlgorithm,
-            // token: {
-            //   colorPrimary: "#000",
-            // },
-          }
-        }
-      >
+      <ConfigProvider>
         <ThemeProvider theme={token}>
+          {rememberMeListener}
           <Router />
         </ThemeProvider>
       </ConfigProvider>
