@@ -1,29 +1,11 @@
-import {
-  Button,
-  Card,
-  Divider,
-  FormItem,
-  InputText,
-  Modal,
-  OptionsSelect,
-  Select,
-  SizeProps,
-  Space,
-} from "@components";
-import {
-  EButtonTypes,
-  EModalWidth,
-  EProvinces,
-  Provinces,
-  apiProvinces,
-} from "@core";
-import { useDisclosure, useSelectProvinces } from "@hooks";
-import { useQuery } from "@tanstack/react-query";
-import { Breadcrumb, Input } from "antd";
-import { useState, useEffect } from "react";
 import City from "./city";
 import Districts from "./districts";
 import Wards from "./wards";
+import { Breadcrumb, Input } from "antd";
+import { Button, Divider, FormItem, Modal } from "@components";
+import { EButtonTypes, EModalWidth, EProvinces } from "@core";
+import { useDisclosure, useSelectProvinces } from "@hooks";
+import { useEffect } from "react";
 
 export interface SelectProvincesFormItemProps {
   setValueInput: React.Dispatch<React.SetStateAction<string>>;
