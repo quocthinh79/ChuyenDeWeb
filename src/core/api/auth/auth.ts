@@ -1,4 +1,9 @@
-import { ILogin, IRegister } from "src/core/types";
+import {
+  IForgotPassword,
+  ILogin,
+  INewPassword,
+  IRegister,
+} from "src/core/types";
 import instanceAxios from "../instance-axios";
 
 export const apiLogin = ({ username, password }: ILogin) => {
@@ -7,6 +12,18 @@ export const apiLogin = ({ username, password }: ILogin) => {
       username,
       password,
     })
+    .then((res) => res.data);
+};
+
+export const apiForgotPassword = ({ username, host }: IForgotPassword) => {
+  return instanceAxios
+    .post(`/account/changePassword?username=${username}&host=${host}`)
+    .then((res) => res.data);
+};
+
+export const apiNewPassword = ({ token, password }: INewPassword) => {
+  return instanceAxios
+    .post(`/account/reset-password?token=${token}&password=${password}`)
     .then((res) => res.data);
 };
 
