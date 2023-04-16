@@ -14,3 +14,5 @@ export const API_SPRING_BOOT = "http://localhost:8085";
 export const RESUME_LINK = "https://quoc-thinh-resume.netlify.app/";
 
 export const EMPTY_INPUT_ERROR = "Trường này là bắt buộc!";
+
+export const ORIGIN_URL = window.location.origin;
