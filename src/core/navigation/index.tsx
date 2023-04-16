@@ -7,7 +7,7 @@ export const routerPath = {
     newPassword: "new-password",
     changePassword: "change-password",
     loginSuccess: "login-success",
-    otp: "otp",
+    success: "success",
     requestNewPassword: "request-new-password",
   },
   home: {
