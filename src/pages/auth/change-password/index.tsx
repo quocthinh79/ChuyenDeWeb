@@ -4,21 +4,46 @@ import {
   EDirectionType,
   EHtmlButtonTypes,
   ETextAlign,
+  apiNewPassword,
   handleSchemaError,
   routerPathFull,
   schemaChangePassword,
 } from "@core";
 import { useForm } from "antd/es/form/Form";
-import { useNavigate } from "react-router-dom";
-import ChangePasswordFormItem from "./change-password-form-item";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import ChangePasswordFormItem, {
+  ChangePasswordFormItemProps,
+} from "./change-password-form-item";
+import { useMutation } from "@tanstack/react-query";
 
 export function ChangePassword() {
   const [form] = useForm();
   const navigation = useNavigate();
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const { mutate: newPasswordFunc, isLoading } = useMutation({
+    mutationKey: ["apiNewPassword"],
+    mutationFn: apiNewPassword,
+    onSuccess: (data) => {
+      console.log(data);
+      // navigation("/");
+      // setToken(data.token);
+      // setRoles([
+      //   ...data.roles.map((role: { authority: string }) => role?.authority),
+      // ]);
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+  });
+
+  const onFinish = ({ newPassword }: ChangePasswordFormItemProps) => {
     try {
-      schemaChangePassword.parse(values);
+      schemaChangePassword.parse({ newPassword });
+      newPasswordFunc({
+        token: searchParams?.get("token") || "",
+        password: newPassword,
+      });
       navigation(routerPathFull.auth.login);
     } catch (error) {
       console.log(error);

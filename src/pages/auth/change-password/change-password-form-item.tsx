@@ -3,6 +3,10 @@ import { FormItem, InputPassword } from "@components";
 import { EMPTY_INPUT_ERROR } from "@constant";
 import React from "react";
 
+export interface ChangePasswordFormItemProps {
+  newPassword: string;
+}
+
 function ChangePasswordFormItem() {
   return (
     <FormItem
