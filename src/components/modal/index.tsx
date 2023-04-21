@@ -1,14 +1,17 @@
 import { ReactNode } from "react";
-import { ButtonProps } from "../button";
+// import { ButtonProps } from "../button";
 import { default as CustomModal } from "./modal";
 import styled from "@emotion/styled";
 import { EModalWidth } from "@core";
 import { useTheme } from "@emotion/react";
+import { noop } from "@constant";
+import { ButtonProps } from "antd";
 
 export interface ModalProps {
   afterClose?: () => any;
   autoFocusButton?: null | "ok" | "cancel";
   cancelText?: string;
+  okText?: string;
   centered?: boolean;
   closable?: boolean;
   closeIcon?: ReactNode;
@@ -24,6 +27,8 @@ export interface ModalProps {
   footer?: ReactNode;
   children?: ReactNode;
   className?: string;
+  destroyOnClose?: boolean;
+  forceRender?: boolean;
 }
 
 const StyledModal = styled(CustomModal)`
@@ -36,6 +41,7 @@ export function Modal({
   afterClose,
   autoFocusButton = "ok",
   cancelText = "Cancel",
+  okText = "OK",
   centered = true,
   closable = true,
   closeIcon = undefined,
@@ -43,14 +49,16 @@ export function Modal({
   title,
   width = EModalWidth.Medium,
   zIndex = 1000,
-  onCancel,
-  onOk,
+  onCancel = noop,
+  onOk = noop,
   cancelButtonProps,
   okButtonProps,
   open,
   footer,
   children,
   className,
+  destroyOnClose = true,
+  forceRender = false,
 }: ModalProps) {
   const theme = useTheme();
 
@@ -58,6 +66,7 @@ export function Modal({
     afterClose,
     autoFocusButton,
     cancelText,
+    okText,
     centered,
     closable,
     closeIcon,
@@ -72,6 +81,8 @@ export function Modal({
     okButtonProps,
     footer,
     className,
+    destroyOnClose,
+    forceRender,
   };
 
   return <StyledModal {...passProps}>{children}</StyledModal>;
