@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
-import AdminPage from "../../pages/admin";
+import AdminLaptopPage from "../../pages/admin";
 import { useStorageRoles } from "@store";
 
 function AuthAdminRequired() {
@@ -10,7 +10,7 @@ function AuthAdminRequired() {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  return <AdminPage />;
+  return <AdminLaptopPage />;
 }
 
 export default AuthAdminRequired;
