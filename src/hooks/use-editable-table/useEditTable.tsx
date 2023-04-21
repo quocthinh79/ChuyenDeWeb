@@ -1,7 +1,8 @@
 import { FormInstance } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { createContext, Key, useCallback, useState } from "react";
+import { createContext, Key, useCallback, useEffect, useState } from "react";
 import { ITypeDataTable } from "../../core";
+import useDisclosure from "../use-disclosure/use-disclosure";
 
 export const EditableContext = createContext<FormInstance<any> | null>(null);
 
@@ -13,11 +14,14 @@ export interface useEditTable {
   dataSource: ITypeDataTable[];
   form: any;
   save: (key: number) => void;
-  onAdd: () => void;
-  onDelete: (key: Key) => void;
+  // onAdd: () => void;
+  onDelete: (key: number) => void;
   isEditing: (record: ITypeDataTable) => boolean;
   edit: (record: ITypeDataTable) => void;
   cancel: () => void;
+  openModal: boolean;
+  onOpenModal: () => void;
+  onCloseModal: () => void;
 }
 
 export const useEditTable = ({
@@ -26,17 +30,24 @@ export const useEditTable = ({
   const [dataSource, setDataSource] = useState<ITypeDataTable[]>(initialData);
   const [form] = useForm();
   const [editingKey, setEditingKey] = useState(-1);
+  const { onClose, onOpen, onToggle, open } = useDisclosure({
+    initialState: false,
+  });
 
-  const onAdd = useCallback(() => {
-    const indexOfArray = dataSource.map((item) => item?.key);
-    const maxKey = Math.max(...indexOfArray) + 1;
-    const newData: ITypeDataTable = {
-      key: maxKey,
-    };
-    setDataSource([...dataSource, newData]);
-    setEditingKey(maxKey);
-    console.log(newData);
-  }, [dataSource]);
+  useEffect(() => {
+    setDataSource(initialData);
+  }, [initialData]);
+
+  // const onAdd = useCallback(() => {
+  //   const indexOfArray = dataSource.map((item) => item?.key);
+  //   const maxKey = Math.max(...indexOfArray) + 1;
+  //   const newData: ITypeDataTable = {
+  //     key: maxKey,
+  //   };
+  //   setDataSource([...dataSource, newData]);
+  //   setEditingKey(maxKey);
+  //   console.log(newData);
+  // }, [dataSource]);
 
   const save = useCallback(
     async (key: number) => {
@@ -69,7 +80,7 @@ export const useEditTable = ({
   const edit = useCallback(
     (record: ITypeDataTable) => {
       form.setFieldsValue({ ...record });
-      setEditingKey(record?.key);
+      setEditingKey(record?.key || 0);
     },
     [form]
   );
@@ -79,10 +90,10 @@ export const useEditTable = ({
   };
 
   const onDelete = useCallback(
-    (key: Key) => {
-      const newData = dataSource.filter((item) => item.key !== key);
+    (id: number) => {
+      const newData = dataSource.filter((item) => item.id !== id);
       setDataSource(newData);
-      console.log(key);
+      console.log(id);
     },
     [dataSource]
   );
@@ -96,11 +107,14 @@ export const useEditTable = ({
     dataSource,
     form,
     save,
-    onAdd,
+    // onAdd,
     onDelete,
     isEditing,
     edit,
     cancel,
+    openModal: open,
+    onOpenModal: onOpen,
+    onCloseModal: onClose,
   };
 };
 
