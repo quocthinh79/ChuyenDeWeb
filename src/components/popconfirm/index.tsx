@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import { EButtonTypes } from "../../core";
-import { ButtonProps } from "../button";
 import { default as PopConfirmCustom } from "./popconfirm";
+import { ButtonProps } from "antd";
 
 const StyledPopConfirm = styled(PopConfirmCustom)``;
 

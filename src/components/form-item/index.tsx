@@ -12,6 +12,7 @@ export interface FormItemProps {
   valuePropName?: string;
   wrapperCol?: object;
   label?: string;
+  initialValue?: string;
 }
 
 export function FormItem({
@@ -21,8 +22,16 @@ export function FormItem({
   valuePropName,
   wrapperCol,
   label,
+  initialValue,
 }: FormItemProps) {
-  const passProps = { name, rules, valuePropName, wrapperCol, label };
+  const passProps = {
+    name,
+    rules,
+    valuePropName,
+    wrapperCol,
+    label,
+    initialValue,
+  };
   return (
     <StyledFormItem style={{ margin: 0 }} {...passProps}>
       {children}
