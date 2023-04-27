@@ -46,9 +46,7 @@ export function LoginPage(_props: LoginProps) {
     onSuccess: (data) => {
       navigation("/");
       setToken(data.token);
-      setRoles([
-        ...data.roles.map((role: { authority: string }) => role?.authority),
-      ]);
+      setRoles(data.roles);
     },
     onError: (error: any) => {
       api["error"]({

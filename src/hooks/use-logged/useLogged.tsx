@@ -10,12 +10,8 @@ export interface useLoggedProps {
 export function useLogged({ token }: useLoggedProps) {
   return token
     ? {
-        key: "/Todo",
-        label: (
-          <>
-            <LogoutOutlined style={{ fontSize: "28px" }} />
-          </>
-        ),
+        key: routerPathFull.auth.logout,
+        label: <LogoutOutlined style={{ fontSize: "28px" }} />,
       }
     : {
         key: routerPathFull.auth.login,
