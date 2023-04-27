@@ -18,14 +18,21 @@ export function SearchPage(props: SearchPageProps) {
       </Card>
       <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
         {laptopItemList?.map(
-          ({ laptopCurrency, laptopName, srcImage }, index) => (
+          (
+            {
+              price: laptopCurrency,
+              productName: laptopName,
+              linkAvatar: srcImage,
+            },
+            index
+          ) => (
             <Col key={`${laptopName}${index}`} span={6}>
               <LaptopCardItem
                 key={index}
-                idProduct={index}
-                laptopCurrency={laptopCurrency}
-                laptopName={laptopName}
-                srcImage={srcImage}
+                id={index}
+                price={laptopCurrency}
+                productName={laptopName}
+                linkAvatar={srcImage}
               />
             </Col>
           )

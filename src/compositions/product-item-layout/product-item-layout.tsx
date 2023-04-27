@@ -1,39 +1,88 @@
+import { ILaptopPagination, apiGetMultipleLaptop } from "@core";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { IPagination } from "src/core/types/interfaces/IPagination";
 import { Pagination } from "../../components";
 import { Row } from "../../components/grid";
 import Col from "../../components/grid/column";
-import LaptopCardItem, { LaptopCardItemProps } from "../laptop-card-item";
 import { SPACE_BETWEEN_ITEMS } from "../../const";
-import { usePagination } from "../../hooks";
+import LaptopCardItem from "../laptop-card-item";
 
-export interface ProductItemLayoutProps {
-  children?: LaptopCardItemProps[];
-}
+export function ProductItemLayout() {
+  // const { allSearchParams } = useSelectedTag();
 
-export function ProductItemLayout({ children }: ProductItemLayoutProps) {
-  const { currentPage, handleChange } = usePagination();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const allSearchParams = Object.fromEntries(
+    Array.from(searchParams.entries()).map(([key, value]) => [key, value])
+  );
+
+  const { brand, cpu, types } = allSearchParams;
+
+  const [dataWithPagination, setDataWithPagination] = useState<IPagination>({
+    start: 1,
+    limit: 1,
+    brands: "",
+    chipCpus: "",
+    types: "",
+  });
+
+  const { data, refetch } = useQuery<ILaptopPagination>({
+    refetchOnWindowFocus: false,
+    enabled: false,
+    queryKey: ["laptopItemList"],
+    queryFn: () =>
+      apiGetMultipleLaptop({
+        ...dataWithPagination,
+        brands: brand,
+        chipCpus: cpu,
+        types: types,
+      }),
+    onSuccess(data) {
+      // console.log(data);
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+
+  const { laptopList, page, totalPage } = data || {};
+
+  const handleChange = (page: number, pageSize: number) => {
+    setDataWithPagination((pre) => ({
+      ...pre,
+      start: page,
+      limit: pageSize,
+    }));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [searchParams, dataWithPagination]);
 
   return (
     <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
-      {children?.map(({ laptopCurrency, laptopName, srcImage }, index) => (
-        <Col key={`${laptopName}${index}`} span={8}>
+      {laptopList?.map(({ price, productName, linkAvatar, id }, index) => (
+        <Col key={`${productName}${index}`} span={8}>
           <LaptopCardItem
             key={index}
-            idProduct={index}
-            laptopCurrency={laptopCurrency}
-            laptopName={laptopName}
-            srcImage={srcImage}
+            id={id}
+            price={price}
+            productName={productName}
+            linkAvatar={
+              linkAvatar ||
+              "https://media-api-beta.thinkpro.vn/media/core/products/2022/10/1/2375_lenovo_legion_5_pro_16iah7h_ct1_1600.png?w=500&h=500"
+            }
           />
         </Col>
       ))}
       <Col span={SPACE_BETWEEN_ITEMS}>
         <Pagination
-          // responsive
-          hideOnSinglePage
-          // simple
-          current={currentPage}
+          current={dataWithPagination?.start}
           defaultCurrent={1}
-          pageSize={9}
-          total={100}
+          pageSize={dataWithPagination?.limit}
+          total={data?.totalPage}
           onChange={handleChange}
         />
       </Col>

@@ -4,6 +4,13 @@ import CollapsePanel from "antd/es/collapse/CollapsePanel";
 import { Sider } from "../../components";
 import useSelectedTag from "../../hooks/use-selected-tag/use-selected-tag";
 import SiderItem from "./sider-item";
+import { useQuery } from "@tanstack/react-query";
+import {
+  EOrderTags,
+  apiBrandFilterItems,
+  apiCPUFilterItems,
+  apiTypeFilterItems,
+} from "@core";
 
 const StyledContainer = styled("div")`
   .ant-layout-sider {
@@ -12,6 +19,22 @@ const StyledContainer = styled("div")`
 `;
 
 export function MainSider() {
+  const { data: brandFilterItems } = useQuery<string[]>({
+    queryKey: ["BrandFilterItems"],
+    queryFn: () => apiBrandFilterItems(),
+  });
+
+  const { data: typeFilterItems } = useQuery<string[]>({
+    queryKey: ["TypeFilterItems"],
+    queryFn: () => apiTypeFilterItems(),
+  });
+  // console.log(typeFilterItems);
+
+  const { data: cpuFilterItems } = useQuery<string[]>({
+    queryKey: ["CPUFilterItems"],
+    queryFn: () => apiCPUFilterItems(),
+  });
+
   const demandData: string[] = [
     "Văn phòng, học tập",
     "2D Design",
@@ -63,40 +86,34 @@ export function MainSider() {
 
   const { handleChange, selectedTags } = useSelectedTag();
 
+  // console.log(allSearchParams);
+
   return (
     <StyledContainer>
       <Sider width={300}>
         <Collapse defaultActiveKey={["1", "2", "3"]}>
-          <CollapsePanel header="Nhu cầu" key="1">
+          <CollapsePanel header="Loại Laptop" key="1">
             <SiderItem
               selectedTags={selectedTags}
               handleChange={handleChange}
-              label="demand"
-              children={demandData}
+              label={EOrderTags.Types}
+              children={typeFilterItems}
             />
           </CollapsePanel>
           <CollapsePanel header="Thương hiệu" key="2">
             <SiderItem
               selectedTags={selectedTags}
               handleChange={handleChange}
-              label="brand"
-              children={brandData}
+              label={EOrderTags.Brand}
+              children={brandFilterItems}
             />
           </CollapsePanel>
-          <CollapsePanel header="Nguồn hàng" key="3">
+          <CollapsePanel header="CPU" key="3">
             <SiderItem
               selectedTags={selectedTags}
               handleChange={handleChange}
-              label="productSource"
-              children={productSource}
-            />
-          </CollapsePanel>
-          <CollapsePanel header="CPU" key="4">
-            <SiderItem
-              selectedTags={selectedTags}
-              handleChange={handleChange}
-              label="cpu"
-              children={cpu}
+              label={EOrderTags.CPU}
+              children={cpuFilterItems}
             />
           </CollapsePanel>
         </Collapse>

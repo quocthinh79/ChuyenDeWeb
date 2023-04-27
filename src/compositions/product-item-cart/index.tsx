@@ -19,11 +19,14 @@ import {
   EDirectionType,
   EFlexAlign,
   EJustifyFlex,
+  apiAddToCart,
   formatCurrency,
 } from "@core";
 import { arrayToString } from "../../core/utilities/array";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useStorageToken } from "@store";
 
 export interface ProductItemCartProps {
   laptopID: number;
@@ -32,16 +35,22 @@ export interface ProductItemCartProps {
   laptopPrice: number;
   laptopImage: string;
   quantity: number;
+  // totalPrice: number;
   removeItemFromCart?: () => void;
+  increase?: () => void;
+  decrease?: () => void;
 }
 
 function ProductItemCart({
   laptopID,
   laptopName = "This is Laptop Name",
-  laptopPrice = 0,
+  laptopPrice,
   laptopSummary = [],
   laptopImage = "",
-  quantity = 1,
+  quantity,
+  // totalPrice,
+  decrease,
+  increase,
   removeItemFromCart,
 }: ProductItemCartProps) {
   const { colorPrice } = useTheme();
@@ -49,14 +58,21 @@ function ProductItemCart({
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState(quantity);
 
-  const increase = () => {
-    setValue(Number(inputRef.current?.value) + 1);
-  };
+  useEffect(() => {
+    setValue(quantity);
+  }, [quantity]);
 
-  const decrease = () => {
-    if (Number(inputRef.current?.value) > 1)
-      setValue(Number(inputRef.current?.value) - 1);
-  };
+  const { token } = useStorageToken();
+
+  // const increase = () => {
+  //   // setValue(Number(inputRef.current?.value) + 1);
+  //   addProductToCart({ laptopId: laptopID, quantity: 1, token });
+  // };
+
+  // const decrease = () => {
+  //   if (Number(inputRef.current?.value) > 1)
+  //     setValue(Number(inputRef.current?.value) - 1);
+  // };
 
   return (
     <Card>
@@ -86,7 +102,7 @@ function ProductItemCart({
             align={EFlexAlign.Center}
           >
             <Text textColor={colorPrice} strong>
-              {formatCurrency(laptopPrice * value || 0)}
+              {formatCurrency(laptopPrice * quantity)}
             </Text>
             <Button
               onClick={removeItemFromCart}

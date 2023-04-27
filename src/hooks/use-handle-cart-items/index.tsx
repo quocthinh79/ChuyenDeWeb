@@ -1,45 +1,64 @@
 import { useEffect, useState } from "react";
-import { ProductItemCartProps } from "../../compositions/product-item-cart";
-import { productItemCart } from "../../dummy-data/product-item-cart";
-import { sumValueArray } from "@core";
+// import { productItemCart } from "../../dummy-data/product-item-cart";
+import {
+  IGetCartOfUserRes,
+  IProduct,
+  apiGetCartOfUser,
+  apiRemoveItemInCart,
+  sumValueArray,
+} from "@core";
+import { useStorageToken } from "@store";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export interface useHandleCartItems {
-  listItemsCart: ProductItemCartProps[];
+  listItemsCart: IProduct[];
   totalPrice: number;
   totalProduct: number;
   removeItemFromCart: (laptopID: number) => void;
 }
 
 export const useHandleCartItems = (): useHandleCartItems => {
-  const [listItemsCart, setListItemsCart] = useState<ProductItemCartProps[]>(
-    []
-  );
+  const [listItemsCart, setListItemsCart] = useState<IProduct[]>([]);
 
   // TODO: Call API Cart
-  console.log("Call API");
+  // console.log("Call API");
+  const { data } = useQuery<IGetCartOfUserRes>({
+    queryKey: ["getCartItems"],
+    queryFn: () => apiGetCartOfUser({ token }),
+  });
 
-  useEffect(() => {
-    setListItemsCart(productItemCart);
-  }, []);
+  const { laptopDTOs, totalPayment } = data || {};
 
   const totalPriceOfCart: number = sumValueArray(
-    listItemsCart?.map(({ laptopPrice }) => laptopPrice)
+    listItemsCart?.map(({ price }) => price)
   );
 
-  // const totalPriceOfItem = (laptopID: number) => {
-  //   return 0;
-  // };
+  const { token } = useStorageToken();
+
+  const { mutate: removeItem, data: dataAfterRemove } = useMutation({
+    mutationKey: ["removeItemFromCart"],
+    mutationFn: apiRemoveItemInCart,
+    onSuccess(data, variables, context) {
+      console.log(data);
+    },
+    onError(error, variables, context) {
+      console.log(error);
+    },
+  });
 
   const removeItemFromCart = (laptopID: number) => {
-    setListItemsCart(
-      listItemsCart?.filter((item) => item.laptopID != laptopID)
-    );
+    setListItemsCart(listItemsCart?.filter(({ id }) => id != laptopID));
+    removeItem({ token: token, ids: [laptopID] });
     console.log("Call API Delete");
   };
 
+  useEffect(() => {
+    setListItemsCart(laptopDTOs || []);
+  }, [listItemsCart, dataAfterRemove]);
+
   return {
     totalProduct: listItemsCart?.length,
-    totalPrice: totalPriceOfCart,
+    totalPrice: totalPayment || totalPriceOfCart,
     listItemsCart,
     removeItemFromCart,
   };

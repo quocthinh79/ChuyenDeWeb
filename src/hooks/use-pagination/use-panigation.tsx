@@ -1,14 +1,17 @@
 import { useState } from "react";
 
-export interface usePaginationProps {
+export interface usePagination {
   currentPage?: number;
-  pageSize?: number;
   handleChange?: (page: number, pageSize: number) => void;
 }
 
-export function usePagination(): usePaginationProps {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState();
+export interface usePaginationProps {
+  page: number;
+}
+
+export function usePagination({ page }: usePaginationProps): usePagination {
+  const [currentPage, setCurrentPage] = useState<number>(page);
+  // const [pageSize, setPageSize] = useState<number>(totalPage);
 
   const handleChange = (page: number, pageSize: number) => {
     setCurrentPage(page);

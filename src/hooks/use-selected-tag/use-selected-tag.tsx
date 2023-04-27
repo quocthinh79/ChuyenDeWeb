@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { handleSpecialSymbol } from "../../core/utilities/navigation/search-params";
+import { IOrderTags } from "@core";
 
 export type SelectedTagsProps = { [label: string]: string[] };
 
 export interface UseSelectedTag {
+  allSearchParams: IOrderTags;
   selectedTags: SelectedTagsProps;
   handleChange: (label: string, tag: string, checked: boolean) => void;
 }
@@ -47,7 +49,12 @@ export function useSelectedTag(): UseSelectedTag {
     setSelectedTags({ ...selectedTags, ...selected });
   };
 
+  const allSearchParams = Object.fromEntries(
+    Array.from(searchParams.entries()).map(([key, value]) => [key, value])
+  );
+
   return {
+    allSearchParams,
     selectedTags,
     handleChange,
   };

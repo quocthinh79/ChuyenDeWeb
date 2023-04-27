@@ -5,7 +5,7 @@ export interface ILaptop {
   color: string;
   cpu: string;
   display: string;
-  facilityId: string;
+  facilityId: number;
   graphics: string;
   laptopState: string;
   price: string;
@@ -17,4 +17,24 @@ export interface ILaptop {
   weight: string;
   avatarFile: any;
   imageFiles: any;
+}
+
+export interface IProduct {
+  battery: string;
+  brand: string;
+  chipCpu: string;
+  color: string;
+  cpu: string;
+  display: string;
+  graphics: string;
+  id: number;
+  laptopState: string;
+  linkAvatar: string;
+  price: number;
+  productName: string;
+  quantity: number;
+  ram: string;
+  storage: string;
+  type: string;
+  weight: string;
 }

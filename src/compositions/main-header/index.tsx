@@ -1,4 +1,8 @@
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  LogoutOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import {
   Button,
   ContainerFixed,
@@ -8,7 +12,7 @@ import {
   Header,
   Image,
   InputSearch,
-  Menu,
+  // Menu,
 } from "@components";
 import { SPACE_BETWEEN_ITEMS } from "@constant";
 import {
@@ -23,7 +27,8 @@ import {
 } from "@core";
 import { cx } from "@emotion/css";
 import { useLogged } from "@hooks";
-import { useStorageRoles } from "@store";
+import { useStorageRoles, useStorageToken } from "@store";
+import { Badge, Menu } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { memo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -31,7 +36,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const logo = require("../../images/logo.png");
 
 export function MainHeader() {
-  const logged = useLogged({});
+  const { token } = useStorageToken();
+  const logged = useLogged({ token });
   const location = useLocation();
   const navigator = useNavigate();
   const { isAdmin } = useStorageRoles();
@@ -94,7 +100,9 @@ export function MainHeader() {
                 key: routerPathFull.cart.root,
                 label: (
                   <Link to={routerPathFull.cart.root}>
-                    <ShoppingCartOutlined style={{ fontSize: "28px" }} />
+                    <Badge count={5}>
+                      <ShoppingCartOutlined style={{ fontSize: "28px" }} />
+                    </Badge>
                   </Link>
                 ),
               },

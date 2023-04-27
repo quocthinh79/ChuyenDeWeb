@@ -29,8 +29,8 @@ export const apiNewPassword = ({ token, password }: INewPassword) => {
 
 export const apiRegister = ({ username, password, email }: IRegister) =>
   instanceAxios
-    .post("/auth/register", {
-      username,
+    .post("/account/register", {
+      userName: username,
       password,
       email,
     })
