@@ -1,5 +1,9 @@
 import { Tabs } from "@components";
-import { EAdminLaptopColumnShow, ITypeDataTable, apiGetLaptop } from "@core";
+import {
+  EAdminLaptopColumnShow,
+  ITypeDataTable,
+  apiGetMultipleLaptop,
+} from "@core";
 import { AdminTable } from "@compositions";
 import { ColumnsType } from "antd/es/table";
 import { useMutation } from "@tanstack/react-query";
@@ -155,7 +159,7 @@ function AdminLaptopPage() {
 
   const { mutate: getLaptop, isLoading } = useMutation({
     mutationKey: ["apiGetLaptop"],
-    mutationFn: apiGetLaptop,
+    mutationFn: apiGetMultipleLaptop,
     onSuccess: (data) => {
       setColumnName(
         Object.keys(data?.laptopList[0])

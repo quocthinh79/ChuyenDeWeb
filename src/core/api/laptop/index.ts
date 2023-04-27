@@ -1,15 +1,31 @@
 import { ILaptop } from "src/core/types";
 import instanceAxios from "../instance-axios";
 import { IPagination } from "src/core/types/interfaces/IPagination";
-import qs from "qs";
 
-export const apiGetLaptop = ({
-  limit = 10,
+export const apiGetLaptopByID = (id: number) => {
+  return instanceAxios.get(`/laptop/${id}`).then((res) => res.data);
+};
+
+export const apiGetImagesLaptop = (id: number) => {
+  return instanceAxios.get(`/laptop/images/${id}`).then((res) => res.data);
+};
+
+export const apiGetMultipleLaptop = ({
   start = 1,
-  brands = [],
-  chipCpus = [],
-  types = [],
+  limit = 10,
+  brands,
+  chipCpus,
+  types,
 }: IPagination) => {
+  // const formData = new FormData();
+
+  // formData.append("start", start.toString());
+  // formData.append("limit", limit.toString());
+  // brands?.map((item) => formData.append("brands", item));
+  // types?.map((item) => formData.append("types", item));
+  // formData.append("chipCpus", chipCpus);
+  // formData.append("types", types);
+
   return instanceAxios
     .get(`/laptop`, {
       params: {
@@ -19,6 +35,9 @@ export const apiGetLaptop = ({
         chipCpus,
         types,
       },
+      // paramsSerializer: (params) => {
+      //   return JSON.stringify(params);
+      // },
     })
     .then((res) => res.data);
 };
@@ -30,7 +49,7 @@ export const apiAddLaptop = ({
   color,
   cpu,
   display,
-  facilityId,
+  facilityId = 1,
   graphics,
   laptopState,
   price,
@@ -43,7 +62,8 @@ export const apiAddLaptop = ({
   avatarFile,
   imageFiles,
 }: ILaptop) => {
-  const list = imageFiles.fileList.map((file: any) =>
+  console.log(imageFiles);
+  const list = imageFiles.map((file: any) =>
     file.originFileObj ? file.originFileObj : file
   );
 
@@ -54,7 +74,7 @@ export const apiAddLaptop = ({
     color,
     cpu,
     display,
-    facilityId: 1,
+    facilityId,
     graphics,
     laptopState,
     price,
@@ -68,23 +88,6 @@ export const apiAddLaptop = ({
 
   const formData = new FormData();
 
-  // formData.append("battery", battery);
-  // formData.append("brand", brand);
-  // formData.append("chipCpu", chipCpu);
-  // formData.append("color", color);
-  // formData.append("cpu", cpu);
-  // formData.append("display", display);
-  // formData.append("facilityId", facilityId);
-  // formData.append("graphics", graphics);
-  // formData.append("laptopState", laptopState);
-  // formData.append("price", price);
-  // formData.append("productName", productName);
-  // formData.append("quantity", quantity);
-  // formData.append("ram", ram);
-  // formData.append("storage", storage);
-  // formData.append("type", type);
-  // formData.append("weight", weight);
-
   formData.append(
     "laptopDTO",
     JSON.stringify({
@@ -92,9 +95,10 @@ export const apiAddLaptop = ({
     })
   );
 
-  formData.append("avatarFile", avatarFile.file?.originFileObj);
+  formData.append("avatarFile", avatarFile[0]);
 
-  list.forEach((file: any) => {
+  imageFiles.forEach((file: any) => {
+    console.log(file);
     formData.append("imageFiles", file);
   });
 
@@ -102,32 +106,9 @@ export const apiAddLaptop = ({
 
   return instanceAxios
     .post("/laptop", formData, {
-      // params: formData,
       headers: {
         "Content-Type": "multipart/form-data",
       },
     })
     .then((res) => res.data);
 };
-
-// export const apiAddLaptop = ({ images }: any) => {
-//   const list = images.fileList.map((file: any) =>
-//     file.originFileObj ? file.originFileObj : file
-//   );
-
-//   const formData = new FormData();
-
-//   formData.append("images", images.file);
-
-//   list.forEach((file: any) => {
-//     formData.append("imagesList", file);
-//   });
-
-//   return instanceAxios
-//     .post("/upload", formData, {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//       },
-//     })
-//     .then((res) => res.data);
-// };

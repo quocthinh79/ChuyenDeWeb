@@ -1,6 +1,7 @@
 import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { routerPathFull } from "../../core";
+import { Button } from "@components";
 
 export interface useLoggedProps {
   token?: string;
@@ -10,7 +11,11 @@ export function useLogged({ token }: useLoggedProps) {
   return token
     ? {
         key: "/Todo",
-        label: <LogoutOutlined style={{ fontSize: "28px" }} />,
+        label: (
+          <>
+            <LogoutOutlined style={{ fontSize: "28px" }} />
+          </>
+        ),
       }
     : {
         key: routerPathFull.auth.login,

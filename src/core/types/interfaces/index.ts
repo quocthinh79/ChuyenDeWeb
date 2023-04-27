@@ -8,3 +8,4 @@ export * from "./IRegister";
 export * from "./IForgotPassword";
 export * from "./INewPassword";
 export * from "./response";
+export * from "./request";

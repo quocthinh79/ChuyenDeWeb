@@ -9,32 +9,32 @@ import { formatCurrency } from "../../core";
 import { BadgeRibbon } from "@components";
 
 export interface LaptopCardItemProps {
-  srcImage?: string;
-  laptopName?: string;
-  laptopCurrency?: number;
-  idProduct?: any;
+  linkAvatar?: string;
+  productName?: string;
+  price?: number;
+  id?: any;
 }
 
 export function LaptopCardItem({
   // TODO: Change default props
-  idProduct = 2,
-  laptopCurrency = 100000000,
-  laptopName = "Lenovo Legion 5 Pro 2022",
-  srcImage = "https://media-api-beta.thinkpro.vn/media/core/products/2022/10/1/2375_lenovo_legion_5_pro_16iah7h_ct1_1600.png?w=500&h=500",
+  id = 2,
+  price = 100000000,
+  productName = "Lenovo Legion 5 Pro 2022",
+  linkAvatar = "",
 }: LaptopCardItemProps) {
   const { colorPrice } = useTheme();
   return (
-    <Link to={`/detail/${idProduct}`}>
+    <Link to={`/detail/${id}`}>
       <BadgeRibbon text="Hot" color="red">
         <Card hoverable>
-          <Image placeholder={laptopName} preview={false} src={srcImage} />
-          <Title level={4}>{laptopName}</Title>
+          <Image placeholder={productName} preview={false} src={linkAvatar} />
+          <Title level={4}>{productName}</Title>
           <Description>
             <DescriptionItem
               contentStyle={{ color: colorPrice, fontWeight: 700 }}
               label="Giá"
             >
-              {formatCurrency(laptopCurrency, "VND")}
+              {formatCurrency(price, "VND")}
             </DescriptionItem>
           </Description>
         </Card>
