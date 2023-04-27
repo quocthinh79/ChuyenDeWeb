@@ -1,9 +1,12 @@
 import { Suspense, lazy } from "react";
 import { routerPathFull } from "../../core";
+import Logout from "../../pages/auth/logout";
 
 const ForgotPasswordPage = lazy(
   () => import("../../pages/auth/forgot-password")
 );
+
+// const LogoutPage = lazy(() => import("../../pages/auth/logout"));
 const LoginPage = lazy(() => import("../../pages/auth/login"));
 const RegisterPage = lazy(() => import("../../pages/auth/register"));
 const RouterAuthLayout = lazy(() => import("./routerAuthLayout"));
@@ -18,6 +21,10 @@ export const routerAuthConfig: object = {
     </Suspense>
   ),
   children: [
+    {
+      path: routerPathFull.auth.logout,
+      element: <Logout />,
+    },
     {
       path: routerPathFull.auth.login,
       element: (

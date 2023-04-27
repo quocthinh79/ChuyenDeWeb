@@ -9,6 +9,7 @@ export const routerPath = {
     loginSuccess: "login-success",
     success: "success",
     requestNewPassword: "request-new-password",
+    logout: "logout",
   },
   home: {
     root: "",
