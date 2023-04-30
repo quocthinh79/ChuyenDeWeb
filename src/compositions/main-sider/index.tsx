@@ -20,17 +20,20 @@ const StyledContainer = styled("div")`
 
 export function MainSider() {
   const { data: brandFilterItems } = useQuery<string[]>({
+    refetchOnWindowFocus: false,
     queryKey: ["BrandFilterItems"],
     queryFn: () => apiBrandFilterItems(),
   });
 
   const { data: typeFilterItems } = useQuery<string[]>({
+    refetchOnWindowFocus: false,
     queryKey: ["TypeFilterItems"],
     queryFn: () => apiTypeFilterItems(),
   });
   // console.log(typeFilterItems);
 
   const { data: cpuFilterItems } = useQuery<string[]>({
+    refetchOnWindowFocus: false,
     queryKey: ["CPUFilterItems"],
     queryFn: () => apiCPUFilterItems(),
   });

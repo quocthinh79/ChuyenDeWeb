@@ -28,6 +28,9 @@ export const routerPath = {
   },
   admin: {
     root: "admin",
+    laptop: "laptop",
+    cart: "cart",
+    account: "account",
   },
   detail: {
     root: "detail/:idProduct",

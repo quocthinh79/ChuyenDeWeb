@@ -152,43 +152,13 @@ function AdminLaptopPage() {
       dataIndex: "addressMSI",
     },
   ];
-
-  const [columnName, setColumnName] = useState<ColumnsType<ITypeDataTable>>([]);
-  const [data, setData] = useState<ITypeDataTable[]>([]);
   const [dataModal, setDataModal] = useState<ITypeDataTable[]>([]);
 
   const { mutate: getLaptop, isLoading } = useMutation({
     mutationKey: ["apiGetLaptop"],
     mutationFn: apiGetMultipleLaptop,
     onSuccess: (data) => {
-      setColumnName(
-        Object.keys(data?.laptopList[0])
-          .filter(
-            (item) =>
-              item === "id" ||
-              item === "brand" ||
-              item === "productName" ||
-              item === "price" ||
-              item === "cpu"
-          )
-          .map((item) => {
-            return {
-              title: item,
-              dataIndex: item,
-              width: 200,
-              ellipsis: true,
-            };
-          })
-      );
       setDataModal(data?.laptopList);
-      // console.log(
-      //   data?.laptopList?.map((item: any) => {
-      //     return {
-      //       ...item,
-      //       key: item?.id,
-      //     };
-      //   })
-      // );
     },
     onError: (error: any) => {
       console.log(error);
@@ -201,8 +171,6 @@ function AdminLaptopPage() {
     }
     fetchData();
   }, []);
-
-  // console.log(Object.keys(data?.laptopList?.[0]));
 
   const _columnName: ColumnsType<ITypeDataTable> = Object.entries(
     EAdminLaptopColumnShow

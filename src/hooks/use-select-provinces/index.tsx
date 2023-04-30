@@ -51,6 +51,7 @@ export function useSelectProvinces(
   });
 
   const { data } = useQuery<Provinces[]>({
+    refetchOnWindowFocus: false,
     queryKey: ["apiProvinces"],
     queryFn: () => apiProvinces(),
     onSuccess(data) {

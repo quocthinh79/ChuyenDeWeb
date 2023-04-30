@@ -1,6 +1,6 @@
-import { EAdminLaptop } from "./response";
+import { EAdminModalLaptop } from "./response";
 
 export enum EImageEntity {
-  imageFiles = EAdminLaptop.imageFiles,
-  avatarFile = EAdminLaptop.avatarFile,
+  imageFiles = EAdminModalLaptop.imageFiles,
+  avatarFile = EAdminModalLaptop.avatarFile,
 }

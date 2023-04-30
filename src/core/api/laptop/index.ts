@@ -1,4 +1,4 @@
-import { ILaptop } from "src/core/types";
+import { IProduct } from "src/core/types";
 import instanceAxios from "../instance-axios";
 import { IPagination } from "src/core/types/interfaces/IPagination";
 
@@ -49,7 +49,6 @@ export const apiAddLaptop = ({
   color,
   cpu,
   display,
-  facilityId = 1,
   graphics,
   laptopState,
   price,
@@ -61,7 +60,7 @@ export const apiAddLaptop = ({
   weight,
   avatarFile,
   imageFiles,
-}: ILaptop) => {
+}: IProduct) => {
   console.log(imageFiles);
   const list = imageFiles.map((file: any) =>
     file.originFileObj ? file.originFileObj : file
@@ -74,7 +73,6 @@ export const apiAddLaptop = ({
     color,
     cpu,
     display,
-    facilityId,
     graphics,
     laptopState,
     price,
@@ -87,6 +85,8 @@ export const apiAddLaptop = ({
   };
 
   const formData = new FormData();
+
+  formData.append("facilityId", "1");
 
   formData.append(
     "laptopDTO",

@@ -20,6 +20,7 @@ export function DetailCart() {
     refetch,
     isSuccess: loadingAdd,
   } = useQuery<IGetCartOfUserRes>({
+    refetchOnWindowFocus: false,
     queryKey: ["getCartItems"],
     queryFn: () => apiGetCartOfUser({ token }),
   });
