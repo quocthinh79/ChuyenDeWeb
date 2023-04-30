@@ -23,6 +23,7 @@ export const useHandleCartItems = (): useHandleCartItems => {
   // TODO: Call API Cart
   // console.log("Call API");
   const { data } = useQuery<IGetCartOfUserRes>({
+    refetchOnWindowFocus: false,
     queryKey: ["getCartItems"],
     queryFn: () => apiGetCartOfUser({ token }),
   });

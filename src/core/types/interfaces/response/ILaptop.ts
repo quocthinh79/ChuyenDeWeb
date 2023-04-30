@@ -1,23 +1,23 @@
-export interface ILaptop {
-  battery: string;
-  brand: string;
-  chipCpu: string;
-  color: string;
-  cpu: string;
-  display: string;
-  facilityId: number;
-  graphics: string;
-  laptopState: string;
-  price: string;
-  productName: string;
-  quantity: string;
-  ram: string;
-  storage: string;
-  type: string;
-  weight: string;
-  avatarFile: any;
-  imageFiles: any;
-}
+// export interface ILaptop {
+//   battery: string;
+//   brand: string;
+//   chipCpu: string;
+//   color: string;
+//   cpu: string;
+//   display: string;
+//   facilityId: number;
+//   graphics: string;
+//   laptopState: string;
+//   price: string;
+//   productName: string;
+//   quantity: string;
+//   ram: string;
+//   storage: string;
+//   type: string;
+//   weight: string;
+//   avatarFile: any;
+//   imageFiles: any;
+// }
 
 export interface IProduct {
   battery: string;
@@ -37,4 +37,6 @@ export interface IProduct {
   storage: string;
   type: string;
   weight: string;
+  avatarFile: any;
+  imageFiles: any;
 }

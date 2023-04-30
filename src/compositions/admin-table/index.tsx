@@ -1,6 +1,6 @@
 import { DeleteFilled, EditFilled, PlusOutlined } from "@ant-design/icons";
 import { Button, PopConfirm } from "@components";
-import { EAdminLaptop, EButtonTypes, ITypeDataTable } from "@core";
+import { EAdminModalLaptop, EButtonTypes, ITypeDataTable } from "@core";
 import { EditableContext, useDisclosure, useEditTable } from "@hooks";
 import { Form, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
@@ -76,7 +76,7 @@ function AdminTable({
   const ModalAdd = useMemo(() => {
     return (
       <AdminHandleAddModal
-        allColumnName={EAdminLaptop}
+        allColumnName={EAdminModalLaptop}
         onCloseModal={onCloseAddModal}
         openModal={openAddModal}
       />
@@ -88,7 +88,7 @@ function AdminTable({
       <AdminHandleEditModal
         id={idModal}
         data={dataSource}
-        allColumnName={EAdminLaptop}
+        allColumnName={EAdminModalLaptop}
         onCloseModal={onCloseEditModal}
         openModal={openEditModal}
       />

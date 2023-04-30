@@ -63,6 +63,7 @@ ILaptopInformation) {
   let { idProduct } = useParams();
 
   const { data: informationProduct } = useQuery<IProduct>({
+    refetchOnWindowFocus: false,
     queryKey: ["detailProduct"],
     queryFn: () => apiGetLaptopByID(Number(idProduct)),
   });
