@@ -1,22 +1,18 @@
 import { DeleteFilled, EditFilled, PlusOutlined } from "@ant-design/icons";
 import { Button, PopConfirm } from "@components";
-import { EAdminModalLaptop, EButtonTypes, ITypeDataTable } from "@core";
+import { EAdminLaptopColumnShow, EButtonTypes, ITypeDataTable } from "@core";
 import { EditableContext, useDisclosure, useEditTable } from "@hooks";
 import { Form, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useState, useMemo } from "react";
-import AdminHandleAddModal from "../admin-handle-add-modal";
-import AdminHandleEditModal from "../admin-handle-edit-modal";
+import { useMemo, useState } from "react";
+import AddModalLaptop from "../../admin-modal/laptop/add-modal-laptop";
+import EditModalLaptop from "../../admin-modal/laptop/edit-modal-laptop";
 
-export interface AdminTableProps {
+export interface TableLaptopProps {
   initialData?: ITypeDataTable[];
-  defaultColumnsEditData: ColumnsType<ITypeDataTable>;
 }
 
-function AdminTable({
-  initialData = [],
-  defaultColumnsEditData = [],
-}: AdminTableProps) {
+export function TableLaptop({ initialData = [] }: TableLaptopProps) {
   const { form, onDelete, dataSource } = useEditTable({ initialData });
 
   const {
@@ -35,8 +31,19 @@ function AdminTable({
     initialState: false,
   });
 
+  const _columnName: ColumnsType<ITypeDataTable> = Object.entries(
+    EAdminLaptopColumnShow
+  ).map(([key, value]) => {
+    return {
+      title: value,
+      dataIndex: key,
+      width: 200,
+      ellipsis: true,
+    };
+  });
+
   const defaultColumns: ColumnsType<ITypeDataTable> = [
-    ...defaultColumnsEditData,
+    ..._columnName,
     {
       title: "Action",
       dataIndex: "Action",
@@ -75,21 +82,16 @@ function AdminTable({
 
   const ModalAdd = useMemo(() => {
     return (
-      <AdminHandleAddModal
-        allColumnName={EAdminModalLaptop}
-        onCloseModal={onCloseAddModal}
-        openModal={openAddModal}
-      />
+      <AddModalLaptop openModal={openAddModal} closeModal={onCloseAddModal} />
     );
-  }, [idModal, openAddModal]);
+  }, [openAddModal]);
 
   const ModalEdit = useMemo(() => {
     return (
-      <AdminHandleEditModal
+      <EditModalLaptop
         id={idModal}
         data={dataSource}
-        allColumnName={EAdminModalLaptop}
-        onCloseModal={onCloseEditModal}
+        closeModal={onCloseEditModal}
         openModal={openEditModal}
       />
     );
@@ -118,4 +120,4 @@ function AdminTable({
   );
 }
 
-export default AdminTable;
+export default TableLaptop;

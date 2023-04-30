@@ -6,10 +6,15 @@ import { useEffect, useState } from "react";
 export interface UploadSingleFileProps {
   form: FormInstance<any>;
   name: string;
+  value?: UploadFile<any>[];
 }
 
-export function UploadSingleFile({ form, name }: UploadSingleFileProps) {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+export function UploadSingleFile({
+  form,
+  name,
+  value: defaultFileList = [],
+}: UploadSingleFileProps) {
+  const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || []);
 
   const handleRemove = () => {
     setFileList([]);
@@ -26,6 +31,7 @@ export function UploadSingleFile({ form, name }: UploadSingleFileProps) {
 
   return (
     <Upload
+      defaultFileList={fileList}
       //  listType="picture-card"
       accept=".png,.jpg,.jpeg"
       multiple={false}
