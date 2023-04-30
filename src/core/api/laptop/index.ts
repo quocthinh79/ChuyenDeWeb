@@ -61,10 +61,10 @@ export const apiAddLaptop = ({
   avatarFile,
   imageFiles,
 }: IProduct) => {
-  console.log(imageFiles);
-  const list = imageFiles.map((file: any) =>
-    file.originFileObj ? file.originFileObj : file
-  );
+  // console.log(imageFiles);
+  // const list = imageFiles.map((file: any) =>
+  //   file.originFileObj ? file.originFileObj : file
+  // );
 
   const passProps = {
     battery,
@@ -82,11 +82,11 @@ export const apiAddLaptop = ({
     storage,
     type,
     weight,
+    id: 1,
+    facilityId: 1,
   };
 
   const formData = new FormData();
-
-  formData.append("facilityId", "1");
 
   formData.append(
     "laptopDTO",
@@ -98,11 +98,8 @@ export const apiAddLaptop = ({
   formData.append("avatarFile", avatarFile[0]);
 
   imageFiles.forEach((file: any) => {
-    console.log(file);
     formData.append("imageFiles", file);
   });
-
-  console.log(formData);
 
   return instanceAxios
     .post("/laptop", formData, {

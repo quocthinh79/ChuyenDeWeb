@@ -6,32 +6,40 @@ import { useEffect, useState } from "react";
 export interface UploadMultipleFileProps {
   form: FormInstance<any>;
   name: string;
+  value?: UploadFile<any>[];
 }
 
-export function UploadMultipleFile({ form, name }: UploadMultipleFileProps) {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+export function UploadMultipleFile({
+  form,
+  name,
+  value: defaultFileList = [],
+}: UploadMultipleFileProps) {
+  const [fileListState, setFileListState] = useState<UploadFile[]>(
+    defaultFileList || []
+  );
 
   const handleRemove = (file: UploadFile) => {
-    const index = fileList.indexOf(file);
-    const newFileList = [...fileList];
+    const index = fileListState.indexOf(file);
+    const newFileList = [...fileListState];
     newFileList.splice(index, 1);
-    setFileList(newFileList);
+    setFileListState(newFileList);
   };
 
   const handleUpload = (file: any) => {
-    setFileList((pre) => [...pre, file]);
+    setFileListState((pre) => [...pre, file]);
     return false;
   };
 
   useEffect(() => {
-    form.setFieldValue(name, fileList);
-  }, [fileList]);
+    form.setFieldValue(name, fileListState);
+  }, [fileListState]);
 
   return (
     <Upload
+      defaultFileList={defaultFileList}
       accept=".png,.jpg,.jpeg"
       multiple={true}
-      fileList={fileList}
+      fileList={fileListState}
       beforeUpload={handleUpload}
       onRemove={handleRemove}
     >
