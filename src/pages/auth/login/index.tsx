@@ -19,7 +19,7 @@ import {
   routerPathFull,
   schemaLogin,
 } from "@core";
-import { useStorageRoles, useStorageToken } from "@store";
+import { usePathname, useStorageRoles, useStorageToken } from "@store";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "antd/es/form/Form";
 import { memo } from "react";
@@ -39,12 +39,13 @@ export function LoginPage(_props: LoginProps) {
   const { setToken } = useStorageToken();
   const { setRoles } = useStorageRoles();
   const [api, contextHolder] = notification.useNotification();
+  const pathname = usePathname((state: any) => state.pathname);
 
   const { mutate: login, isLoading } = useMutation({
     mutationKey: ["apiLogin"],
     mutationFn: apiLogin,
     onSuccess: (data) => {
-      navigation("/");
+      pathname === "" ? navigation("/") : navigation(pathname);
       setToken(data.token);
       setRoles(data.roles);
     },
