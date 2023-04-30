@@ -10,3 +10,4 @@ export * from "./admin-handle-edit-modal";
 export { default as UploadMultipleFile } from "./upload-multiple-file";
 export * from "./upload-single-file";
 export * from "./admin-table/laptop/table-laptop";
+export { default as DetailProductItem } from "./detail-product-item/detail-product-item";

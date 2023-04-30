@@ -4,16 +4,21 @@ import {
   apiGetCartOfUser,
   apiReduceItem,
   apiRemoveItemInCart,
+  routerPathFull,
 } from "@core";
-import { useStorageToken } from "@store";
+import { usePathname, useStorageToken } from "@store";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import ProductItemCart from "../../compositions/product-item-cart";
 import TotalPriceInCart from "../../compositions/total-price-in-cart";
 import LeftRightLayout from "../left-right-layout";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function DetailCart() {
   const { token } = useStorageToken();
+  const navigation = useNavigate();
+  const setPathname = usePathname((state: any) => state.setPathname);
+  const { pathname } = useLocation();
 
   const {
     data,
@@ -23,6 +28,13 @@ export function DetailCart() {
     refetchOnWindowFocus: false,
     queryKey: ["getCartItems"],
     queryFn: () => apiGetCartOfUser({ token }),
+    onSuccess(data) {
+      console.log(data);
+    },
+    onError(err) {
+      setPathname(pathname);
+      navigation(routerPathFull.auth.login);
+    },
   });
 
   const { laptopDTOs, totalPayment } = data || {};

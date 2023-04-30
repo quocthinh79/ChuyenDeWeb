@@ -1,8 +1,7 @@
-import DetailProductItem from "../../compositions/detail-product-item/detail-product-item";
-import detailProductItem from "../../dummy-data/detail-product-item";
+import { DetailProductItem } from "@compositions";
 
 export function DetailPage() {
-  return <DetailProductItem {...detailProductItem} />;
+  return <DetailProductItem />;
 }
 
 export default DetailPage;

@@ -12,55 +12,36 @@ import {
   Text,
   Title,
 } from "@components";
-import { SPACE_BETWEEN_ITEMS } from "@constant";
+import { MISSING_TOKEN_MESSAGE, SPACE_BETWEEN_ITEMS } from "@constant";
 import {
   EButtonTypes,
   EContentTypeTypography,
   EDirectionFlex,
   EDirectionType,
-  IAddToCart,
-  ILaptopInformation,
   IProduct,
   apiAddToCart,
   apiGetImagesLaptop,
   apiGetLaptopByID,
   formatCurrency,
+  messError,
   routerPathFull,
 } from "@core";
 import { useTheme } from "@emotion/react";
-import styled from "@emotion/styled";
+import { usePathname, useStorageToken } from "@store";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LeftRightLayout from "../left-right-layout";
 import SliderOverviewProduct from "../slider-overview-product/slider-overview-product";
-import { useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useStorageToken } from "@store";
+import { notification } from "antd";
 
-const StyledCol = styled(Col)`
-  height: fit-content;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-
-function DetailProductItem({}: // battery,
-// color,
-// cpu,
-// disk,
-// gpu,
-// mainConnect,
-// name,
-// price,
-// ram,
-// screen,
-// weight,
-// image,
-ILaptopInformation) {
+function DetailProductItem({}) {
+  const navigation = useNavigate();
   const { colorPrice } = useTheme();
-  // const url = new URL(window.location.href);
-  // const idProduct = url.pathname.split("/")[url.pathname.split("/").length - 1];
   let { idProduct } = useParams();
+  const { token } = useStorageToken();
+  const { pathname } = useLocation();
+  const setPathname = usePathname((state: any) => state.setPathname);
+  const [api, contextHolder] = notification.useNotification();
 
   const { data: informationProduct } = useQuery<IProduct>({
     refetchOnWindowFocus: false,
@@ -70,18 +51,12 @@ ILaptopInformation) {
 
   const {
     battery,
-    brand,
-    chipCpu,
     color,
     cpu,
     display,
     graphics,
-    id,
-    laptopState,
-    linkAvatar,
     price,
     productName,
-    quantity,
     ram,
     storage,
     type,
@@ -93,18 +68,21 @@ ILaptopInformation) {
     queryFn: () => apiGetImagesLaptop(Number(idProduct)),
   });
 
-  const navigation = useNavigate();
-
   const { mutate: addProductToCart } = useMutation({
     mutationKey: ["addProductToCart"],
     mutationFn: apiAddToCart,
-    onSuccess(data, variables, context) {},
+    onSuccess(data, variables, context) {
+      navigation(routerPathFull.cart.root);
+    },
     onError(error, variables, context) {
       console.log(error);
+      setPathname(pathname);
+      api["error"]({
+        message: "LỖI",
+        description: MISSING_TOKEN_MESSAGE,
+      });
     },
   });
-
-  const { token } = useStorageToken();
 
   const handleAddToCart = async () => {
     await addProductToCart({
@@ -115,102 +93,102 @@ ILaptopInformation) {
   };
 
   return (
-    <LeftRightLayout
-      leftChildren={
-        <Flex direction={EDirectionFlex.Column} gap={SPACE_BETWEEN_ITEMS}>
-          <SliderOverviewProduct image={listImages || []} />
+    <>
+      {contextHolder}
+      <LeftRightLayout
+        leftChildren={
+          <Flex direction={EDirectionFlex.Column} gap={SPACE_BETWEEN_ITEMS}>
+            <SliderOverviewProduct image={listImages || []} />
+            <Card>
+              <Title level={4}>Cấu hình chi tiết</Title>
+              <Description
+                column={2}
+                size="small"
+                layout={EDirectionType.Vertical}
+              >
+                <DescriptionItem label="Vi xử lý (CPU)">{cpu}</DescriptionItem>
+                <DescriptionItem label="RAM">{ram}</DescriptionItem>
+              </Description>
+              <Divider />
+              <Description
+                column={2}
+                size="small"
+                layout={EDirectionType.Vertical}
+              >
+                <DescriptionItem label="Màn hình">{display}</DescriptionItem>
+                <DescriptionItem label="Card đồ họa (GPU)">
+                  {graphics}
+                </DescriptionItem>
+              </Description>
+              <Divider />
+              <Description
+                column={2}
+                size="small"
+                layout={EDirectionType.Vertical}
+              >
+                <DescriptionItem label="Lưu trữ">{storage}</DescriptionItem>
+                <DescriptionItem label="Pin">{battery}</DescriptionItem>
+              </Description>
+              <Divider />
+              <Description
+                column={2}
+                size="small"
+                layout={EDirectionType.Vertical}
+              >
+                <DescriptionItem label="Loại Laptop">{type}</DescriptionItem>
+                <DescriptionItem label="Trọng lượng">{weight}</DescriptionItem>
+              </Description>
+              <Divider />
+            </Card>
+          </Flex>
+        }
+        rightChildren={
           <Card>
-            <Title level={4}>Cấu hình chi tiết</Title>
-            <Description
-              column={2}
-              size="small"
-              layout={EDirectionType.Vertical}
-            >
-              <DescriptionItem label="Vi xử lý (CPU)">{cpu}</DescriptionItem>
-              <DescriptionItem label="RAM">{ram}</DescriptionItem>
-            </Description>
+            <Space>
+              <Title level={3}>{productName}</Title>
+              <Text type={EContentTypeTypography.Secondary}>
+                SKU: XPS13931502NO (ID: {idProduct})
+              </Text>
+              <Text textColor={colorPrice} strong>
+                {formatCurrency(price || 0)}
+              </Text>
+              <Description column={1} title="Cấu hình">
+                <DescriptionItem label="CPU">{cpu}</DescriptionItem>
+                <DescriptionItem label="GPU">{graphics}</DescriptionItem>
+                <DescriptionItem label="RAM">{ram}</DescriptionItem>
+                <DescriptionItem label="Lưu trữ">{storage}</DescriptionItem>
+                <DescriptionItem label="Màu">{color}</DescriptionItem>
+              </Description>
+            </Space>
             <Divider />
-            <Description
-              column={2}
-              size="small"
-              layout={EDirectionType.Vertical}
-            >
-              <DescriptionItem label="Màn hình">{display}</DescriptionItem>
-              <DescriptionItem label="Card đồ họa (GPU)">
-                {graphics}
-              </DescriptionItem>
-            </Description>
-            <Divider />
-            <Description
-              column={2}
-              size="small"
-              layout={EDirectionType.Vertical}
-            >
-              <DescriptionItem label="Lưu trữ">{storage}</DescriptionItem>
-              <DescriptionItem label="Pin">{battery}</DescriptionItem>
-            </Description>
-            <Divider />
-            <Description
-              column={2}
-              size="small"
-              layout={EDirectionType.Vertical}
-            >
-              <DescriptionItem label="Loại Laptop">{type}</DescriptionItem>
-              <DescriptionItem label="Trọng lượng">{weight}</DescriptionItem>
-            </Description>
-            <Divider />
+            <Space widthFull>
+              <Text textColor={colorPrice} strong>
+                {formatCurrency(price || 0)}
+              </Text>
+              <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
+                <Col span={20}>
+                  <Button
+                    block
+                    type={EButtonTypes.Primary}
+                    onClick={handleAddToCart}
+                  >
+                    Mua ngay
+                  </Button>
+                </Col>
+                <Col span={4}>
+                  <Button
+                    icon={<ShoppingCartOutlined />}
+                    block
+                    type={EButtonTypes.Primary}
+                    onClick={handleAddToCart}
+                  ></Button>
+                </Col>
+              </Row>
+            </Space>
           </Card>
-        </Flex>
-      }
-      rightChildren={
-        <Card>
-          <Space>
-            <Title level={3}>{productName}</Title>
-            <Text type={EContentTypeTypography.Secondary}>
-              SKU: XPS13931502NO (ID: {idProduct})
-            </Text>
-            <Text textColor={colorPrice} strong>
-              {formatCurrency(price || 0)}
-            </Text>
-            <Description column={1} title="Cấu hình">
-              <DescriptionItem label="CPU">{cpu}</DescriptionItem>
-              <DescriptionItem label="GPU">{graphics}</DescriptionItem>
-              <DescriptionItem label="RAM">{ram}</DescriptionItem>
-              <DescriptionItem label="Lưu trữ">{storage}</DescriptionItem>
-              <DescriptionItem label="Màu">{color}</DescriptionItem>
-            </Description>
-          </Space>
-          <Divider />
-          <Space widthFull>
-            <Text textColor={colorPrice} strong>
-              {formatCurrency(price || 0)}
-            </Text>
-            <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
-              <Col span={20}>
-                <Button
-                  block
-                  type={EButtonTypes.Primary}
-                  onClick={() => {
-                    handleAddToCart;
-                    navigation(routerPathFull.cart.root);
-                  }}
-                >
-                  Mua ngay
-                </Button>
-              </Col>
-              <Col span={4}>
-                <Button
-                  icon={<ShoppingCartOutlined />}
-                  block
-                  type={EButtonTypes.Primary}
-                  onClick={handleAddToCart}
-                ></Button>
-              </Col>
-            </Row>
-          </Space>
-        </Card>
-      }
-    />
+        }
+      />
+    </>
   );
 }
 

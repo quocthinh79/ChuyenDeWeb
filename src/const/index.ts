@@ -16,3 +16,5 @@ export const RESUME_LINK = "https://quoc-thinh-resume.netlify.app/";
 export const EMPTY_INPUT_ERROR = "Trường này là bắt buộc!";
 
 export const ORIGIN_URL = window.location.origin;
+
+export const MISSING_TOKEN_MESSAGE = "Vui lòng đăng nhập để tiếp tục";
