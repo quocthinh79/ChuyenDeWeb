@@ -10,10 +10,10 @@ function SliderOverviewProduct({ image }: SliderOverviewProductProps) {
   const memoryList = useMemo(() => image.map((item) => item), [image]);
 
   return (
-    <Card>
+    <Card key={Math.random()}>
       <Carousel arrows lazyLoad="progressive" autoplay draggable>
-        {memoryList.map((item) => (
-          <Image preview={false} src={item} />
+        {memoryList.map((item: any) => (
+          <Image preview={false} src={item?.imageLink} />
         ))}
       </Carousel>
     </Card>

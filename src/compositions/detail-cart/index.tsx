@@ -6,7 +6,7 @@ import {
   apiRemoveItemInCart,
   routerPathFull,
 } from "@core";
-import { usePathname, useStorageToken } from "@store";
+import { usePathname, useStorageToken, useStorageTotalCartItems } from "@store";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ export function DetailCart() {
   const navigation = useNavigate();
   const setPathname = usePathname((state: any) => state.setPathname);
   const { pathname } = useLocation();
+  const { setTotalCartItems, totalCartItems } = useStorageTotalCartItems();
 
   const {
     data,
@@ -26,11 +27,12 @@ export function DetailCart() {
     isSuccess: getCartSuccess,
     isLoading: loadingGetCart,
   } = useQuery<IGetCartOfUserRes>({
-    refetchOnWindowFocus: false,
-    queryKey: ["getCartItems"],
+    // refetchOnWindowFocus: true,
+    // refetchOnMount: true,
+    queryKey: ["getCartItemsInCart"],
     queryFn: () => apiGetCartOfUser({ token }),
     onSuccess(data) {
-      console.log(data);
+      setTotalCartItems(totalCartItems || data.laptopDTOs.length);
     },
     onError(err) {
       console.log(err);
@@ -45,7 +47,13 @@ export function DetailCart() {
     mutationKey: ["removeItemFromCart"],
     mutationFn: apiRemoveItemInCart,
     onSuccess(data, variables, context) {
-      console.log(data);
+      const sum = data?.laptopDTOs?.reduce(
+        (accumulator: any, currentValue: any) => {
+          return accumulator + currentValue.quantity;
+        },
+        0
+      );
+      setTotalCartItems(sum || 0);
     },
     onError(error, variables, context) {
       console.log(error);
@@ -67,7 +75,13 @@ export function DetailCart() {
     mutationKey: ["apiReduceItem"],
     mutationFn: apiReduceItem,
     onSuccess(data, variables, context) {
-      console.log(data);
+      const sum = data?.laptopDTOs?.reduce(
+        (accumulator: any, currentValue: any) => {
+          return accumulator + currentValue.quantity;
+        },
+        0
+      );
+      setTotalCartItems(sum || 0);
     },
     onError(error, variables, context) {
       console.log(error);
@@ -86,6 +100,7 @@ export function DetailCart() {
     removeSuccess,
     addSuccess,
     decreaseSuccess,
+    data,
   ]);
 
   return (
