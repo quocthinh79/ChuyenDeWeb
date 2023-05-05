@@ -23,16 +23,16 @@ import {
   apiGetImagesLaptop,
   apiGetLaptopByID,
   formatCurrency,
-  messError,
   routerPathFull,
 } from "@core";
 import { useTheme } from "@emotion/react";
-import { usePathname, useStorageToken } from "@store";
+import { usePathname, useStorageToken, useStorageTotalCartItems } from "@store";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { notification } from "antd";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LeftRightLayout from "../left-right-layout";
 import SliderOverviewProduct from "../slider-overview-product/slider-overview-product";
-import { notification } from "antd";
+import { useState } from "react";
 
 function DetailProductItem({}) {
   const navigation = useNavigate();
@@ -42,6 +42,8 @@ function DetailProductItem({}) {
   const { pathname } = useLocation();
   const setPathname = usePathname((state: any) => state.setPathname);
   const [api, contextHolder] = notification.useNotification();
+  const { setTotalCartItems, totalCartItems } = useStorageTotalCartItems();
+  const [navigate, setNavigate] = useState(false);
 
   const { data: informationProduct } = useQuery<IProduct>({
     refetchOnWindowFocus: false,
@@ -64,6 +66,7 @@ function DetailProductItem({}) {
   } = informationProduct || {};
 
   const { data: listImages } = useQuery<string[]>({
+    refetchOnWindowFocus: false,
     queryKey: ["listImage"],
     queryFn: () => apiGetImagesLaptop(Number(idProduct)),
   });
@@ -72,7 +75,8 @@ function DetailProductItem({}) {
     mutationKey: ["addProductToCart"],
     mutationFn: apiAddToCart,
     onSuccess(data, variables, context) {
-      navigation(routerPathFull.cart.root);
+      setTotalCartItems(totalCartItems + 1);
+      navigate ? navigation(routerPathFull.cart.root) : "";
     },
     onError(error, variables, context) {
       console.log(error);
@@ -170,7 +174,10 @@ function DetailProductItem({}) {
                   <Button
                     block
                     type={EButtonTypes.Primary}
-                    onClick={handleAddToCart}
+                    onClick={() => {
+                      handleAddToCart();
+                      return setNavigate(true);
+                    }}
                   >
                     Mua ngay
                   </Button>

@@ -17,12 +17,19 @@ import {
   EInputTextSize,
   EJustifyFlex,
   EModeMenu,
+  IGetCartOfUserRes,
+  apiGetCartOfUser,
   routerPathFull,
   templateStringToClassName,
 } from "@core";
 import { cx } from "@emotion/css";
 import { useLogged } from "@hooks";
-import { useStorageRoles, useStorageToken } from "@store";
+import {
+  useStorageRoles,
+  useStorageToken,
+  useStorageTotalCartItems,
+} from "@store";
+import { useQuery } from "@tanstack/react-query";
 import { Badge, Menu } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { memo, useMemo } from "react";
@@ -46,6 +53,24 @@ export function MainHeader() {
       ? navigator(`${routerPathFull.search.root}?keyWord=${values.keyWord}`)
       : navigator("/");
   };
+
+  const { setTotalCartItems, totalCartItems } = useStorageTotalCartItems();
+
+  const {} = useQuery<IGetCartOfUserRes>({
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    queryKey: ["getCartItemsHeader"],
+    queryFn: () => apiGetCartOfUser({ token }),
+    onSuccess(data) {
+      const sum = data.laptopDTOs.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.quantity;
+      }, 0);
+      setTotalCartItems(sum);
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
 
   const component = useMemo(() => {
     return (
@@ -104,7 +129,9 @@ export function MainHeader() {
                   key: routerPathFull.cart.root,
                   label: (
                     <Link to={routerPathFull.cart.root}>
-                      <Badge count={5}>
+                      <Badge
+                        count={totalCartItems === 0 ? null : totalCartItems}
+                      >
                         <ShoppingCartOutlined style={{ fontSize: "28px" }} />
                       </Badge>
                     </Link>
