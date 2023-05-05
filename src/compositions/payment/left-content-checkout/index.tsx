@@ -13,15 +13,24 @@ import {
   Title,
 } from "@components";
 import { SPACE_BETWEEN_ITEMS } from "@constant";
-import { IGetCartOfUserRes, apiGetCartOfUser } from "@core";
+import {
+  IGetCartOfUserRes,
+  IGetOnlyAccountRes,
+  IUpdateAccountReq,
+  apiGetCartOfUser,
+  apiGetOnlyAccount,
+  apiUpdateAccount,
+  routerPathFull,
+} from "@core";
 import { useHandleCartItems } from "@hooks";
 import { useStorageToken } from "@store";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
 import { useState } from "react";
 import ProductItemInCheckout from "../../product-item-in-checkout";
 import SelectProvincesFormItem from "../../select-provinces-form-item";
+import { useNavigate } from "react-router-dom";
 
 export interface LeftContentCheckoutProps {
   form: any;
@@ -30,12 +39,37 @@ export interface LeftContentCheckoutProps {
 export function LeftContentCheckout({ form }: LeftContentCheckoutProps) {
   const { totalProduct } = useHandleCartItems();
   const [valueInput, setValueInput] = useState<string>("");
+  const { token } = useStorageToken();
+  const navigator = useNavigate();
 
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  const onFinish = ({
+    fullName,
+    phone,
+    address,
+    addressDetail,
+  }: IUpdateAccountReq) => {
+    const passProps = { fullName, phone, address, addressDetail };
+    updateAccount({ ...passProps, token });
   };
 
-  const { token } = useStorageToken();
+  const { mutate: updateAccount } = useMutation({
+    mutationKey: ["account"],
+    mutationFn: apiUpdateAccount,
+    onSuccess: ({ fullName, phone, address, addressDetail }) => {
+      form.setFieldsValue({
+        fullName,
+        phone,
+        address,
+        addressDetail,
+      });
+
+      setValueInput(address || "");
+      navigator(routerPathFull.success.root);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const {
     data,
@@ -50,6 +84,22 @@ export function LeftContentCheckout({ form }: LeftContentCheckoutProps) {
       console.log(data);
     },
     onError(err) {},
+  });
+
+  const { isSuccess: isGetAccountSuccess } = useQuery<IGetOnlyAccountRes>({
+    refetchOnWindowFocus: false,
+    queryKey: ["account"],
+    queryFn: () => apiGetOnlyAccount({ token }),
+    onSuccess({ fullName, phone, address, addressDetail }) {
+      form.setFieldsValue({
+        fullName,
+        phone,
+        address,
+        addressDetail,
+      });
+
+      setValueInput(address || "");
+    },
   });
 
   const { laptopDTOs, totalPayment } = data || {};
@@ -69,7 +119,7 @@ export function LeftContentCheckout({ form }: LeftContentCheckoutProps) {
         <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
           <Col span={12}>
             <FormItem
-              name="name"
+              name="fullName"
               rules={[
                 {
                   required: true,
@@ -100,7 +150,7 @@ export function LeftContentCheckout({ form }: LeftContentCheckoutProps) {
           </Col>
           <Col span={12}>
             <FormItem
-              name="address-detail"
+              name="addressDetail"
               rules={[
                 {
                   required: true,

@@ -38,6 +38,9 @@ export const routerPath = {
   checkout: {
     root: "checkout",
   },
+  success: {
+    root: "success",
+  },
 };
 
 export type TRouterPath = typeof routerPath;
