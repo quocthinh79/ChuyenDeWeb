@@ -38,7 +38,7 @@ export const schemaChangePassword = z.object({
 });
 
 export const schemaInformationAccount = z.object({
-  name: schemaName,
+  fullName: schemaName,
   phone: schemaPhoneNumber,
   email: schemaEmail,
 });

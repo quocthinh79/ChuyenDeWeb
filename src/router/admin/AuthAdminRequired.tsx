@@ -1,15 +1,50 @@
+import { Button, ContainerFixed, Flex } from "@components";
+import { EJustifyFlex, ERouterAdmin, routerPathFull } from "@core";
 import { useStorageRoles } from "@store";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Segmented } from "antd";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 function AuthAdminRequired() {
   const { isAdmin } = useStorageRoles();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  if (!isAdmin) {
+  if (!isAdmin()) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  return <Outlet />;
+  const handleChange = (value: any) => {
+    switch (value) {
+      case ERouterAdmin.Cart:
+        navigate(routerPathFull.admin.cart);
+        break;
+      case ERouterAdmin.Account:
+        navigate(routerPathFull.admin.account);
+        break;
+      default:
+        navigate(routerPathFull.admin.laptop);
+        break;
+    }
+  };
+
+  return (
+    <>
+      <ContainerFixed position="center">
+        <Flex justify={EJustifyFlex.Center}>
+          <Segmented
+            onChange={handleChange}
+            options={[
+              ERouterAdmin.Laptop,
+              ERouterAdmin.Cart,
+              ERouterAdmin.Account,
+            ]}
+            defaultValue={"Laptop"}
+          />
+        </Flex>
+      </ContainerFixed>
+      <Outlet />
+    </>
+  );
 }
 
 export default AuthAdminRequired;

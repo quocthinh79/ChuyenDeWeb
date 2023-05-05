@@ -1,36 +1,77 @@
 import { Button, Card, Form, SizeProps, Space, Title } from "@components";
 import {
-  dayjs,
   EButtonTypes,
   EDirectionType,
   EHtmlButtonTypes,
+  IGetOnlyAccountRes,
+  IUpdateAccountReq,
+  apiGetOnlyAccount,
+  apiUpdateAccount,
+  dayjs,
   handleSchemaError,
-  schemaInformationAccount,
 } from "@core";
+import { useStorageToken } from "@store";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "antd/es/form/Form";
 import PersonalInformationFormItem from "./personal-information-form-item";
 
 export function AccountLeftContent() {
+  const { token } = useStorageToken();
   const [form] = useForm();
-  const onFinish = (values: any) => {
+  const onFinish = ({
+    fullName,
+    email,
+    phone,
+    sex,
+    dob,
+  }: IUpdateAccountReq) => {
+    const passProps = { fullName, email, phone, sex };
     try {
-      schemaInformationAccount.parse(values);
-      console.log("Success:", values);
+      // TODO: Fix schema validation
+      // schemaInformationAccount.parse(values);
+      updateAccount({ ...passProps, token, dob: dayjs(dob).toDate() });
     } catch (error) {
-      console.log(error);
       handleSchemaError(error, form);
     }
-    // console.log("Success:", values);
-    // console.log(
-    //   `${dayjs(values.birthday).get("date")}/${
-    //     dayjs(values.birthday).get("month") + 1
-    //   }/${dayjs(values.birthday).get("year")}`
-    // );
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  const { data, isSuccess: isGetAccountSuccess } = useQuery<IGetOnlyAccountRes>(
+    {
+      refetchOnWindowFocus: false,
+      queryKey: ["account"],
+      queryFn: () => apiGetOnlyAccount({ token }),
+      onSuccess({ fullName, email, phone, sex, dob }) {
+        form.setFieldsValue({
+          fullName,
+          email,
+          phone,
+          sex,
+          dob: dayjs(dob),
+        });
+      },
+    }
+  );
+
+  const { mutate: updateAccount } = useMutation({
+    mutationKey: ["account"],
+    mutationFn: apiUpdateAccount,
+    onSuccess: ({ fullName, email, phone, sex, dob }) => {
+      form.setFieldsValue({
+        fullName,
+        email,
+        phone,
+        sex,
+        dob: dayjs(dob),
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   return (
     <Card>

@@ -1,4 +1,4 @@
-import { IAddToCart, IGetCartOfUser, IRemoveItemCartReq } from "src/core/types";
+import { IAddToCart, IGetCartOfUserReq, IRemoveItemCartReq } from "@core";
 import instanceAxios from "../instance-axios";
 
 export const apiAddToCart = ({ laptopId, quantity, token }: IAddToCart) => {
@@ -17,7 +17,7 @@ export const apiAddToCart = ({ laptopId, quantity, token }: IAddToCart) => {
     .then((res) => res.data);
 };
 
-export const apiGetCartOfUser = ({ token }: IGetCartOfUser) => {
+export const apiGetCartOfUser = ({ token }: IGetCartOfUserReq) => {
   return instanceAxios
     .get("/cart/laptops", {
       params: {

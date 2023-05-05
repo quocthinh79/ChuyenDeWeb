@@ -9,18 +9,19 @@ import {
   InputText,
   Radio,
   Row,
-  Select,
   Text,
   Title,
 } from "@components";
 import { SPACE_BETWEEN_ITEMS } from "@constant";
-import { productItemCheckout } from "@dummy-data";
+import { IGetCartOfUserRes, apiGetCartOfUser } from "@core";
 import { useHandleCartItems } from "@hooks";
+import { useStorageToken } from "@store";
+import { useQuery } from "@tanstack/react-query";
 import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
+import { useState } from "react";
 import ProductItemInCheckout from "../../product-item-in-checkout";
 import SelectProvincesFormItem from "../../select-provinces-form-item";
-import { useState } from "react";
 
 export interface LeftContentCheckoutProps {
   form: any;
@@ -33,6 +34,25 @@ export function LeftContentCheckout({ form }: LeftContentCheckoutProps) {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
+
+  const { token } = useStorageToken();
+
+  const {
+    data,
+    refetch,
+    isSuccess: getCartSuccess,
+    isLoading: loadingGetCart,
+  } = useQuery<IGetCartOfUserRes>({
+    refetchOnWindowFocus: false,
+    queryKey: ["getCartItems"],
+    queryFn: () => apiGetCartOfUser({ token }),
+    onSuccess(data) {
+      console.log(data);
+    },
+    onError(err) {},
+  });
+
+  const { laptopDTOs, totalPayment } = data || {};
 
   return (
     <Card>
@@ -98,9 +118,28 @@ export function LeftContentCheckout({ form }: LeftContentCheckoutProps) {
       <Divider />
       <Collapse defaultActiveKey={["1"]}>
         <CollapsePanel header={`Sản phẩm trong đơn (${totalProduct})`} key="1">
-          {productItemCheckout?.map((item) => (
-            <ProductItemInCheckout {...item} />
-          ))}
+          {laptopDTOs?.map(
+            ({
+              linkAvatar,
+              id,
+              productName,
+              price,
+              quantity,
+              cpu,
+              ram,
+              storage,
+            }) => (
+              <ProductItemInCheckout
+                key={id}
+                laptopID={id}
+                laptopImage={linkAvatar}
+                laptopName={productName}
+                totalPriceOfItem={price}
+                quantity={quantity}
+                laptopSummary={[cpu, ram, storage]}
+              />
+            )
+          )}
         </CollapsePanel>
       </Collapse>
     </Card>
