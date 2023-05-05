@@ -39,7 +39,7 @@ export function ProductItemInCheckout({
   const _laptopSummary = arrayToString(laptopSummary || []);
 
   return (
-    <Card>
+    <Card key={laptopID}>
       <Row gutter={[16, 16]}>
         <Col span={4}>
           <Flex justify={EJustifyFlex.Center} align={EFlexAlign.Center}>

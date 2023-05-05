@@ -83,7 +83,7 @@ export function MainHeader() {
               {isAdmin() && (
                 <Button
                   type={EButtonTypes.Default}
-                  onClick={() => navigator(routerPathFull.admin.root)}
+                  onClick={() => navigator(routerPathFull.admin.laptop)}
                 >
                   ADMIN
                 </Button>

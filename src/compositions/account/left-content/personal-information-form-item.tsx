@@ -1,6 +1,5 @@
 import {
   DatePicker,
-  FormItem,
   InputText,
   Radio,
   RadioGroup,
@@ -9,28 +8,29 @@ import {
 } from "@components";
 import { EMPTY_INPUT_ERROR, FORMAT_DATE_DEFAULT } from "@constant";
 import { EDirectionType } from "@core";
-import { memo } from "react";
+import { Form } from "antd";
 
-export function PersonalInformationFormItem() {
+export function PersonalInformationForm() {
   return (
     <Space
       size={SizeProps.Middle}
       direction={EDirectionType.Vertical}
       widthFull
     >
-      <FormItem
+      <Form.Item
         rules={[
           {
             required: true,
             message: EMPTY_INPUT_ERROR,
           },
         ]}
-        name="name"
+        name="fullName"
         label="Họ tên"
+        // valuePropName="value"
       >
         <InputText placeholder="Nhập họ và tên" />
-      </FormItem>
-      <FormItem
+      </Form.Item>
+      <Form.Item
         rules={[
           {
             required: true,
@@ -41,8 +41,8 @@ export function PersonalInformationFormItem() {
         label="Số điện thoại"
       >
         <InputText placeholder="Nhập số điện thoại" />
-      </FormItem>
-      <FormItem
+      </Form.Item>
+      <Form.Item
         rules={[
           {
             required: true,
@@ -53,20 +53,20 @@ export function PersonalInformationFormItem() {
         label="Email"
       >
         <InputText placeholder="Nhập email của bạn" />
-      </FormItem>
-      <FormItem
+      </Form.Item>
+      <Form.Item
         rules={[
           {
             required: true,
             message: EMPTY_INPUT_ERROR,
           },
         ]}
-        name="birthday"
+        name="dob"
         label="Ngày sinh"
       >
         <DatePicker block format={FORMAT_DATE_DEFAULT} />
-      </FormItem>
-      <FormItem
+      </Form.Item>
+      <Form.Item
         rules={[
           {
             required: true,
@@ -80,9 +80,9 @@ export function PersonalInformationFormItem() {
           <Radio value="Nam">Nam</Radio>
           <Radio value="Nữ">Nữ</Radio>
         </RadioGroup>
-      </FormItem>
+      </Form.Item>
     </Space>
   );
 }
 
-export default memo(PersonalInformationFormItem);
+export default PersonalInformationForm;

@@ -9,10 +9,10 @@ import {
 import { usePathname, useStorageToken } from "@store";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProductItemCart from "../../compositions/product-item-cart";
 import TotalPriceInCart from "../../compositions/total-price-in-cart";
 import LeftRightLayout from "../left-right-layout";
-import { useLocation, useNavigate } from "react-router-dom";
 
 export function DetailCart() {
   const { token } = useStorageToken();
@@ -23,7 +23,8 @@ export function DetailCart() {
   const {
     data,
     refetch,
-    isSuccess: loadingAdd,
+    isSuccess: getCartSuccess,
+    isLoading: loadingGetCart,
   } = useQuery<IGetCartOfUserRes>({
     refetchOnWindowFocus: false,
     queryKey: ["getCartItems"],
@@ -32,6 +33,7 @@ export function DetailCart() {
       console.log(data);
     },
     onError(err) {
+      console.log(err);
       setPathname(pathname);
       navigation(routerPathFull.auth.login);
     },
@@ -39,7 +41,7 @@ export function DetailCart() {
 
   const { laptopDTOs, totalPayment } = data || {};
 
-  const { mutate: removeItem, isSuccess: loadingRemove } = useMutation({
+  const { mutate: removeItem, isSuccess: removeSuccess } = useMutation({
     mutationKey: ["removeItemFromCart"],
     mutationFn: apiRemoveItemInCart,
     onSuccess(data, variables, context) {
@@ -50,20 +52,18 @@ export function DetailCart() {
     },
   });
 
-  const { mutate: addProductToCart, isSuccess: loadingAddToCart } = useMutation(
-    {
-      mutationKey: ["addProductToCart"],
-      mutationFn: apiAddToCart,
-      onSuccess(data, variables, context) {
-        console.log(data);
-      },
-      onError(error, variables, context) {
-        console.log(error);
-      },
-    }
-  );
+  const { mutate: addProductToCart, isSuccess: addSuccess } = useMutation({
+    mutationKey: ["addProductToCart"],
+    mutationFn: apiAddToCart,
+    onSuccess(data, variables, context) {
+      console.log(data);
+    },
+    onError(error, variables, context) {
+      console.log(error);
+    },
+  });
 
-  const { mutate: reduceItem, isSuccess: loadingReduce } = useMutation({
+  const { mutate: reduceItem, isSuccess: decreaseSuccess } = useMutation({
     mutationKey: ["apiReduceItem"],
     mutationFn: apiReduceItem,
     onSuccess(data, variables, context) {
@@ -80,7 +80,13 @@ export function DetailCart() {
 
   useEffect(() => {
     refetch();
-  }, [loadingRemove, loadingAdd, loadingAddToCart, loadingReduce]);
+  }, [
+    loadingGetCart,
+    getCartSuccess,
+    removeSuccess,
+    addSuccess,
+    decreaseSuccess,
+  ]);
 
   return (
     <LeftRightLayout

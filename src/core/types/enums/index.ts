@@ -26,3 +26,4 @@ export * from "./ETriggerSubMenuAction";
 export * from "./EWrapFlex";
 export * from "./response";
 export * from "./EImageEntity";
+export * from "./ERouterAdmin";
