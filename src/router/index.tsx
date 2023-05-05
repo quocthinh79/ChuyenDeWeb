@@ -13,6 +13,7 @@ const Cart = lazy(() => import("../pages/cart"));
 const DetailPage = lazy(() => import("../pages/detail"));
 const PaymentPage = lazy(() => import("../pages/payment"));
 const SearchPage = lazy(() => import("../pages/search"));
+const SuccessPage = lazy(() => import("../pages/success"));
 
 const router = [
   {
@@ -31,6 +32,14 @@ const router = [
   {
     element: <RouterLayout />,
     children: [
+      {
+        path: routerPathFull.success.root,
+        element: (
+          <Suspense fallback={<>Loading</>}>
+            <SuccessPage />
+          </Suspense>
+        ),
+      },
       {
         path: routerPathFull.aboutUs.root,
         element: (
