@@ -1,12 +1,19 @@
 import { DeleteFilled, EditFilled, PlusOutlined } from "@ant-design/icons";
 import { Button, PopConfirm } from "@components";
-import { EAdminLaptopColumnShow, EButtonTypes, ITypeDataTable } from "@core";
+import {
+  EAdminLaptopColumnShow,
+  EButtonTypes,
+  IDeleteLaptopReq,
+  ITypeDataTable,
+  apiDeleteLaptop,
+} from "@core";
 import { EditableContext, useDisclosure, useEditTable } from "@hooks";
 import { Form, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useMemo, useState } from "react";
 import AddModalLaptop from "../../admin-modal/laptop/add-modal-laptop";
 import EditModalLaptop from "../../admin-modal/laptop/edit-modal-laptop";
+import { useMutation } from "@tanstack/react-query";
 
 export interface TableLaptopProps {
   initialData?: ITypeDataTable[];
@@ -14,6 +21,17 @@ export interface TableLaptopProps {
 
 export function TableLaptop({ initialData = [] }: TableLaptopProps) {
   const { form, onDelete, dataSource } = useEditTable({ initialData });
+
+  const { mutate: deleteLaptop } = useMutation({
+    mutationKey: ["deleteLaptop"],
+    mutationFn: apiDeleteLaptop,
+    onSuccess(data, variables, context) {
+      console.log("🚀 ~ file: table-laptop.tsx:23 ~ onSuccess ~ data:", data);
+    },
+    onError(error, variables, context) {
+      console.log("🚀 ~ file: table-laptop.tsx:31 ~ onError ~ error:", error);
+    },
+  });
 
   const {
     onClose: onCloseAddModal,
@@ -42,6 +60,10 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
     };
   });
 
+  const submitDeleteLaptop = async ({ ids }: IDeleteLaptopReq) => {
+    await deleteLaptop({ ids });
+  };
+
   const defaultColumns: ColumnsType<ITypeDataTable> = [
     ..._columnName,
     {
@@ -59,7 +81,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
               title="Bạn chắc chứ?"
               cancelText="Hủy"
               okText="Xóa"
-              onConfirm={() => onDelete(record.id)}
+              onConfirm={() => submitDeleteLaptop({ ids: [record.id] })}
             >
               <Button type={EButtonTypes.Primary} danger>
                 <DeleteFilled />

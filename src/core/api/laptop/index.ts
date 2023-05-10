@@ -1,4 +1,9 @@
-import { IProduct, IUpdateAccountReq, IUpdateLaptopReq } from "src/core/types";
+import {
+  IDeleteLaptopReq,
+  IProduct,
+  IUpdateAccountReq,
+  IUpdateLaptopReq,
+} from "src/core/types";
 import instanceAxios from "../instance-axios";
 import { IPagination } from "src/core/types/interfaces/IPagination";
 
@@ -143,21 +148,11 @@ export const apiUpdateLaptop = ({
     })
   );
 
-  // formData.append("avatarFile", avatarFile[0]);
-
-  // imageFiles.forEach((file: any) => {
-  //   formData.append("imageFiles", file);
-  // });
-
   return instanceAxios
-    .put(
-      `/laptop/update/${id}`,
-      { ...passProps },
-      {
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
-      }
-    )
+    .put(`/laptop/update/${id}`, { ...passProps })
     .then((res) => res.data);
+};
+
+export const apiDeleteLaptop = ({ ids }: IDeleteLaptopReq) => {
+  return instanceAxios.delete(`/laptop`, { data: ids }).then((res) => res.data);
 };
