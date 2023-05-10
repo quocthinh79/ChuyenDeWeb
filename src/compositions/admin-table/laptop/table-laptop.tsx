@@ -14,13 +14,16 @@ import { useMemo, useState } from "react";
 import AddModalLaptop from "../../admin-modal/laptop/add-modal-laptop";
 import EditModalLaptop from "../../admin-modal/laptop/edit-modal-laptop";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "antd/es/form/Form";
 
 export interface TableLaptopProps {
   initialData?: ITypeDataTable[];
 }
 
 export function TableLaptop({ initialData = [] }: TableLaptopProps) {
-  const { form, onDelete, dataSource } = useEditTable({ initialData });
+  // const { form, onDelete, dataSource } = useEditTable({ initialData });
+
+  const [form] = useForm();
 
   const { mutate: deleteLaptop } = useMutation({
     mutationKey: ["deleteLaptop"],
@@ -72,7 +75,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
       fixed: "right",
       width: 250,
       render: (_, record) => {
-        return dataSource.length >= 1 ? (
+        return initialData.length >= 1 ? (
           <>
             <Button onClick={() => handleOpenModalClick(record.id)}>
               <EditFilled />
@@ -112,7 +115,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
     return (
       <EditModalLaptop
         id={idModal}
-        data={dataSource}
+        data={initialData}
         closeModal={onCloseEditModal}
         openModal={openEditModal}
       />
@@ -132,7 +135,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
         <Form form={form}>
           <Table
             bordered
-            dataSource={dataSource}
+            dataSource={initialData}
             columns={defaultColumns}
             scroll={{ x: 1500, y: 300 }}
           />

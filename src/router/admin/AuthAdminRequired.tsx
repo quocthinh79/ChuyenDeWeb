@@ -15,9 +15,6 @@ function AuthAdminRequired() {
 
   const handleChange = (value: any) => {
     switch (value) {
-      case ERouterAdmin.Cart:
-        navigate(routerPathFull.admin.cart);
-        break;
       case ERouterAdmin.Account:
         navigate(routerPathFull.admin.account);
         break;
@@ -33,11 +30,7 @@ function AuthAdminRequired() {
         <Flex justify={EJustifyFlex.Center}>
           <Segmented
             onChange={handleChange}
-            options={[
-              ERouterAdmin.Laptop,
-              ERouterAdmin.Cart,
-              ERouterAdmin.Account,
-            ]}
+            options={[ERouterAdmin.Laptop, ERouterAdmin.Account]}
             defaultValue={"Laptop"}
           />
         </Flex>

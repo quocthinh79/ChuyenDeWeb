@@ -1,8 +1,7 @@
-import LaptopAdminPage from "../../pages/admin/laptop";
 import { routerPathFull } from "../../core";
-import AuthAdminRequired from "./AuthAdminRequired";
-import CartAdminPage from "../../pages/admin/cart";
 import AccountAdminPage from "../../pages/admin/account";
+import LaptopAdminPage from "../../pages/admin/laptop";
+import AuthAdminRequired from "./AuthAdminRequired";
 
 export const routerAdminConfig: object = {
   path: routerPathFull.admin.root,
@@ -11,10 +10,6 @@ export const routerAdminConfig: object = {
     {
       path: routerPathFull.admin.laptop,
       element: <LaptopAdminPage />,
-    },
-    {
-      path: routerPathFull.admin.cart,
-      element: <CartAdminPage />,
     },
     {
       path: routerPathFull.admin.account,
