@@ -4,15 +4,9 @@ export enum EAdminModalLaptop {
   chipCpu = "Chip CPU",
   color = "Màu sắc",
   cpu = "CPU",
-  // createBy = "Tạo bởi",
-  // createdDate = "Ngày tạo",
   display = "Màn hình",
   graphics = "Card màn hình",
-  // id = "ID",
   laptopState = "Trạng thái",
-  // linkAvatar = "Hình ảnh đại diện",
-  // modifiedBy = "Sửa bởi",
-  // modifiedDate = "Ngày sửa",
   price = "Giá",
   productName = "Tên sản phẩm",
   quantity = "Số lượng",
@@ -20,7 +14,6 @@ export enum EAdminModalLaptop {
   storage = "Ổ đĩa",
   type = "Loại sản phẩm",
   weight = "Trọng lượng",
-  // imageList = "Danh sách hình ảnh",
   avatarFile = "Hình ảnh đại diện",
   imageFiles = "Danh sách hình ảnh",
 }
@@ -31,15 +24,9 @@ export enum EAdminModalEditLaptop {
   chipCpu = "Chip CPU",
   color = "Màu sắc",
   cpu = "CPU",
-  // createBy = "Tạo bởi",
-  // createdDate = "Ngày tạo",
   display = "Màn hình",
   graphics = "Card màn hình",
-  // id = "ID",
   laptopState = "Trạng thái",
-  // linkAvatar = "Hình ảnh đại diện",
-  // modifiedBy = "Sửa bởi",
-  // modifiedDate = "Ngày sửa",
   price = "Giá",
   productName = "Tên sản phẩm",
   quantity = "Số lượng",
@@ -47,9 +34,6 @@ export enum EAdminModalEditLaptop {
   storage = "Ổ đĩa",
   type = "Loại sản phẩm",
   weight = "Trọng lượng",
-  // imageList = "Danh sách hình ảnh",
-  // avatarFile = "Hình ảnh đại diện",
-  // imageFiles = "Danh sách hình ảnh",
 }
 
 export enum EAdminLaptopColumnShow {
@@ -58,4 +42,24 @@ export enum EAdminLaptopColumnShow {
   ram = "RAM",
   quantity = "Số lượng",
   laptopState = "Trạng thái",
+}
+
+export enum EAdminAccountColumnShow {
+  sex = "Giới tính",
+  fullName = "Họ và tên",
+  phone = "Số điện thoại",
+  dob = "Ngày sinh",
+  email = "Email",
+}
+
+export enum EAdminModalAccount {
+  fullName = "Họ và tên",
+  phone = "Số điện thoại",
+  dob = "Ngày sinh",
+  email = "Email",
+  sex = "Giới tính",
+  address = "Địa chỉ",
+  addressDetail = "Địa chỉ chi tiết",
+  state = "Trạng thái",
+  roles = "Quyền",
 }

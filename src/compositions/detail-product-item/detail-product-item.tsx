@@ -18,6 +18,7 @@ import {
   EContentTypeTypography,
   EDirectionFlex,
   EDirectionType,
+  IListImagesLaptop,
   IProduct,
   apiAddToCart,
   apiGetImagesLaptop,
@@ -65,7 +66,7 @@ function DetailProductItem({}) {
     weight,
   } = informationProduct || {};
 
-  const { data: listImages } = useQuery<string[]>({
+  const { data: listImages } = useQuery<IListImagesLaptop[]>({
     refetchOnWindowFocus: false,
     queryKey: ["listImage"],
     queryFn: () => apiGetImagesLaptop(Number(idProduct)),

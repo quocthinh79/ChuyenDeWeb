@@ -1,5 +1,5 @@
 export interface IListImagesLaptop {
-  id: number;
-  imageLink: string;
-  imageName: string;
+  uid: number;
+  url: string;
+  name: string;
 }
