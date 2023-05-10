@@ -1,4 +1,4 @@
-import { IProduct } from "src/core/types";
+import { IProduct, IUpdateAccountReq, IUpdateLaptopReq } from "src/core/types";
 import instanceAxios from "../instance-axios";
 import { IPagination } from "src/core/types/interfaces/IPagination";
 
@@ -17,15 +17,6 @@ export const apiGetMultipleLaptop = ({
   chipCpus,
   types,
 }: IPagination) => {
-  // const formData = new FormData();
-
-  // formData.append("start", start.toString());
-  // formData.append("limit", limit.toString());
-  // brands?.map((item) => formData.append("brands", item));
-  // types?.map((item) => formData.append("types", item));
-  // formData.append("chipCpus", chipCpus);
-  // formData.append("types", types);
-
   return instanceAxios
     .get(`/laptop`, {
       params: {
@@ -35,9 +26,6 @@ export const apiGetMultipleLaptop = ({
         chipCpus,
         types,
       },
-      // paramsSerializer: (params) => {
-      //   return JSON.stringify(params);
-      // },
     })
     .then((res) => res.data);
 };
@@ -61,11 +49,6 @@ export const apiAddLaptop = ({
   avatarFile,
   imageFiles,
 }: IProduct) => {
-  // console.log(imageFiles);
-  // const list = imageFiles.map((file: any) =>
-  //   file.originFileObj ? file.originFileObj : file
-  // );
-
   const passProps = {
     battery,
     brand,
@@ -107,5 +90,74 @@ export const apiAddLaptop = ({
         "Content-Type": "multipart/form-data",
       },
     })
+    .then((res) => res.data);
+};
+
+export const apiUpdateLaptop = ({
+  id,
+  avatarFile,
+  battery,
+  brand,
+  chipCpu,
+  color,
+  cpu,
+  display,
+  graphics,
+  imageFiles,
+  laptopState,
+  // linkAvatar,
+  price,
+  productName,
+  quantity,
+  ram,
+  storage,
+  type,
+  weight,
+}: IUpdateLaptopReq) => {
+  const passProps = {
+    battery,
+    brand,
+    chipCpu,
+    color,
+    cpu,
+    display,
+    graphics,
+    laptopState,
+    price,
+    productName,
+    quantity,
+    ram,
+    storage,
+    type,
+    weight,
+    facilityId: 1,
+    // linkAvatar,
+  };
+
+  const formData = new FormData();
+
+  formData.append(
+    "laptopDTO",
+    JSON.stringify({
+      ...passProps,
+    })
+  );
+
+  // formData.append("avatarFile", avatarFile[0]);
+
+  // imageFiles.forEach((file: any) => {
+  //   formData.append("imageFiles", file);
+  // });
+
+  return instanceAxios
+    .put(
+      `/laptop/update/${id}`,
+      { ...passProps },
+      {
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // },
+      }
+    )
     .then((res) => res.data);
 };

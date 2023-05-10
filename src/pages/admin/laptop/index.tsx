@@ -21,7 +21,7 @@ export function LaptopAdmin(props: LaptopAdminProps) {
 
   useEffect(() => {
     async function fetchData() {
-      await getLaptop({ start: 1, limit: 3 });
+      await getLaptop({ start: 1, limit: 10 });
     }
     fetchData();
   }, []);

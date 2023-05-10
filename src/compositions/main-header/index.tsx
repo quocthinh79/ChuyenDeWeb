@@ -32,7 +32,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Badge, Menu } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { memo, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const logo = require("../../images/logo.png");
@@ -56,9 +56,9 @@ export function MainHeader() {
 
   const { setTotalCartItems, totalCartItems } = useStorageTotalCartItems();
 
-  const {} = useQuery<IGetCartOfUserRes>({
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
+  const { refetch } = useQuery<IGetCartOfUserRes>({
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
     queryKey: ["getCartItemsHeader"],
     queryFn: () => apiGetCartOfUser({ token }),
     onSuccess(data) {
@@ -71,6 +71,10 @@ export function MainHeader() {
       console.log(err);
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   const component = useMemo(() => {
     return (
