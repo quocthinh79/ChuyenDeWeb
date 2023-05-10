@@ -35,7 +35,7 @@ export function UploadSingleFile({
       //  listType="picture-card"
       accept=".png,.jpg,.jpeg"
       multiple={false}
-      fileList={fileList}
+      fileList={defaultFileList || fileList}
       beforeUpload={handleUpload}
       onRemove={handleRemove}
     >

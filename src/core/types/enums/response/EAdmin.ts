@@ -25,6 +25,33 @@ export enum EAdminModalLaptop {
   imageFiles = "Danh sách hình ảnh",
 }
 
+export enum EAdminModalEditLaptop {
+  battery = "Pin",
+  brand = "Hãng",
+  chipCpu = "Chip CPU",
+  color = "Màu sắc",
+  cpu = "CPU",
+  // createBy = "Tạo bởi",
+  // createdDate = "Ngày tạo",
+  display = "Màn hình",
+  graphics = "Card màn hình",
+  // id = "ID",
+  laptopState = "Trạng thái",
+  // linkAvatar = "Hình ảnh đại diện",
+  // modifiedBy = "Sửa bởi",
+  // modifiedDate = "Ngày sửa",
+  price = "Giá",
+  productName = "Tên sản phẩm",
+  quantity = "Số lượng",
+  ram = "RAM",
+  storage = "Ổ đĩa",
+  type = "Loại sản phẩm",
+  weight = "Trọng lượng",
+  // imageList = "Danh sách hình ảnh",
+  // avatarFile = "Hình ảnh đại diện",
+  // imageFiles = "Danh sách hình ảnh",
+}
+
 export enum EAdminLaptopColumnShow {
   productName = "Tên sản phẩm",
   cpu = "CPU",

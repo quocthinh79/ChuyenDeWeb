@@ -14,9 +14,12 @@ export function UploadMultipleFile({
   name,
   value: defaultFileList = [],
 }: UploadMultipleFileProps) {
-  const [fileListState, setFileListState] = useState<UploadFile[]>(
-    defaultFileList || []
-  );
+  const [fileListState, setFileListState] =
+    useState<UploadFile[]>(defaultFileList);
+
+  // useEffect(() => {
+  //   setFileListState(defaultFileList);
+  // }, [defaultFileList]);
 
   const handleRemove = (file: UploadFile) => {
     const index = fileListState.indexOf(file);
@@ -36,10 +39,10 @@ export function UploadMultipleFile({
 
   return (
     <Upload
-      defaultFileList={defaultFileList}
+      // defaultFileList={defaultFileList}
       accept=".png,.jpg,.jpeg"
       multiple={true}
-      fileList={fileListState}
+      fileList={defaultFileList || fileListState}
       beforeUpload={handleUpload}
       onRemove={handleRemove}
     >

@@ -27,8 +27,8 @@ export function DetailCart() {
     isSuccess: getCartSuccess,
     isLoading: loadingGetCart,
   } = useQuery<IGetCartOfUserRes>({
-    // refetchOnWindowFocus: true,
-    // refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
     queryKey: ["getCartItemsInCart"],
     queryFn: () => apiGetCartOfUser({ token }),
     onSuccess(data) {
