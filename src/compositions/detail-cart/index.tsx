@@ -32,7 +32,13 @@ export function DetailCart() {
     queryKey: ["getCartItemsInCart"],
     queryFn: () => apiGetCartOfUser({ token }),
     onSuccess(data) {
-      setTotalCartItems(totalCartItems || data.laptopDTOs.length);
+      const sum = data?.laptopDTOs?.reduce(
+        (accumulator: any, currentValue: any) => {
+          return accumulator + currentValue.quantity;
+        },
+        0
+      );
+      setTotalCartItems(sum || 0);
     },
     onError(err) {
       console.log(err);

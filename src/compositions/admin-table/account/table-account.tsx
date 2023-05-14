@@ -5,6 +5,7 @@ import {
   EButtonTypes,
   ITypeDataTable,
   apiDeleteAccount,
+  apiGetMultipleAccounts,
 } from "@core";
 import { EditableContext, useDisclosure } from "@hooks";
 import { Form, Table } from "antd";
@@ -13,14 +14,18 @@ import { ColumnsType } from "antd/es/table";
 import { useState, useMemo } from "react";
 import AddModalAccount from "../../admin-modal/account/add-modal-account";
 import EditModalAccount from "../../admin-modal/account/edit-modal-account";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { IDeleteAccountReq } from "src/core/types/interfaces/request/IDeleteAccountReq";
 
-export interface TableAccountProps {
-  initialData?: ITypeDataTable[];
-}
+export function TableAccount() {
+  const { data, refetch } = useQuery({
+    queryKey: ["apiGetMultipleAccounts"],
+    queryFn: () => apiGetMultipleAccounts(),
+    onSuccess(data) {
+      console.log("🚀 ~ file: index.tsx:15 ~ onSuccess ~ data:", data);
+    },
+  });
 
-export function TableAccount({ initialData = [] }: TableAccountProps) {
   const [form] = useForm();
   const [idModal, setIdModal] = useState<number>(0);
 
@@ -30,6 +35,7 @@ export function TableAccount({ initialData = [] }: TableAccountProps) {
     open: openAddModal,
   } = useDisclosure({
     initialState: false,
+    refetch,
   });
 
   const {
@@ -38,6 +44,7 @@ export function TableAccount({ initialData = [] }: TableAccountProps) {
     open: openEditModal,
   } = useDisclosure({
     initialState: false,
+    refetch,
   });
 
   const handleOpenModalClick = (id: number) => {
@@ -55,7 +62,7 @@ export function TableAccount({ initialData = [] }: TableAccountProps) {
     return (
       <EditModalAccount
         id={idModal}
-        data={initialData}
+        data={data}
         closeModal={onCloseEditModal}
         openModal={openEditModal}
       />
@@ -102,7 +109,7 @@ export function TableAccount({ initialData = [] }: TableAccountProps) {
       fixed: "right",
       width: 250,
       render: (_, record) => {
-        return initialData.length >= 1 ? (
+        return data.length >= 1 ? (
           <>
             <Button onClick={() => handleOpenModalClick(record.id)}>
               <EditFilled />
@@ -139,7 +146,7 @@ export function TableAccount({ initialData = [] }: TableAccountProps) {
           <Form form={form}>
             <Table
               bordered
-              dataSource={initialData}
+              dataSource={data}
               columns={defaultColumns}
               scroll={{ x: 1500, y: 300 }}
             />

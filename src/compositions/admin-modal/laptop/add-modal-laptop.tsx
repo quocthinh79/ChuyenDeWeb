@@ -19,11 +19,15 @@ export interface AddModalLaptopProps {
 export function AddModalLaptop({ openModal, closeModal }: AddModalLaptopProps) {
   const [form] = useForm();
 
-  const { mutate: addLaptop, isLoading } = useMutation({
+  const {
+    mutate: addLaptop,
+    isLoading,
+    isSuccess,
+  } = useMutation({
     mutationKey: ["apiAddLaptop"],
     mutationFn: apiAddLaptop,
     onSuccess: (data) => {
-      console.log(data);
+      closeModal?.();
     },
     onError: (error: any) => {
       console.log(error);
@@ -32,7 +36,6 @@ export function AddModalLaptop({ openModal, closeModal }: AddModalLaptopProps) {
 
   const onFinish = async (value: any) => {
     await addLaptop(value);
-    if (!isLoading) closeModal?.();
   };
 
   const handleSubmit = () => {
@@ -49,6 +52,7 @@ export function AddModalLaptop({ openModal, closeModal }: AddModalLaptopProps) {
       cancelText="Hủy"
       okText="Thêm mới"
       title="Thêm mới"
+      confirmLoading={isLoading}
     >
       <Form encType="multipart/form-data" form={form} onFinish={onFinish}>
         <Space widthFull>

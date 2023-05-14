@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 
 export interface UseDisclosureProps {
   initialState?: boolean;
+  refetch?: any;
 }
 
 export interface UserDisclosure {
@@ -14,12 +15,16 @@ export interface UserDisclosure {
 
 export const useDisclosure = ({
   initialState,
+  refetch,
 }: UseDisclosureProps = noobj): UserDisclosure => {
   const [open, setOpen] = useState<boolean>(() => !!initialState);
 
   const onOpen = useCallback(() => setOpen(true), []);
 
-  const onClose = useCallback(() => setOpen(false), []);
+  const onClose = useCallback(() => {
+    setOpen(false);
+    if (refetch) refetch();
+  }, []);
 
   const onToggle = useCallback((toState?: boolean) => {
     setOpen((open) => (toState === undefined ? !open : !!toState));

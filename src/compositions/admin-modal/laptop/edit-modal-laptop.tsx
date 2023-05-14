@@ -30,19 +30,24 @@ export function EditModalLaptop({
 
   const [form] = useForm();
 
-  const { mutate: updateLaptop } = useMutation({
+  const {
+    mutate: updateLaptop,
+    isLoading,
+    isSuccess,
+  } = useMutation({
     mutationKey: ["apiUpdateImageLaptop", "admin", id],
     mutationFn: apiUpdateLaptop,
     onError: (error) => {
       console.log(error);
     },
-    onSuccess: (data) => {},
+    onSuccess: (data) => {
+      closeModal?.();
+    },
   });
 
   const onFinish = async (value: any) => {
     console.log(value);
     await updateLaptop({ id, ...value });
-    //     if (!isLoading) closeModal?.();
   };
 
   const handleSubmit = () => {
@@ -63,6 +68,7 @@ export function EditModalLaptop({
       cancelText="Hủy"
       okText="Chỉnh sửa"
       title="Chỉnh sửa"
+      confirmLoading={isLoading}
     >
       <Form encType="multipart/form-data" form={form} onFinish={onFinish}>
         <Space widthFull>
