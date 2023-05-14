@@ -64,7 +64,7 @@ export function EditModalAccount({
           {Object.entries(EAdminModalAccount).map(([key, value], index) => {
             return (
               <Form.Item
-                rules={[{ required: true, message: EMPTY_INPUT_ERROR }]}
+                // rules={[{ required: true, message: EMPTY_INPUT_ERROR }]}
                 labelCol={{ span: 5 }}
                 key={key}
                 name={key}

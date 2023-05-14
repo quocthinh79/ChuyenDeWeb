@@ -29,6 +29,7 @@ export interface ModalProps {
   className?: string;
   destroyOnClose?: boolean;
   forceRender?: boolean;
+  confirmLoading?: boolean;
 }
 
 const StyledModal = styled(CustomModal)`
@@ -59,6 +60,7 @@ export function Modal({
   className,
   destroyOnClose = true,
   forceRender = false,
+  confirmLoading = false,
 }: ModalProps) {
   const theme = useTheme();
 
@@ -83,6 +85,7 @@ export function Modal({
     className,
     destroyOnClose,
     forceRender,
+    confirmLoading,
   };
 
   return <StyledModal {...passProps}>{children}</StyledModal>;

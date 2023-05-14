@@ -6,22 +6,30 @@ import {
   IDeleteLaptopReq,
   ITypeDataTable,
   apiDeleteLaptop,
+  apiGetMultipleLaptop,
 } from "@core";
-import { EditableContext, useDisclosure, useEditTable } from "@hooks";
+import { EditableContext, useDisclosure } from "@hooks";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, Table } from "antd";
+import { useForm } from "antd/es/form/Form";
 import { ColumnsType } from "antd/es/table";
 import { useMemo, useState } from "react";
 import AddModalLaptop from "../../admin-modal/laptop/add-modal-laptop";
 import EditModalLaptop from "../../admin-modal/laptop/edit-modal-laptop";
-import { useMutation } from "@tanstack/react-query";
-import { useForm } from "antd/es/form/Form";
 
-export interface TableLaptopProps {
-  initialData?: ITypeDataTable[];
-}
-
-export function TableLaptop({ initialData = [] }: TableLaptopProps) {
-  // const { form, onDelete, dataSource } = useEditTable({ initialData });
+export function TableLaptop() {
+  const { data, refetch } = useQuery({
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    queryKey: ["apiGetLaptop"],
+    queryFn: () => apiGetMultipleLaptop({ start: 1, limit: 10 }),
+    onSuccess: (data) => {
+      console.log("🚀 ~ file: table-laptop.tsx:34 ~ TableLaptop ~ data:", data);
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+  });
 
   const [form] = useForm();
 
@@ -30,6 +38,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
     mutationFn: apiDeleteLaptop,
     onSuccess(data, variables, context) {
       console.log("🚀 ~ file: table-laptop.tsx:23 ~ onSuccess ~ data:", data);
+      refetch();
     },
     onError(error, variables, context) {
       console.log("🚀 ~ file: table-laptop.tsx:31 ~ onError ~ error:", error);
@@ -42,6 +51,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
     open: openAddModal,
   } = useDisclosure({
     initialState: false,
+    refetch,
   });
 
   const {
@@ -50,6 +60,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
     open: openEditModal,
   } = useDisclosure({
     initialState: false,
+    refetch,
   });
 
   const _columnName: ColumnsType<ITypeDataTable> = Object.entries(
@@ -75,7 +86,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
       fixed: "right",
       width: 250,
       render: (_, record) => {
-        return initialData.length >= 1 ? (
+        return data?.laptopList.length >= 1 ? (
           <>
             <Button onClick={() => handleOpenModalClick(record.id)}>
               <EditFilled />
@@ -115,7 +126,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
     return (
       <EditModalLaptop
         id={idModal}
-        data={initialData}
+        data={data?.laptopList}
         closeModal={onCloseEditModal}
         openModal={openEditModal}
       />
@@ -135,7 +146,7 @@ export function TableLaptop({ initialData = [] }: TableLaptopProps) {
         <Form form={form}>
           <Table
             bordered
-            dataSource={initialData}
+            dataSource={data?.laptopList}
             columns={defaultColumns}
             scroll={{ x: 1500, y: 300 }}
           />
