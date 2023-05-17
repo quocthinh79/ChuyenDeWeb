@@ -7,15 +7,15 @@ import {
   apiDeleteAccount,
   apiGetMultipleAccounts,
 } from "@core";
-import { EditableContext, useDisclosure } from "@hooks";
+import { useDisclosure } from "@hooks";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, Table } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { ColumnsType } from "antd/es/table";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+import { IDeleteAccountReq } from "src/core/types/interfaces/request/IDeleteAccountReq";
 import AddModalAccount from "../../admin-modal/account/add-modal-account";
 import EditModalAccount from "../../admin-modal/account/edit-modal-account";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { IDeleteAccountReq } from "src/core/types/interfaces/request/IDeleteAccountReq";
 
 export function TableAccount() {
   const { data, refetch } = useQuery({
@@ -142,16 +142,14 @@ export function TableAccount() {
           type={EButtonTypes.Primary}
           icon={<PlusOutlined />}
         />
-        <EditableContext.Provider value={form}>
-          <Form form={form}>
-            <Table
-              bordered
-              dataSource={data}
-              columns={defaultColumns}
-              scroll={{ x: 1500, y: 300 }}
-            />
-          </Form>
-        </EditableContext.Provider>
+        <Form form={form}>
+          <Table
+            bordered
+            dataSource={data}
+            columns={defaultColumns}
+            scroll={{ x: 1500, y: 300 }}
+          />
+        </Form>
       </>
     </>
   );

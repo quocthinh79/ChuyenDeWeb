@@ -1,9 +1,10 @@
 import {
   IDeleteLaptopReq,
   IProduct,
+  ISearchLaptopWithName,
   IUpdateAccountReq,
   IUpdateLaptopReq,
-} from "src/core/types";
+} from "@core";
 import instanceAxios from "../instance-axios";
 import { IPagination } from "src/core/types/interfaces/IPagination";
 
@@ -155,4 +156,12 @@ export const apiUpdateLaptop = ({
 
 export const apiDeleteLaptop = ({ ids }: IDeleteLaptopReq) => {
   return instanceAxios.delete(`/laptop`, { data: ids }).then((res) => res.data);
+};
+
+export const apiSearchLaptopWithName = ({
+  productName,
+}: ISearchLaptopWithName) => {
+  return instanceAxios
+    .get("/laptop/product_name", { params: { productName } })
+    .then((res) => res.data);
 };

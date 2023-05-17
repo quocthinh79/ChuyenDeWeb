@@ -131,7 +131,7 @@ export function MainHeader() {
               items={[
                 {
                   key: routerPathFull.cart.root,
-                  label: (
+                  label: token ? (
                     <Link to={routerPathFull.cart.root}>
                       <Badge
                         count={totalCartItems === 0 ? null : totalCartItems}
@@ -139,14 +139,18 @@ export function MainHeader() {
                         <ShoppingCartOutlined style={{ fontSize: "28px" }} />
                       </Badge>
                     </Link>
+                  ) : (
+                    <></>
                   ),
                 },
                 {
                   key: routerPathFull.account.root,
-                  label: (
+                  label: token ? (
                     <Link to={routerPathFull.account.root}>
                       <UserOutlined style={{ fontSize: "28px" }} />
                     </Link>
+                  ) : (
+                    <></>
                   ),
                 },
                 logged,

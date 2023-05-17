@@ -11,7 +11,6 @@ export interface usePaginationProps {
 
 export function usePagination({ page }: usePaginationProps): usePagination {
   const [currentPage, setCurrentPage] = useState<number>(page);
-  // const [pageSize, setPageSize] = useState<number>(totalPage);
 
   const handleChange = (page: number, pageSize: number) => {
     setCurrentPage(page);
