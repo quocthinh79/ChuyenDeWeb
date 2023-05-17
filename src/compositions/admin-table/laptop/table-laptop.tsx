@@ -8,7 +8,7 @@ import {
   apiDeleteLaptop,
   apiGetMultipleLaptop,
 } from "@core";
-import { EditableContext, useDisclosure } from "@hooks";
+import { useDisclosure } from "@hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, Table } from "antd";
 import { useForm } from "antd/es/form/Form";
@@ -142,16 +142,14 @@ export function TableLaptop() {
         type={EButtonTypes.Primary}
         icon={<PlusOutlined />}
       />
-      <EditableContext.Provider value={form}>
-        <Form form={form}>
-          <Table
-            bordered
-            dataSource={data?.laptopList}
-            columns={defaultColumns}
-            scroll={{ x: 1500, y: 300 }}
-          />
-        </Form>
-      </EditableContext.Provider>
+      <Form form={form}>
+        <Table
+          bordered
+          dataSource={data?.laptopList}
+          columns={defaultColumns}
+          scroll={{ x: 1500, y: 300 }}
+        />
+      </Form>
     </>
   );
 }
