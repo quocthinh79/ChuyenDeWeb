@@ -1,6 +1,11 @@
 import { InputText, Modal, Space } from "@components";
 import { EMPTY_INPUT_ERROR } from "@constant";
-import { EAdminModalAccount, EModalWidth } from "@core";
+import {
+  EAdminModalAccount,
+  EModalWidth,
+  apiUpdateAccountInAdmin,
+} from "@core";
+import { useStorageToken } from "@store";
 import { useMutation } from "@tanstack/react-query";
 import { Form } from "antd";
 import { useForm } from "antd/es/form/Form";
@@ -24,20 +29,22 @@ export function EditModalAccount({
   }));
 
   const [form] = useForm();
+  const { token } = useStorageToken();
 
-  const { mutate: updateLaptop } = useMutation({
-    //     mutationKey: ["apiUpdateImageLaptop", "admin", id],
-    //     mutationFn: apiUpdateLaptop,
-    //     onError: (error) => {
-    //       console.log(error);
-    //     },
-    //     onSuccess: (data) => {},
+  const { mutate: updateAccount, isLoading } = useMutation({
+    mutationKey: ["apiUpdateAccountInAdmin", "admin", id],
+    mutationFn: apiUpdateAccountInAdmin,
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: (data) => {
+      closeModal?.();
+    },
   });
 
   const onFinish = async (value: any) => {
     console.log(value);
-    await updateLaptop({ id, ...value });
-    //     if (!isLoading) closeModal?.();
+    await updateAccount({ token, id, ...value });
   };
 
   const handleSubmit = () => {
@@ -58,13 +65,13 @@ export function EditModalAccount({
       cancelText="Hủy"
       okText="Chỉnh sửa"
       title="Chỉnh sửa"
+      confirmLoading={isLoading}
     >
       <Form encType="multipart/form-data" form={form} onFinish={onFinish}>
         <Space widthFull>
           {Object.entries(EAdminModalAccount).map(([key, value], index) => {
             return (
               <Form.Item
-                // rules={[{ required: true, message: EMPTY_INPUT_ERROR }]}
                 labelCol={{ span: 5 }}
                 key={key}
                 name={key}

@@ -1,6 +1,11 @@
 import { InputText, Modal, Space } from "@components";
 import { EMPTY_INPUT_ERROR } from "@constant";
-import { EAdminModalAccount, EModalWidth, apiAddLaptop } from "@core";
+import {
+  EAdminModalAccount,
+  EModalWidth,
+  apiAddLaptop,
+  apiRegister,
+} from "@core";
 import { useMutation } from "@tanstack/react-query";
 import { Form } from "antd";
 import { useForm } from "antd/es/form/Form";
@@ -17,14 +22,14 @@ export function AddModalAccount({
   const [form] = useForm();
 
   const { mutate: addAccount, isLoading } = useMutation({
-    // mutationKey: ["apiAddLaptop"],
-    // mutationFn: apiAddLaptop,
-    // onSuccess: (data) => {
-    //   console.log(data);
-    // },
-    // onError: (error: any) => {
-    //   console.log(error);
-    // },
+    mutationKey: ["apiAddLaptop"],
+    mutationFn: apiRegister,
+    onSuccess: (data) => {
+      closeModal();
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
   });
 
   const onFinish = async (value: any) => {

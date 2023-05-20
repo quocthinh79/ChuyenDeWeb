@@ -31,6 +31,11 @@ function AuthAdminRequired() {
           <Segmented
             onChange={handleChange}
             options={[ERouterAdmin.Laptop, ERouterAdmin.Account]}
+            value={
+              location.pathname === routerPathFull.admin.laptop
+                ? ERouterAdmin.Laptop
+                : ERouterAdmin.Account
+            }
             defaultValue={"Laptop"}
           />
         </Flex>

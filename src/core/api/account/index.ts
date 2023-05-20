@@ -20,9 +20,7 @@ export const apiUpdateAccount = ({
   id,
   password,
   phone,
-  resetToken,
   sex,
-  state,
   token,
   userName,
   dob,
@@ -35,9 +33,7 @@ export const apiUpdateAccount = ({
     id,
     password,
     phone,
-    resetToken,
     sex,
-    state,
     userName,
     dob,
   };
@@ -65,4 +61,43 @@ export const apiDeleteAccount = ({ id }: IDeleteAccountReq) => {
       id,
     },
   });
+};
+
+export const apiUpdateAccountInAdmin = ({
+  address,
+  addressDetail,
+  email,
+  fullName,
+  id,
+  password,
+  phone,
+  sex,
+  token,
+  userName,
+  dob,
+}: IUpdateAccountReq) => {
+  const accountDTO = {
+    address,
+    addressDetail,
+    email,
+    fullName,
+    id,
+    password,
+    phone,
+    sex,
+    userName,
+    dob,
+  };
+
+  return instanceAxios
+    .put(
+      "/account/admin/update",
+      { ...accountDTO },
+      {
+        params: {
+          token,
+        },
+      }
+    )
+    .then((res) => res.data);
 };
