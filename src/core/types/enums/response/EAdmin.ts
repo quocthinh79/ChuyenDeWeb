@@ -45,21 +45,21 @@ export enum EAdminLaptopColumnShow {
 }
 
 export enum EAdminAccountColumnShow {
+  email = "Email",
+  phone = "Số điện thoại",
   sex = "Giới tính",
   fullName = "Họ và tên",
-  phone = "Số điện thoại",
   dob = "Ngày sinh",
-  email = "Email",
 }
 
 export enum EAdminModalAccount {
   fullName = "Họ và tên",
+  username = "Username",
+  password = "Password",
   phone = "Số điện thoại",
   dob = "Ngày sinh",
   email = "Email",
   sex = "Giới tính",
   address = "Địa chỉ",
   addressDetail = "Địa chỉ chi tiết",
-  state = "Trạng thái",
-  roles = "Quyền",
 }

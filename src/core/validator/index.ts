@@ -7,7 +7,7 @@ const schemaPassword = z.string().min(6, "Mật khẩu phải có tối thiểu 
 const schemaUsername = z
   .string()
   .min(3, "Tên đăng nhập phải nhiều hơn 3 kí tự")
-  .max(10, "Tên đăng nhập không được quá 10 kí tự");
+  .max(20, "Tên đăng nhập không được quá 20 kí tự");
 const schemaEmail = z.string().email("Email không đúng định dạng");
 const schemaPhoneNumber = z
   .string()
