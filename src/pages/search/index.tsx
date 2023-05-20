@@ -2,11 +2,10 @@ import { Card, Col, Row, Space, Text, Title } from "@components";
 import { LaptopCardItem } from "@compositions";
 import { SPACE_BETWEEN_ITEMS } from "@constant";
 import { IProduct, apiSearchLaptopWithName } from "@core";
-import { laptopItemList } from "@dummy-data";
 import { useQuery } from "@tanstack/react-query";
 import { Empty } from "antd";
-import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export interface SearchPageProps {}
 
@@ -32,21 +31,17 @@ export function SearchPage(props: SearchPageProps) {
       <Row gutter={[SPACE_BETWEEN_ITEMS, SPACE_BETWEEN_ITEMS]}>
         {laptopItemList?.length || 0 > 0 ? (
           laptopItemList?.map(
-            (
-              {
-                price: laptopCurrency,
-                productName: laptopName,
-                linkAvatar: srcImage,
-              },
-              index
-            ) => (
-              <Col key={`${laptopName}${index}`} span={6}>
+            ({ price, productName, linkAvatar, id }, index) => (
+              <Col key={`${productName}${index}`} span={6}>
                 <LaptopCardItem
                   key={index}
-                  id={index}
-                  price={laptopCurrency}
-                  productName={laptopName}
-                  linkAvatar={srcImage}
+                  id={id}
+                  price={price}
+                  productName={productName}
+                  linkAvatar={
+                    linkAvatar ||
+                    "https://media-api-beta.thinkpro.vn/media/core/products/2022/10/1/2375_lenovo_legion_5_pro_16iah7h_ct1_1600.png?w=500&h=500"
+                  }
                 />
               </Col>
             )
