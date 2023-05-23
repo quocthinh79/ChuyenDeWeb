@@ -22,7 +22,7 @@ export function ProductItemLayout() {
 
   const [dataWithPagination, setDataWithPagination] = useState<IPagination>({
     start: 1,
-    limit: 1,
+    limit: 9,
     brands: "",
     chipCpus: "",
     types: "",
@@ -48,6 +48,10 @@ export function ProductItemLayout() {
   });
 
   const { laptopList, page, totalPage } = data || {};
+  console.log(
+    "🚀 ~ file: product-item-layout.tsx:51 ~ ProductItemLayout ~ totalPage:",
+    totalPage
+  );
 
   const handleChange = (page: number, pageSize: number) => {
     setDataWithPagination((pre) => ({
@@ -81,8 +85,8 @@ export function ProductItemLayout() {
         <Pagination
           current={dataWithPagination?.start}
           defaultCurrent={1}
-          pageSize={dataWithPagination?.limit}
-          total={data?.totalPage}
+          pageSize={9}
+          total={totalPage! * dataWithPagination?.limit!}
           onChange={handleChange}
         />
       </Col>

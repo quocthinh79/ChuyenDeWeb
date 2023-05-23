@@ -33,7 +33,7 @@ export function UploadSingleFile({
     <Upload
       defaultFileList={fileList}
       //  listType="picture-card"
-      accept=".png,.jpg,.jpeg"
+      accept=".png,.jpg,.jpeg,.webp"
       multiple={false}
       fileList={defaultFileList || fileList}
       beforeUpload={handleUpload}
