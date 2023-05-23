@@ -40,7 +40,7 @@ export function UploadMultipleFile({
   return (
     <Upload
       // defaultFileList={defaultFileList}
-      accept=".png,.jpg,.jpeg"
+      accept=".png,.jpg,.jpeg,.webp"
       multiple={true}
       fileList={defaultFileList || fileListState}
       beforeUpload={handleUpload}

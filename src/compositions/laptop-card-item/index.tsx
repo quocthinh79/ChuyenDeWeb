@@ -26,9 +26,11 @@ export function LaptopCardItem({
   return (
     <Link to={`/detail/${id}`}>
       <BadgeRibbon text="Hot" color="red">
-        <Card hoverable>
+        <Card hoverable bodyStyle={{ height: "410px" }}>
           <Image placeholder={productName} preview={false} src={linkAvatar} />
-          <Title level={4}>{productName}</Title>
+          <Title ellipsis={{ rows: 2 }} level={4}>
+            {productName}
+          </Title>
           <Description>
             <DescriptionItem
               contentStyle={{ color: colorPrice, fontWeight: 700 }}
