@@ -1,6 +1,6 @@
 import { ILaptopPagination, apiGetMultipleLaptop } from "@core";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { IPagination } from "src/core/types/interfaces/IPagination";
 import { Pagination } from "../../components";
@@ -13,6 +13,7 @@ export function ProductItemLayout() {
   // const { allSearchParams } = useSelectedTag();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const keepRef = useRef({ isReset: false });
 
   const allSearchParams = Object.fromEntries(
     Array.from(searchParams.entries()).map(([key, value]) => [key, value])
@@ -48,10 +49,21 @@ export function ProductItemLayout() {
   });
 
   const { laptopList, page, totalPage } = data || {};
-  console.log(
-    "🚀 ~ file: product-item-layout.tsx:51 ~ ProductItemLayout ~ totalPage:",
-    totalPage
-  );
+
+  const handleFilter = useCallback(() => {
+    setDataWithPagination((pre) => ({
+      ...pre,
+      start: 1,
+      limit: 9,
+    }));
+  }, [brand, cpu, types]);
+
+  useEffect(() => {
+    if (!keepRef.current.isReset) {
+      handleFilter();
+      keepRef.current.isReset = false;
+    }
+  }, [brand, cpu, types]);
 
   const handleChange = (page: number, pageSize: number) => {
     setDataWithPagination((pre) => ({
@@ -63,6 +75,7 @@ export function ProductItemLayout() {
 
   useEffect(() => {
     refetch();
+    // handleFilter();
   }, [searchParams, dataWithPagination]);
 
   return (
