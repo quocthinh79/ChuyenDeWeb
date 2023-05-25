@@ -26,6 +26,7 @@ import { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoginFormItem from "./login-form-item";
 import { notification } from "antd";
+import axios from "axios";
 
 export interface LoginProps {}
 
@@ -48,6 +49,7 @@ export function LoginPage(_props: LoginProps) {
       pathname === "" ? navigation("/") : navigation(pathname);
       setToken(data.token);
       setRoles(data.roles);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
     },
     onError: (error: any) => {
       api["error"]({
