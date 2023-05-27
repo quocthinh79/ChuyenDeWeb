@@ -18,14 +18,20 @@ import AddModalLaptop from "../../admin-modal/laptop/add-modal-laptop";
 import EditModalLaptop from "../../admin-modal/laptop/edit-modal-laptop";
 
 export function TableLaptop() {
+  const [tableParams, setTableParams] = useState({
+    current: 1,
+    pageSize: 10,
+  });
   const { data, refetch } = useQuery({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    queryKey: ["apiGetLaptop"],
-    queryFn: () => apiGetMultipleLaptop({ start: 1, limit: 10 }),
-    onSuccess: (data) => {
-      console.log("🚀 ~ file: table-laptop.tsx:34 ~ TableLaptop ~ data:", data);
-    },
+    queryKey: ["apiGetLaptop", tableParams.current],
+    queryFn: () =>
+      apiGetMultipleLaptop({
+        start: tableParams.current,
+        limit: tableParams.pageSize,
+      }),
+    onSuccess: (data) => {},
     onError: (error: any) => {
       console.log(error);
     },
@@ -37,12 +43,9 @@ export function TableLaptop() {
     mutationKey: ["deleteLaptop"],
     mutationFn: apiDeleteLaptop,
     onSuccess(data, variables, context) {
-      console.log("🚀 ~ file: table-laptop.tsx:23 ~ onSuccess ~ data:", data);
       refetch();
     },
-    onError(error, variables, context) {
-      console.log("🚀 ~ file: table-laptop.tsx:31 ~ onError ~ error:", error);
-    },
+    onError(error, variables, context) {},
   });
 
   const {
@@ -133,6 +136,11 @@ export function TableLaptop() {
     );
   }, [idModal, openEditModal]);
 
+  const handleTableChange = ({ current, pageSize, total }: any) => {
+    setTableParams({ current, pageSize });
+    // console.log(values);
+  };
+
   return (
     <>
       {ModalAdd}
@@ -148,6 +156,12 @@ export function TableLaptop() {
           dataSource={data?.laptopList}
           columns={defaultColumns}
           scroll={{ x: 1500, y: 300 }}
+          pagination={{
+            pageSize: tableParams.pageSize,
+            total: data?.totalPage * tableParams.pageSize,
+            current: tableParams.current,
+          }}
+          onChange={handleTableChange}
         />
       </Form>
     </>
