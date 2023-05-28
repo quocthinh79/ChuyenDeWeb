@@ -14,8 +14,10 @@ import { useStorageToken } from "@store";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "antd/es/form/Form";
 import PersonalInformationFormItem from "./personal-information-form-item";
+import { notification } from "antd";
 
 export function AccountLeftContent() {
+  const [api, contextHolder] = notification.useNotification();
   const { token } = useStorageToken();
   const [form] = useForm();
   const onFinish = ({
@@ -67,6 +69,10 @@ export function AccountLeftContent() {
         sex,
         dob: dayjs(dob),
       });
+      api["success"]({
+        message: "Thành Công",
+        description: "Đã cập nhật thành công",
+      });
     },
     onError: (error) => {
       console.log(error);
@@ -74,35 +80,38 @@ export function AccountLeftContent() {
   });
 
   return (
-    <Card>
-      <Title level={2}>Thông tin tài khoản</Title>
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
-        <Space
-          size={SizeProps.Large}
-          direction={EDirectionType.Vertical}
-          widthFull
+    <>
+      {contextHolder}
+      <Card>
+        <Title level={2}>Thông tin tài khoản</Title>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
           <Space
-            size={SizeProps.Small}
+            size={SizeProps.Large}
             direction={EDirectionType.Vertical}
             widthFull
           >
-            <PersonalInformationFormItem />
+            <Space
+              size={SizeProps.Small}
+              direction={EDirectionType.Vertical}
+              widthFull
+            >
+              <PersonalInformationFormItem />
+            </Space>
+            <Button
+              htmlType={EHtmlButtonTypes.Submit}
+              type={EButtonTypes.Primary}
+            >
+              Cập nhật
+            </Button>
           </Space>
-          <Button
-            htmlType={EHtmlButtonTypes.Submit}
-            type={EButtonTypes.Primary}
-          >
-            Cập nhật
-          </Button>
-        </Space>
-      </Form>
-    </Card>
+        </Form>
+      </Card>
+    </>
   );
 }
 
